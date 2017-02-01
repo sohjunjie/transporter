@@ -1,4 +1,4 @@
-This transporter project uses spring mvc web framework
+This transporter project uses Spring MVC 4 + Hibernate 3 + MySQL
 
 ## Overview
 

@@ -39,10 +39,12 @@
 </form:form>
 <br>
 <table border="1">
-	<th>ID</th>
-	<th>First name</th>
-	<th>Last name</th>
-	<th>Year level</th>
+	<tr>
+		<th>ID</th>
+		<th>First name</th>
+		<th>Last name</th>
+		<th>Year level</th>
+	</tr>
 	<c:forEach items="${studentList}" var="student">
 		<tr>
 			<td>${student.studentId}</td>
