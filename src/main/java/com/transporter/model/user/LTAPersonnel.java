@@ -13,4 +13,6 @@ public class LTAPersonnel extends AuthenticatedUser {
 	public void resolveReport(){ }
 	public void rejectReport(){ }
 
+	public LTAPersonnel(){ }
+	
 }
