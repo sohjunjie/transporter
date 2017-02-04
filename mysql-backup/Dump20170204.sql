@@ -31,8 +31,17 @@ CREATE TABLE `accident_report` (
   `description` varchar(45) NOT NULL,
   `longitude` double NOT NULL,
   `latitude` double NOT NULL,
+  `approvedDateTime` datetime DEFAULT NULL,
+  `approvedBy` int(11) DEFAULT NULL,
+  `resolvedDateTime` datetime DEFAULT NULL,
+  `officialCause` varchar(45) DEFAULT NULL,
+  `resolvedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_accident_report_approvedBy_idx` (`approvedBy`),
+  KEY `fk_accident_report_resolvedBy_idx` (`resolvedBy`),
+  CONSTRAINT `fk_accident_report_approvedBy` FOREIGN KEY (`approvedBy`) REFERENCES `lta_personnel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_accident_report_resolvedBy` FOREIGN KEY (`resolvedBy`) REFERENCES `lta_personnel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,34 +52,6 @@ CREATE TABLE `accident_report` (
 LOCK TABLES `accident_report` WRITE;
 /*!40000 ALTER TABLE `accident_report` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accident_report` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `approved_report`
---
-
-DROP TABLE IF EXISTS `approved_report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `approved_report` (
-  `id` int(11) NOT NULL,
-  `approvedDateTime` datetime NOT NULL,
-  `approvedBy` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `approved_report_approvedBy_idx` (`approvedBy`),
-  CONSTRAINT `approved_report_approvedBy` FOREIGN KEY (`approvedBy`) REFERENCES `lta_personnel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `approved_report_id` FOREIGN KEY (`id`) REFERENCES `accident_report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `approved_report`
---
-
-LOCK TABLES `approved_report` WRITE;
-/*!40000 ALTER TABLE `approved_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `approved_report` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -142,7 +123,7 @@ CREATE TABLE `lta_personnel` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  CONSTRAINT `lta_personnel_id` FOREIGN KEY (`id`) REFERENCES `auth_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_lta_personnel_id` FOREIGN KEY (`id`) REFERENCES `auth_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,35 +134,6 @@ CREATE TABLE `lta_personnel` (
 LOCK TABLES `lta_personnel` WRITE;
 /*!40000 ALTER TABLE `lta_personnel` DISABLE KEYS */;
 /*!40000 ALTER TABLE `lta_personnel` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `resolved_report`
---
-
-DROP TABLE IF EXISTS `resolved_report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `resolved_report` (
-  `id` int(11) NOT NULL,
-  `resolvedDateTime` datetime NOT NULL,
-  `officialCause` varchar(45) NOT NULL,
-  `resolvedBy` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `resolved_report_resolvedBy_idx` (`resolvedBy`),
-  CONSTRAINT `resolved_report_id` FOREIGN KEY (`id`) REFERENCES `approved_report` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `resolved_report_resolvedBy` FOREIGN KEY (`resolvedBy`) REFERENCES `lta_personnel` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `resolved_report`
---
-
-LOCK TABLES `resolved_report` WRITE;
-/*!40000 ALTER TABLE `resolved_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `resolved_report` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -219,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-04 15:53:18
+-- Dump completed on 2017-02-04 20:54:23
