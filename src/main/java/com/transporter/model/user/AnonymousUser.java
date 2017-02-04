@@ -1,4 +1,4 @@
-package com.transporter.model;
+package com.transporter.model.user;
 
 public class AnonymousUser implements User {
 	
