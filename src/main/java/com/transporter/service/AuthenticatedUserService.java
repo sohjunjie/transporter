@@ -2,7 +2,7 @@ package com.transporter.service;
 
 import java.util.List;
 
-import com.transporter.model.AuthenticatedUser;
+import com.transporter.model.user.AuthenticatedUser;
 
 public interface AuthenticatedUserService {
 

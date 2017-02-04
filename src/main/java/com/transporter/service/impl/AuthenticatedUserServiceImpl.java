@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.transporter.dao.AuthenticatedUserDao;
-import com.transporter.model.AuthenticatedUser;
+import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.service.AuthenticatedUserService;
 
 @Service

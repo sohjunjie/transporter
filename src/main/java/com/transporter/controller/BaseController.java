@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.transporter.model.AuthenticatedUser;
 import com.transporter.model.Student;
+import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.service.AuthenticatedUserService;
 import com.transporter.service.StudentService;
 
 @Controller
 public class BaseController {
+
 	@Autowired
 	private StudentService studentService;
 	@Autowired

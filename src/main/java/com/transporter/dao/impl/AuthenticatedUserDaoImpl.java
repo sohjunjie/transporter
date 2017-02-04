@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.transporter.dao.AuthenticatedUserDao;
-import com.transporter.model.AuthenticatedUser;
+import com.transporter.model.user.AuthenticatedUser;
 
 @Repository
 public class AuthenticatedUserDaoImpl implements AuthenticatedUserDao {
