@@ -2,6 +2,8 @@ package com.transporter.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.transporter.form.LoginBean;
 import com.transporter.model.Student;
 import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.service.AuthenticatedUserService;
@@ -37,14 +40,26 @@ public class BaseController {
 	}
 	
 	@RequestMapping("/index")
-	public String setupForm(Map<String, Object> map){
+	public String setupForm(Map<String, Object> map, HttpSession session){
 		Student student = new Student();
 		map.put("student", student);
 		map.put("studentList", studentService.getAllStudent());
+		
+		System.out.println(session.getAttribute("firstname"));
+		
 		return "student";
 	}
+	
+	@RequestMapping("/home")
+	public String homePage(Map<String, Object> map){
+		return "home";
+	}
+	
 	@RequestMapping(value="/student.do", method=RequestMethod.POST)
-	public String doActions(@ModelAttribute Student student, BindingResult result, @RequestParam String action, Map<String, Object> map){
+	public String doActions(@ModelAttribute Student student, BindingResult result, @RequestParam String action, Map<String, Object> map, HttpSession session){
+		
+		session.setAttribute("firstname", student.getFirstname());
+		
 		Student studentResult = new Student();
 		switch(action.toLowerCase()){	//only in Java7 you can put String in switch
 		case "add":
@@ -68,4 +83,15 @@ public class BaseController {
 		map.put("studentList", studentService.getAllStudent());
 		return "student";
 	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(@ModelAttribute(value="loginBean") LoginBean loginBean, Map<String, Object> map, HttpSession session){
+		
+		session.setAttribute("username", loginBean.getUsernameOrEmail());
+
+		session.removeAttribute("username");
+		
+		return "index";
+	}
+	
 }

@@ -47,6 +47,9 @@ public class AccidentReport {
 	@JoinColumn(referencedColumnName="id")
 	private LTAPersonnel resolvedBy;
 	
+	public boolean isPending(){
+		return !(isApproved() || isResolved());
+	}
 	public boolean isApproved(){
 		return (this.approvedBy != null);
 	}
