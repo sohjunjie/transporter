@@ -14,8 +14,8 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
 
-<!-- CSS Library Include -->
-<%@ include file="/WEB-INF/jsp/include_lib/include_css.jsp"%>
+<!-- start css library include -->
+<!--  end css library include  -->
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -27,10 +27,8 @@
 	<div class="wrapper">
 		
 		<!-- Main Header Include -->
-		<%@ include file="/WEB-INF/jsp/include_lib/include_mainheader.jsp"%>
 		
 		<!-- Main Sidebar Include -->
-		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -123,17 +121,15 @@
 		<!-- /.content-wrapper -->
 
 		<!-- Footer Include -->
-		<%@ include file="/WEB-INF/jsp/include_lib/include_footer.jsp"%>
 
 		<!-- Control Sidebar Include -->
-		<%@ include file="/WEB-INF/jsp/include_lib/include_controlsidebar.jsp"%>
+
 
 		
 
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_lib/include_js.jsp"%>
-	
+
 </body>
 </html>

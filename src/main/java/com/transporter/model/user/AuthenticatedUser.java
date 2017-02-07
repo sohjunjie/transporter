@@ -74,7 +74,7 @@ public class AuthenticatedUser implements User {
 	public boolean isAnonymous() { return false; }
 	public boolean isAuthenticated() { return true; }
 
-	public String getFullName() { return this.getFirstname() + this.getLastname(); }
+	public String getFullName() { return this.getFirstname() + " " + this.getLastname(); }
 	public String getShortName() { return this.getFirstname(); }
 
 }

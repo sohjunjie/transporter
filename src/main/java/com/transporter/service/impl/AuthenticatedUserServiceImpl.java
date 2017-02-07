@@ -36,4 +36,9 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 		return authenticatedUserDao.getAllAuthUser();
 	}
 
+	@Transactional
+	public AuthenticatedUser getAuthUserByLoginDetails(String usernameOrEmail, String password) {
+		return authenticatedUserDao.getAuthUserByLoginDetails(usernameOrEmail, password);
+	}
+	
 }
