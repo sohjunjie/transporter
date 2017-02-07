@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="${resourcePath}dist/css/skins/_all-skins.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="${resourcePath}plugins/iCheck/flat/blue.css">
-<!-- Morris chart -->
-<link rel="stylesheet" href="${resourcePath}plugins/morris/morris.css">
+
 <!-- jvectormap -->
 <link rel="stylesheet"
 	href="${resourcePath}plugins/jvectormap/jquery-jvectormap-1.2.2.css">
@@ -27,4 +26,4 @@
 <link rel="stylesheet"
 	href="${resourcePath}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-<link rel="stylesheet" href="${resourcePath}pages/login-popup.css">
+<link rel="stylesheet" href="${resourcePath}pages/login/login-popup.css">

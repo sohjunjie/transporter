@@ -8,10 +8,8 @@
 </script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="${resourcePath}bootstrap/js/bootstrap.min.js"></script>
-	<!-- Morris.js charts -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-	<script src="${resourcePath}plugins/morris/morris.min.js"></script>
 	<!-- Sparkline -->
 	<script src="${resourcePath}plugins/sparkline/jquery.sparkline.min.js"></script>
 	<!-- jvectormap -->
@@ -34,9 +32,12 @@
 	<script src="${resourcePath}plugins/fastclick/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}dist/js/app.min.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<script src="${resourcePath}dist/js/pages/dashboard.js"></script>
+
+	<!-- AdminLTE dashboard demo (This is only for demo purposes)
+	<script src="${resourcePath}dist/js/pages/dashboard.js"></script> -->
+
 	<!-- AdminLTE for demo purposes -->
 	<script src="${resourcePath}dist/js/demo.js"></script>
 	
-	<script src="${resourcePath}pages/login-popup.js"></script>
+	<script src="${resourcePath}pages/login/login-popup.js"></script>
+	<script src="${resourcePath}pages/login/login.js"></script>

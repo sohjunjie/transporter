@@ -1,6 +1,6 @@
 <li id="SignInBtn" class="dropdown user user-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	<span class="hidden-xs">Sign In</span>
+	<i class="fa fa-sign-in"></i><span class="hidden-xs">Sign In</span>
 	</a>
 </li>
 
@@ -21,19 +21,19 @@
 	      <!-- /. tools -->
 	    </div>
 	    <div class="box-body">
-	      <form action="#" method="post">
+	      <form action="" method="post">
 	        <div class="form-group">
 	          <label>Username or email</label>
-	          <input type="text" class="form-control" name="usernameOrEmail" placeholder="Username or mail">
+	          <input id="signInUsernameOrEmail" type="text" class="form-control" name="usernameOrEmail" placeholder="Username or mail">
 	        </div>
 	        <div class="form-group">
 	          <label>Password</label>
-	          <input type="password" class="form-control" name="password" placeholder="Password">
+	          <input id="signInPassword" type="password" class="form-control" name="password" placeholder="Password">
 	        </div>
 	      </form>
 	    </div>
 	    <div class="box-footer clearfix">
-	      <button type="button" class="pull-right btn btn-default" id="sendEmail">Sign In
+	      <button type="button" class="pull-right btn btn-default" id="SignIn">Sign In
 	        <i class="fa fa-arrow-circle-right"></i></button>
 	    </div>
 	</div>
