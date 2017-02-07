@@ -16,7 +16,7 @@ function event_loginFormAjax(){
 			url  : 'login',
 			data : data,
 			success :  function(response){
-				console.log("success: ");
+				location.reload();
 			},
 			error : function(e) {
 				console.log("ERROR: ", e);

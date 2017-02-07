@@ -94,30 +94,29 @@ public class BaseController {
 		return "student";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(@ModelAttribute(value="loginBean") LoginBean loginBean, Map<String, Object> map, HttpSession session){
+	// CREATE AJAX HANDLER FOR LOGIN
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
 		
-		AuthenticatedUser verifiedUser = authUserService.getAuthUserByLoginDetails(loginBean.getUsernameOrEmail(), loginBean.getPassword());
+		AuthenticatedUser verifiedUser = authUserService.getAuthUserByLoginDetails(usernameOrEmail, password);
 		if(verifiedUser != null && verifiedUser instanceof LTAPersonnel){
 			LTAPersonnel verifiedLTAUser = (LTAPersonnel) verifiedUser;
 			session.setAttribute("user", verifiedLTAUser);
 			session.setAttribute("username", verifiedLTAUser.getUsername());
 			session.setAttribute("userfullname", verifiedLTAUser.getFullName());
-			return "redirect:home";
+			return "OK";
 		}else{
 			session.invalidate();
-			return "index";
+			return "Invalid login details";
 		}
 
 	}
-	
-	// CREATE AJAX HANDLER FOR LOGIN
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(Map<String, Object> map, HttpSession session){
 
 		session.invalidate();
-		return "home";
+		return "redirect:home";
 
 	}
 	
