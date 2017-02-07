@@ -36,4 +36,22 @@ public class AuthenticatedUserDaoImpl implements AuthenticatedUserDao {
 		return session.getCurrentSession().createQuery("from AuthenticatedUser").list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public AuthenticatedUser getAuthUserByLoginDetails(String usernameOrEmail, String password) {
+
+		List<AuthenticatedUser> verifiedUsers = session.getCurrentSession().createQuery("from AuthenticatedUser "
+				+ "where password=:password "
+				+ "and (username=:uidOrEmail or email=:uidOrEmail)")
+				.setParameter("password", password)
+				.setParameter("uidOrEmail", usernameOrEmail)
+				.list();
+
+		if(!verifiedUsers.isEmpty())
+			return verifiedUsers.get(0);
+		else
+			return null;
+
+	}
+
 }

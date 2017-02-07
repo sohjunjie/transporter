@@ -10,5 +10,6 @@ public interface AuthenticatedUserService {
 	public void edit(AuthenticatedUser authUser);
 	public AuthenticatedUser getAuthUser(int userId);
 	public List<AuthenticatedUser> getAllAuthUser();
-	
+	public AuthenticatedUser getAuthUserByLoginDetails(String usernameOrEmail, String password);
+
 }
