@@ -44,7 +44,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Dashboard <small>Control panel</small>
+					Dashboard <small>Control panel ${resourcePath} </small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -66,26 +66,13 @@
 		<!-- Control Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_controlsidebar.jsp"%>
 
-		
+
 
 	</div>
 
 	<!-- JS Library Include -->
 	<%@ include file="/WEB-INF/jsp/include_lib/include_js.jsp"%>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&callback=initMap"
-  	type="text/javascript"></script>
-	<script>
-    function initMap() {
-        var uluru = {lat: 1.356, lng: 103.787};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: singapore
-        });
-        var marker = new google.maps.Marker({
-          position: singapore,
-          map: map
-        });
-      }
-    </script>
+	<script src="${resourcePath}pages/report_accident/init.js"></script>
+
 </body>
 </html>

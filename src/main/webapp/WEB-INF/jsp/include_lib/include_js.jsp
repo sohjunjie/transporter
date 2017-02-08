@@ -2,15 +2,14 @@
 	<script src="${resourcePath}plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 	<!-- jQuery Validate -->
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-	<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
+	<script src="${resourcePath}plugins/jQueryValidation/jquery.validate.min.js"></script>
 
 	<!-- jQuery UI 1.11.4 -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 	<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
+  	$.widget.bridge('uibutton', $.ui.button);
+	</script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="${resourcePath}bootstrap/js/bootstrap.min.js"></script>
 	<script
@@ -47,3 +46,20 @@
 	<script src="${resourcePath}pages/login/login-popup.js"></script>
 	<script src="${resourcePath}pages/login/login.js"></script>
 	<script src="${resourcePath}pages/transporter.js"></script>
+	
+	<!-- Google map api -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&callback=initMap" type="text/javascript"></script>
+	<script>
+	function initMap() {
+		var uluru = {lat: 1.3553794, lng: 103.8677444};
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			center: uluru
+		});
+		var marker = new google.maps.Marker({
+			position: uluru,
+			map: map
+		});
+	}	
+	</script>
+	
