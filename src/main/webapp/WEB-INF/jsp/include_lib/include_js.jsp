@@ -41,3 +41,4 @@
 	
 	<script src="${resourcePath}pages/login/login-popup.js"></script>
 	<script src="${resourcePath}pages/login/login.js"></script>
+	<script src="${resourcePath}pages/transporter.js"></script>

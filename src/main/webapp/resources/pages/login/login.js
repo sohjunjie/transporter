@@ -1,12 +1,11 @@
 $(document).ready(function() {
+	setHideAlert($("#login-feedback"));
     event_loginFormAjax();
 });
 
-// login ajax js
 function event_loginFormAjax(){
-
-	$('#SignIn').click(function(event) {
-
+	$(".login-form").on('submit', function(event){
+	
 		var data = {}
 		data["usernameOrEmail"] = $("#signInUsernameOrEmail").val();
 		data["password"] = $("#signInPassword").val();
@@ -16,15 +15,21 @@ function event_loginFormAjax(){
 			url  : 'login',
 			data : data,
 			success :  function(response){
-				location.reload();
+				if(response=="OK"){
+					location.reload();
+				}else{
+					$("#login-feedback > span").html("Incorrect login details!");					
+					showAlert($( "#login-feedback" ), "danger");
+				}
 			},
 			error : function(e) {
+				$("#login-feedback > span").html("Error loggin in. Please try again!");
+				showAlert($( "#login-feedback" ), "danger");
 				console.log("ERROR: ", e);
 			},
-			done : function(e) {
-				console.log("DONE");
-			}
+			done : function(e) {}
 		});
+	
+	    event.preventDefault();
 	});
-
 }

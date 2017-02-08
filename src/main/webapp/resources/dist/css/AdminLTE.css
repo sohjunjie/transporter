@@ -2421,7 +2421,6 @@ a:focus {
 .alert-success {
   border-color: #008d4c;
 }
-.alert-danger,
 .alert-error {
   border-color: #d73925;
 }
@@ -4378,7 +4377,6 @@ table.text-center th {
 .callout.callout-info,
 .callout.callout-success,
 .alert-success,
-.alert-danger,
 .alert-error,
 .alert-warning,
 .alert-info,
@@ -4416,7 +4414,6 @@ table.text-center th {
 }
 .bg-red,
 .callout.callout-danger,
-.alert-danger,
 .alert-error,
 .label-danger,
 .modal-danger .modal-body {

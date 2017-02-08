@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.transporter.form.LoginBean;
 import com.transporter.model.Student;
 import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.model.user.LTAPersonnel;
@@ -28,25 +26,36 @@ public class BaseController {
 	private StudentService studentService;
 	@Autowired
 	private AuthenticatedUserService authUserService;
-	
+
 	@RequestMapping("/")
 	public String indexPage(Map<String, Object> map){
-		return "index";
+		return "home";
+	}
+
+	// AJAX HANDLER FOR LOGIN
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
+		
+		AuthenticatedUser verifiedUser = authUserService.getAuthUserByLoginDetails(usernameOrEmail, password);
+		if(verifiedUser != null && verifiedUser instanceof LTAPersonnel){
+			LTAPersonnel verifiedLTAUser = (LTAPersonnel) verifiedUser;
+			session.setAttribute("user", verifiedLTAUser);
+			session.setAttribute("username", verifiedLTAUser.getUsername());
+			session.setAttribute("userfullname", verifiedLTAUser.getFullName());
+			return "OK";
+		}else{
+			session.invalidate();
+			return "Invalid login details";
+		}
+
 	}
 	
-	@RequestMapping("/authuser")
-	public String setupAuthForm(Map<String, Object> map){
-		AuthenticatedUser authUser = new AuthenticatedUser();
-		map.put("authUser", authUser);
-		map.put("authUserList", authUserService.getAllAuthUser());
-		return "user";
-	}
-	
-	@RequestMapping("/samplelogin")
-	public String goSampleLogin(Map<String, Object> map){
-		LoginBean loginBean = new LoginBean();
-		map.put("loginBean", loginBean);
-		return "sampleLogin";
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(Map<String, Object> map, HttpSession session){
+
+		session.invalidate();
+		return "redirect:/";
+
 	}
 	
 	@RequestMapping("/index")
@@ -58,11 +67,6 @@ public class BaseController {
 		System.out.println(session.getAttribute("firstname"));
 		
 		return "student";
-	}
-
-	@RequestMapping("/home")
-	public String homePage(Map<String, Object> map){
-		return "home";
 	}
 	
 	@RequestMapping(value="/student.do", method=RequestMethod.POST)
@@ -93,32 +97,5 @@ public class BaseController {
 		map.put("studentList", studentService.getAllStudent());
 		return "student";
 	}
-	
-	// CREATE AJAX HANDLER FOR LOGIN
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
-		
-		AuthenticatedUser verifiedUser = authUserService.getAuthUserByLoginDetails(usernameOrEmail, password);
-		if(verifiedUser != null && verifiedUser instanceof LTAPersonnel){
-			LTAPersonnel verifiedLTAUser = (LTAPersonnel) verifiedUser;
-			session.setAttribute("user", verifiedLTAUser);
-			session.setAttribute("username", verifiedLTAUser.getUsername());
-			session.setAttribute("userfullname", verifiedLTAUser.getFullName());
-			return "OK";
-		}else{
-			session.invalidate();
-			return "Invalid login details";
-		}
-
-	}
-	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(Map<String, Object> map, HttpSession session){
-
-		session.invalidate();
-		return "redirect:home";
-
-	}
-	
 	
 }

@@ -21,20 +21,25 @@
 	      <!-- /. tools -->
 	    </div>
 	    <div class="box-body">
-	      <form action="" method="post">
-	        <div class="form-group">
-	          <label>Username or email</label>
-	          <input id="signInUsernameOrEmail" type="text" class="form-control" name="usernameOrEmail" placeholder="Username or mail">
-	        </div>
-	        <div class="form-group">
-	          <label>Password</label>
-	          <input id="signInPassword" type="password" class="form-control" name="password" placeholder="Password">
-	        </div>
-	      </form>
+	        <div id="login-feedback" class="alert alert-danger hide">
+	            <button class="close message" data-close="alert">&times;</button>
+	                <span>Incorrect Password</span>
+	        </div>     
+			<form class="login-form" action="" method="post">
+				<div class="form-group">
+			    	<label>Username or email</label>
+			    	<input id="signInUsernameOrEmail" type="text" class="form-control" name="usernameOrEmail" placeholder="Username or mail">
+			  	</div>
+			  	<div class="form-group">
+			    	<label>Password</label>
+			    	<input id="signInPassword" type="password" class="form-control" name="password" placeholder="Password">
+			  	</div>
+			    <div class="box-footer clearfix">
+			      <button type="submit" class="pull-right btn btn-default">Sign In
+			        <i class="fa fa-arrow-circle-right"></i></button>
+			    </div>
+			</form>
 	    </div>
-	    <div class="box-footer clearfix">
-	      <button type="button" class="pull-right btn btn-default" id="SignIn">Sign In
-	        <i class="fa fa-arrow-circle-right"></i></button>
-	    </div>
+
 	</div>
 </div>
