@@ -5,7 +5,6 @@
 
 <hibernate-configuration>
     <session-factory>
-		<mapping class="com.transporter.model.Student" />
         <mapping class="com.transporter.model.user.AuthenticatedUser" />
 		<mapping class="com.transporter.model.user.LTAPersonnel" />
 		<mapping class="com.transporter.model.AccidentReport" />

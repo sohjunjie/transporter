@@ -16,6 +16,13 @@
 
 <!-- CSS Library Include -->
 <%@ include file="/WEB-INF/jsp/include_lib/include_css.jsp"%>
+<style>
+ #map {
+   width: 100%;
+   height: 400px;
+   background-color: grey;
+ }
+</style>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -47,76 +54,7 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<!-- Small boxes (Stat box) -->
-				<div class="row">
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-aqua">
-							<div class="inner">
-								<h3>150</h3>
-
-								<p>New Orders</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-bag"></i>
-							</div>
-							<a href="#" class="small-box-footer">More info <i
-								class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-green">
-							<div class="inner">
-								<h3>
-									53<sup style="font-size: 20px">%</sup>
-								</h3>
-
-								<p>Bounce Rate</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-stats-bars"></i>
-							</div>
-							<a href="#" class="small-box-footer">More info <i
-								class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-yellow">
-							<div class="inner">
-								<h3>44</h3>
-
-								<p>User Registrations</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-person-add"></i>
-							</div>
-							<a href="#" class="small-box-footer">More info <i
-								class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<!-- ./col -->
-					<div class="col-lg-3 col-xs-6">
-						<!-- small box -->
-						<div class="small-box bg-red">
-							<div class="inner">
-								<h3>65</h3>
-
-								<p>Unique Visitors</p>
-							</div>
-							<div class="icon">
-								<i class="ion ion-pie-graph"></i>
-							</div>
-							<a href="#" class="small-box-footer">More info <i
-								class="fa fa-arrow-circle-right"></i></a>
-						</div>
-					</div>
-					<!-- ./col -->
-				</div>
-				<!-- /.row -->
+				<div id="map"></div>
 			</section>
 			<!-- /.content -->
 		</div>
@@ -134,6 +72,20 @@
 
 	<!-- JS Library Include -->
 	<%@ include file="/WEB-INF/jsp/include_lib/include_js.jsp"%>
-	
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&callback=initMap"
+  	type="text/javascript"></script>
+	<script>
+    function initMap() {
+        var uluru = {lat: 1.356, lng: 103.787};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: singapore
+        });
+        var marker = new google.maps.Marker({
+          position: singapore,
+          map: map
+        });
+      }
+    </script>
 </body>
 </html>
