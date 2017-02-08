@@ -15,6 +15,6 @@ Accident Management System by transporter is a web app that allows the public to
 
 - LTA Personnel
 
-Through accessing accidents reports reported by user, LTA Personnel can perform analytics to determine reasons resulting in the accidents. Map visualisation of accidents can help LTA Personnel to better plan the building of roads so that accidents as a result of badly designed roads can be avoided.
+	Through accessing accidents reports reported by user, LTA Personnel can perform analytics to determine reasons resulting in the accidents. Map visualisation of accidents can help LTA Personnel to better plan the building of roads so that accidents as a result of badly designed roads can be avoided.
 
-Installation of enforcement cameras are also expensive to implement in Singapore. Through `transporter`, LTA Personnel can make more informed decisions which are based on data science.
+	Installation of enforcement cameras are also expensive to implement in Singapore. Through `transporter`, LTA Personnel can make more informed decisions which are based on data science.
