@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -15,7 +15,7 @@
 	name="viewport">
 
 <!-- CSS Library Include -->
-<%@ include file="/WEB-INF/jsp/include_lib/include_css.jsp"%>
+<%@ include file="/WEB-INF/jsp/include_lib/home_css.jsp"%>
 <style>
  #map {
    width: 100%;
@@ -71,8 +71,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_lib/include_js.jsp"%>
-	<script src="${resourcePath}pages/report_accident/init.js"></script>
+	<%@ include file="/WEB-INF/jsp/include_lib/home_js.jsp"%>
 
 </body>
 </html>

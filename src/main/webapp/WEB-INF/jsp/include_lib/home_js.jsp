@@ -48,7 +48,7 @@
 	<script src="${resourcePath}pages/transporter.js"></script>
 	
 	<!-- Google map api -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&callback=initMap" type="text/javascript"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
 	<script>
 	function initMap() {
 		var uluru = {lat: 1.3553794, lng: 103.8677444};
