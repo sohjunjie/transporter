@@ -48,7 +48,7 @@
 	<script src="${resourcePath}pages/transporter.js"></script>
 	
 	<!-- Google map api -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
 	<script>
 
 	var marker;
@@ -57,7 +57,9 @@
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		var sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
-			center: sgloc
+			center: sgloc,
+			streetViewControl: false,
+			fullscreenControl: false
 		});
 		marker = new google.maps.Marker({
 			position: sgloc,
@@ -65,16 +67,86 @@
 			draggable: true,
 			title: "Accident location"
 		});
+		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow({
 		    content: "lat:" + sgloc['lat'] + " lng:" + sgloc['lng']
 		});
 	    marker.addListener('dragend', function() {
-	    	infowindow.setContent("lat:" + marker.position.lat() + " lng:" + marker.position.lng())
+			// document.getElementById('pac-input').value = "tt"
+			// infowindow.setContent("lat:" + marker.position.lat() + " lng:" + marker.position.lng())
 	   	});
 	    marker.addListener('click', function() {
+	    	geocodeLatLng(geocoder, sgmap, infowindow);
 	        infowindow.open(sgmap, marker);
 	   	});
+
+	    // Create the search box and link it to the UI element.
+	    var input = document.getElementById('pac-input');
+	    var searchBox = new google.maps.places.SearchBox(input);
+	    sgmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+	    // Bias the SearchBox results towards current map's viewport.
+	    sgmap.addListener('bounds_changed', function() {
+    		searchBox.setBounds(sgmap.getBounds());
+	    });
+
+        var searchMarkers = [];
+        searchBox.addListener('places_changed', function() {
+	        var places = searchBox.getPlaces();
+	        
+	        if (places.length == 0) {
+	          return;
+	        }
+
+	        // Clear out the old markers.
+	        searchMarkers.forEach(function(searchMarker) {
+	      	  searchMarker.setMap(null);
+	        });
+	        searchMarker = [];
+
+			// For each place, get the icon, name and location.
+			var bounds = new google.maps.LatLngBounds();
+			places.forEach(function(place) {
+				if (!place.geometry) {
+					console.log("Returned place contains no geometry");
+					return;
+				}
+				var icon = {
+					url: place.icon,
+					size: new google.maps.Size(71, 71),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(17, 34),
+					scaledSize: new google.maps.Size(25, 25)
+				};
+
+				// Update our marker for each place.
+				marker.setPosition(place.geometry.location)
+				
+				if (place.geometry.viewport) {
+				  	// Only geocodes have viewport.
+					bounds.union(place.geometry.viewport);
+				} else {
+				  	bounds.extend(place.geometry.location);
+				}
+			});
+          	sgmap.fitBounds(bounds);
+        });
+	    
 	}
 	
+	function geocodeLatLng(geocoder, map, infowindow) {
+		var latlng = {lat: marker.position.lat(), lng: marker.position.lng()};
+		geocoder.geocode({'location': latlng}, function(results, status) {
+			if (status === 'OK') {
+				if (results[0]) {
+					infowindow.setContent(results[0].formatted_address);
+			    } else {
+			    	infowindow.setContent('No results found');
+			    }
+			} else {
+				infowindow.setContent('Geocoder failed due to: ' + status);
+			}
+		});
+	}	
 	</script>
 	
