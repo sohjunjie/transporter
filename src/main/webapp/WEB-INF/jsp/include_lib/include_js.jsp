@@ -3,8 +3,7 @@
 
 	<!-- jQuery Validate -->
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-
+	<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
 
 	<!-- jQuery UI 1.11.4 -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
