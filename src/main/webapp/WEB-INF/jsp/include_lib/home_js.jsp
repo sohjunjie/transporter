@@ -50,16 +50,31 @@
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
 	<script>
+
+	var marker;
+	
 	function initMap() {
-		var uluru = {lat: 1.3553794, lng: 103.8677444};
-		var map = new google.maps.Map(document.getElementById('map'), {
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};
+		var sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
-			center: uluru
+			center: sgloc
 		});
-		var marker = new google.maps.Marker({
-			position: uluru,
-			map: map
+		marker = new google.maps.Marker({
+			position: sgloc,
+			map: sgmap,
+			draggable: true,
+			title: "Accident location"
 		});
-	}	
+		var infowindow = new google.maps.InfoWindow({
+		    content: "lat:" + sgloc['lat'] + " lng:" + sgloc['lng']
+		});
+	    marker.addListener('dragend', function() {
+	    	infowindow.setContent("lat:" + marker.position.lat() + " lng:" + marker.position.lng())
+	   	});
+	    marker.addListener('click', function() {
+	        infowindow.open(sgmap, marker);
+	   	});
+	}
+	
 	</script>
 	
