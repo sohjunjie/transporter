@@ -27,11 +27,11 @@
 	        </div>     
 			<form class="login-form" action="" method="post">
 				<div class="form-group">
-			    	<label>Username or email</label>
+			    	<label>Username or email</label><span class="login_validate_err_label"></span>
 			    	<input id="signInUsernameOrEmail" type="text" class="form-control" name="usernameOrEmail" placeholder="Username or mail">
 			  	</div>
 			  	<div class="form-group">
-			    	<label>Password</label>
+			    	<label>Password</label><span class="login_validate_err_label"></span>
 			    	<input id="signInPassword" type="password" class="form-control" name="password" placeholder="Password">
 			  	</div>
 			    <div class="box-footer clearfix">

@@ -1,5 +1,10 @@
 	<!-- jQuery 2.2.3 -->
 	<script src="${resourcePath}plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+	<!-- jQuery Validate -->
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+	<script src="http://jquery.bassistance.de/validate/additional-methods.js"></script>
+
 	<!-- jQuery UI 1.11.4 -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
