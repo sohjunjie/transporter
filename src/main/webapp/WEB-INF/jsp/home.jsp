@@ -54,7 +54,7 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<input id="pac-input" class="controls" type="text" placeholder="Type address to search" style="width: 400px;">
+				<input id="pac-input" class="form-control" type="text" placeholder="Type address to search" style="width: 300px;">
 				<div id="map"></div>
 			</section>
 			<!-- /.content -->

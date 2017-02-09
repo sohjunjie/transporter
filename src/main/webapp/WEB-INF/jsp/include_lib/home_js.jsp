@@ -58,6 +58,7 @@
 		var sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
 			center: sgloc,
+			mapTypeControl: false,
 			streetViewControl: false,
 			fullscreenControl: false
 		});
