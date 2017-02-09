@@ -30,4 +30,15 @@
 <link rel="stylesheet"
 	href="${resourcePath}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-<link rel="stylesheet" href="${resourcePath}pages/login/login-popup.css">
+<link rel="stylesheet" href="${resourcePath}pages/home/login-popup.css">
+<style>
+#map {
+	width: 100%;
+	height: 500px;
+	background-color: grey;
+}
+#report-accident-btn,
+#pac-input {
+	margin: 8px;
+}
+</style>

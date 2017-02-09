@@ -16,13 +16,6 @@
 
 <!-- CSS Library Include -->
 <%@ include file="/WEB-INF/jsp/include_lib/home_css.jsp"%>
-<style>
- #map {
-   width: 100%;
-   height: 400px;
-   background-color: grey;
- }
-</style>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -39,12 +32,14 @@
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
+		<!-- Report Accident Popup Form Include -->
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Dashboard <small>Control panel</small>
+					Report Accident
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-car"></i> Accident</a></li>
@@ -55,6 +50,8 @@
 			<!-- Main content -->
 			<section class="content">
 				<input id="pac-input" class="form-control" type="text" placeholder="Type address to search" style="width: 300px;">
+				<button id="report-accident-btn" class="btn btn-danger">
+					<i class="fa fa-exclamation-circle"></i> Report here!</button>
 				<div id="map"></div>
 			</section>
 			<!-- /.content -->

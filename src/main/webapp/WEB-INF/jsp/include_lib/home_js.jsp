@@ -43,8 +43,8 @@
 	<!-- AdminLTE for demo purposes -->
 	<script src="${resourcePath}dist/js/demo.js"></script>
 	
-	<script src="${resourcePath}pages/login/login-popup.js"></script>
-	<script src="${resourcePath}pages/login/login.js"></script>
+	<script src="${resourcePath}pages/home/login-popup.js"></script>
+	<script src="${resourcePath}pages/home/login.js"></script>
 	<script src="${resourcePath}pages/transporter.js"></script>
 	
 	<!-- Google map api -->
@@ -80,6 +80,10 @@
 	    	geocodeLatLng(geocoder, sgmap, infowindow);
 	        infowindow.open(sgmap, marker);
 	   	});
+
+	    // Create report accident button and link it to the UI element
+	    var reportBtn = document.getElementById('report-accident-btn');
+	    sgmap.controls[google.maps.ControlPosition.TOP_RIGHT].push(reportBtn);
 
 	    // Create the search box and link it to the UI element.
 	    var input = document.getElementById('pac-input');
@@ -148,6 +152,6 @@
 				infowindow.setContent('Geocoder failed due to: ' + status);
 			}
 		});
-	}	
+	}
 	</script>
 	
