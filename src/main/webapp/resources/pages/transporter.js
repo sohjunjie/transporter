@@ -1,3 +1,8 @@
+$(document).ready(function() {
+	setDateTimePicker();
+	$('.datetimepicker').val(new Date());
+});
+
 function setHideAlert(AlertObject){
 	AlertObject.children('button').click(function(event){
         AlertObject.addClass('hide');
@@ -15,3 +20,8 @@ function showAlert(AlertObject, AlertType){
     AlertObject.removeAttr('style');
     AlertObject.removeClass('hide');
 }
+
+function setDateTimePicker(){
+	$('.datetimepicker').datepicker();	
+}
+
