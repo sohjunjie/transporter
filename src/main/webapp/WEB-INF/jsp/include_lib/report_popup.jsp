@@ -1,13 +1,13 @@
-<div id="reportAccidentModal" class="modal">
+<div id="report_accident_modal" class="modal">
 
 	<!-- Modal content -->
 	<div class="report-modal-content box box-info">
 	    <div class="box-header ui-sortable-handle">
-	      <i class="fa fa-car"></i>	
+	      <i class="fa fa-exclamation-circle"></i>	
 	      <h3 class="box-title">Report an accident</h3>
 	      <!-- tools box -->
 	      <div class="pull-right box-tools">
-	        <button type="button" class="btn btn-info btn-sm close" data-toggle="tooltip" title="Close">
+	        <button id="report_modal_close" type="button" class="btn btn-info btn-sm close" data-toggle="tooltip" title="Close">
 	          <i class="fa fa-times"></i></button>
 	      </div>
 	      <!-- /. tools -->

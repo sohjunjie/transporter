@@ -23,6 +23,8 @@
 	href="${resourcePath}plugins/jvectormap/jquery-jvectormap-1.2.2.css">
 <!-- Date Picker -->
 <link rel="stylesheet" href="${resourcePath}plugins/datepicker/datepicker3.css">
+<link rel="stylesheet" href="${resourcePath}plugins/datepicker/bootstrap-datetimepicker.css">
+
 <!-- Daterange picker -->
 <link rel="stylesheet"
 	href="${resourcePath}plugins/daterangepicker/daterangepicker.css">
@@ -31,14 +33,18 @@
 	href="${resourcePath}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
 <link rel="stylesheet" href="${resourcePath}pages/home/login-popup.css">
+<link rel="stylesheet" href="${resourcePath}pages/home/report-popup.css">
+
+<link rel="stylesheet" href="${resourcePath}pages/transporter.css">
+
 <style>
 #map {
 	width: 100%;
 	height: 500px;
 	background-color: grey;
 }
-#report-accident-btn,
-#pac-input {
+#report_accident_btn,
+#pac_input {
 	margin: 8px;
 }
 </style>

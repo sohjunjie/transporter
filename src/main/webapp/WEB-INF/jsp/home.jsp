@@ -33,6 +33,7 @@
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
 		<!-- Report Accident Popup Form Include -->
+		<%@ include file="/WEB-INF/jsp/include_lib/report_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -49,8 +50,8 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<input id="pac-input" class="form-control" type="text" placeholder="Type address to search" style="width: 300px;">
-				<button id="report-accident-btn" class="btn btn-danger">
+				<input id="pac_input" class="form-control" type="text" placeholder="Type address to search" style="width: 300px;">
+				<button id="report_accident_btn" class="btn btn-danger">
 					<i class="fa fa-exclamation-circle"></i> Report here!</button>
 				<div id="map"></div>
 			</section>

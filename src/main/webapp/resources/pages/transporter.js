@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	setDateTimePicker();
-	$('.datetimepicker').val(new Date());
 });
 
 function setHideAlert(AlertObject){
@@ -21,7 +20,11 @@ function showAlert(AlertObject, AlertType){
     AlertObject.removeClass('hide');
 }
 
+// TODO: How to set default datetime with format DD/MM/YYYY HH:MM
 function setDateTimePicker(){
-	$('.datetimepicker').datepicker();	
+	$('.datetimepicker').datetimepicker({
+		useCurrent: true,
+		format: 'DD/MM/YYYY HH:mm'
+	});
 }
 

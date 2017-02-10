@@ -27,6 +27,8 @@
 	<script src="${resourcePath}plugins/daterangepicker/daterangepicker.js"></script>
 	<!-- datepicker -->
 	<script src="${resourcePath}plugins/datepicker/bootstrap-datepicker.js"></script>
+	<script src="${resourcePath}plugins/datepicker/bootstrap-datetimepicker.js"></script>
+
 	<!-- Bootstrap WYSIHTML5 -->
 	<script
 		src="${resourcePath}plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
@@ -46,6 +48,8 @@
 	<script src="${resourcePath}pages/home/login-popup.js"></script>
 	<script src="${resourcePath}pages/home/login.js"></script>
 	<script src="${resourcePath}pages/transporter.js"></script>
+	
+	<script src="${resourcePath}pages/home/report-popup.js"></script>
 	
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
@@ -73,7 +77,7 @@
 		    content: "lat:" + sgloc['lat'] + " lng:" + sgloc['lng']
 		});
 	    marker.addListener('dragend', function() {
-			// document.getElementById('pac-input').value = "tt"
+			// document.getElementById('pac_input').value = "tt"
 			// infowindow.setContent("lat:" + marker.position.lat() + " lng:" + marker.position.lng())
 	   	});
 	    marker.addListener('click', function() {
@@ -82,11 +86,11 @@
 	   	});
 
 	    // Create report accident button and link it to the UI element
-	    var reportBtn = document.getElementById('report-accident-btn');
+	    var reportBtn = document.getElementById('report_accident_btn');
 	    sgmap.controls[google.maps.ControlPosition.TOP_RIGHT].push(reportBtn);
 
 	    // Create the search box and link it to the UI element.
-	    var input = document.getElementById('pac-input');
+	    var input = document.getElementById('pac_input');
 	    var searchBox = new google.maps.places.SearchBox(input);
 	    sgmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 

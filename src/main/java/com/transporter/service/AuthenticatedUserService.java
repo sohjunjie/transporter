@@ -13,6 +13,6 @@ public interface AuthenticatedUserService {
 	public AuthenticatedUser getAuthUser(int userId);
 	public List<AuthenticatedUser> getAllAuthUser();
 	public AuthenticatedUser getAuthUserByLoginDetails(String usernameOrEmail, String password);
-	public String loginUser(String usernameOrEmail, String password, HttpSession session);
+	public boolean loginUser(String usernameOrEmail, String password, HttpSession session);
 
 }
