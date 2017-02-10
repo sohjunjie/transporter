@@ -2,6 +2,8 @@ package com.transporter.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,24 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 	@Transactional
 	public AuthenticatedUser getAuthUserByLoginDetails(String usernameOrEmail, String password) {
 		return authenticatedUserDao.getAuthUserByLoginDetails(usernameOrEmail, password);
+	}
+
+	@Override
+	@Transactional
+	public String loginUser(String usernameOrEmail, String password, HttpSession session) {
+
+		// for now, login does not take into account account type
+		AuthenticatedUser verifiedUser = getAuthUserByLoginDetails(usernameOrEmail, password);
+		if(verifiedUser != null){
+			session.setAttribute("user", verifiedUser);
+			session.setAttribute("username", verifiedUser.getUsername());
+			session.setAttribute("userfullname", verifiedUser.getFullName());
+			return "OK";
+		}else{
+			session.invalidate();
+			return "";
+		}
+
 	}
 	
 }

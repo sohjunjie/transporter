@@ -24,28 +24,15 @@ public class BaseController {
 	private AuthenticatedUserService authUserService;
 
 	@RequestMapping("/")
-	public String indexPage(Map<String, Object> map){
+	public String goMainPage(){
 		return "home";
 	}
 
-	// AJAX HANDLER FOR LOGIN
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
-		
-		AuthenticatedUser verifiedUser = authUserService.getAuthUserByLoginDetails(usernameOrEmail, password);
-		if(verifiedUser != null && verifiedUser instanceof LTAPersonnel){
-			LTAPersonnel verifiedLTAUser = (LTAPersonnel) verifiedUser;
-			session.setAttribute("user", verifiedLTAUser);
-			session.setAttribute("username", verifiedLTAUser.getUsername());
-			session.setAttribute("userfullname", verifiedLTAUser.getFullName());
-			return "OK";
-		}else{
-			session.invalidate();
-			return "Invalid login details";
-		}
-
+		return authUserService.loginUser(usernameOrEmail, password, session);
 	}
-	
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(Map<String, Object> map, HttpSession session){
 
