@@ -23,7 +23,7 @@ public class AccidentReport {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int reportId;
 	@Column
-	private Date reportedDateTime;
+	private Date accidentDateTime;
 	@Column
 	private int numOfCasualties;
 	@Column
@@ -32,6 +32,8 @@ public class AccidentReport {
 	private double longitude;
 	@Column
 	private double latitude;
+	@Column
+	private String imageLink;
 
 	@Column
 	private Date approvedDateTime;
@@ -63,7 +65,7 @@ public class AccidentReport {
 			int officialCause, LTAPersonnel resolvedBy) {
 		super();
 		this.reportId = reportId;
-		this.reportedDateTime = reportedDateTime;
+		this.accidentDateTime = reportedDateTime;
 		this.numOfCasualties = numOfCasualties;
 		this.description = description;
 		this.longitude = longitude;
@@ -81,10 +83,10 @@ public class AccidentReport {
 		this.reportId = reportId;
 	}
 	public Date getReportedDateTime() {
-		return reportedDateTime;
+		return accidentDateTime;
 	}
 	public void setReportedDateTime(Date reportedDateTime) {
-		this.reportedDateTime = reportedDateTime;
+		this.accidentDateTime = reportedDateTime;
 	}
 	public int getNumOfCasualties() {
 		return numOfCasualties;
@@ -109,6 +111,12 @@ public class AccidentReport {
 	}
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+	public String getImageLink() {
+		return imageLink;
+	}
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
 	}
 	public Date getApprovedDateTime() {
 		return approvedDateTime;
