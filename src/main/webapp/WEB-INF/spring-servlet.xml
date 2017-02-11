@@ -18,6 +18,10 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.transporter" />	
 	
+	 <bean id="multipartResolver"
+	 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<property name="maxUploadSize" value="2097152"/></bean>
+	
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/jdbc.properties" />

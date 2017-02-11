@@ -1,7 +1,5 @@
 package com.transporter.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,7 @@ public class BaseController {
 	}
 
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(Map<String, Object> map, HttpSession session){
+	public String logout(HttpSession session){
 
 		session.invalidate();
 		return "redirect:/";

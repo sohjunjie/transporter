@@ -43,7 +43,6 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 		return authenticatedUserDao.getAuthUserByLoginDetails(usernameOrEmail, password);
 	}
 
-	@Override
 	@Transactional
 	public boolean loginUser(String usernameOrEmail, String password, HttpSession session) {
 
@@ -58,5 +57,5 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 		return false;
 
 	}
-	
+
 }
