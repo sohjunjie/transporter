@@ -1,4 +1,6 @@
-<h2>Spring MVC file upload example</h2>
+<%@ include file="/WEB-INF/jsp/includes.jsp"%>
+
+<h2>Spring MVC file upload example </h2>
 
 <form method="POST" action="upload" enctype="multipart/form-data">
 

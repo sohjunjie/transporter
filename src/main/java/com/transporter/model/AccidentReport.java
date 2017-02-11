@@ -38,15 +38,15 @@ public class AccidentReport {
 	@Column
 	private Date approvedDateTime;
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName="id")
+	@JoinColumn(name="approvedBy")
 	private LTAPersonnel approvedBy;
 	
 	@Column
 	private Date resolvedDateTime;
 	@Column
-	private int officialCause;
+	private String officialCause;
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName="id")
+	@JoinColumn(name="resolvedBy")
 	private LTAPersonnel resolvedBy;
 	
 	public boolean isPending(){
@@ -60,22 +60,7 @@ public class AccidentReport {
 	}
 	
 	public AccidentReport(){ }
-	public AccidentReport(int reportId, Date reportedDateTime, int numOfCasualties, String description,
-			double longitude, double latitude, Date approvedDateTime, LTAPersonnel approvedBy, Date resolvedDateTime,
-			int officialCause, LTAPersonnel resolvedBy) {
-		super();
-		this.reportId = reportId;
-		this.accidentDateTime = reportedDateTime;
-		this.numOfCasualties = numOfCasualties;
-		this.description = description;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.approvedDateTime = approvedDateTime;
-		this.approvedBy = approvedBy;
-		this.resolvedDateTime = resolvedDateTime;
-		this.officialCause = officialCause;
-		this.resolvedBy = resolvedBy;
-	}
+
 	public int getReportId() {
 		return reportId;
 	}
@@ -136,10 +121,10 @@ public class AccidentReport {
 	public void setResolvedDateTime(Date resolvedDateTime) {
 		this.resolvedDateTime = resolvedDateTime;
 	}
-	public int getOfficialCause() {
+	public String getOfficialCause() {
 		return officialCause;
 	}
-	public void setOfficialCause(int officialCause) {
+	public void setOfficialCause(String officialCause) {
 		this.officialCause = officialCause;
 	}
 	public LTAPersonnel getResolvedBy() {
