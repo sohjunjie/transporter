@@ -1,9 +1,3 @@
-$(document).ready(function() {
-	setHideAlert($("#login-feedback"));
-    event_loginFormAjax();
-    event_loginFormValidate();
-});
-
 var reportAccidentModal = document.getElementById('report_accident_modal');
 var reportAccidentBtn = document.getElementById("report_accident_btn");
 var reportAccidentClose = document.getElementById("report_modal_close");

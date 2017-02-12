@@ -19,22 +19,23 @@ import com.transporter.util.ImageUpload;
 @Service
 public class AccidentReportServiceImpl implements AccidentReportService {
 
-	private static final String SAVETOPATH = "/accident";
-	
+	@Value("${accident.imageuploads}")
+	private String saveToPath;
+
 	@Value("${project.resources}")
 	private String resourcePath;
-	
+
     @Autowired
     ServletContext context;
-	
+
 	@Autowired
 	private AccidentReportDao accidentReportDao;
-	
+
 	@Transactional
 	public boolean add(double lat, double lng, Date accidentDateTime, String accidentCause, MultipartFile accidentImage) {
 
 		ImageUpload imageUpload = new ImageUpload(resourcePath);
-		String savePath = imageUpload.save(accidentImage, SAVETOPATH, context);
+		String savePath = imageUpload.save(accidentImage, saveToPath, context);
 		if(!savePath.isEmpty()){
 			AccidentReport accidentReport = new AccidentReport();
 			accidentReport.setLatitude(lat);

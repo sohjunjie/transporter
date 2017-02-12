@@ -19,7 +19,7 @@ import com.transporter.service.AccidentReportService;
 public class AccidentController {
 	
 	@Autowired
-	private AccidentReportService accidentService;
+	private AccidentReportService accidentReportService;
 
 	@RequestMapping(value = "/report/new", method = RequestMethod.GET)
 	public String testPath(){
@@ -28,7 +28,7 @@ public class AccidentController {
 
 	@RequestMapping(value = "/report/upload", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") MultipartFile file, Map<String, Object> map) {
-		boolean success = accidentService.add(0, 0, new Date(), "Test", file);
+		boolean success = accidentReportService.add(0, 0, new Date(), "Test", file);
 		if(success){
 			map.put("feedback", "image uploaded");
 		}else{
@@ -43,11 +43,11 @@ public class AccidentController {
 	public @ResponseBody String report(
 			@RequestParam double lat,
 			@RequestParam double lng,
-			@RequestParam @DateTimeFormat(pattern="DD/MM/YYYY HH:mm") Date accidentDateTime,
+			@RequestParam @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date accidentDateTime,
 			@RequestParam String accidentCause,
 			@RequestParam MultipartFile accidentImage) {
 
-		boolean success = accidentService.add(lat, lng, accidentDateTime, accidentCause, accidentImage);
+		boolean success = accidentReportService.add(lat, lng, accidentDateTime, accidentCause, accidentImage);
 		if(success){
 			return "OK";
 		}else{

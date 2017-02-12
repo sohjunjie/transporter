@@ -45,6 +45,7 @@
 	<script src="${resourcePath}pages/transporter.js"></script>
 	
 	<script src="${resourcePath}pages/home/report-popup.js"></script>
+	<script src="${resourcePath}pages/home/report.js"></script>
 	
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>

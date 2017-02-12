@@ -29,7 +29,7 @@
 			                    <label class="btn btn-default btn-file">
 			                        <span>Browse</span>
 			                        <!-- The file is stored here. -->
-			                        <input type="file" name="image-file">
+			                        <input id="accidentImage" type="file" name="image-file">
 			                    </label>
 			                    <button type="button" class="btn btn-default" style="display: none;">Remove</button>
 			                </div>
@@ -57,12 +57,8 @@
 					  	</div></div>
 				</div>
 
-
-
-
-
 			    <div class="box-footer clearfix">
-			      <button type="submit" class="pull-right btn btn-info">OK</button>
+			      <button type="submit" class="pull-right btn btn-info">Submit</button>
 			    </div>
 			</form>
 	    </div>

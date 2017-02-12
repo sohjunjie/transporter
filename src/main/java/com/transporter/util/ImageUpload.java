@@ -27,7 +27,7 @@ public class ImageUpload {
 	public String save(MultipartFile file, String saveToPath, ServletContext context){
 		if (!file.isEmpty()) {
 			String imgType = getFileExtension(file.getOriginalFilename());
-			String saveFileName = file.hashCode() + "-" + Calendar.getInstance().hashCode() + "." + imgType;
+			String saveFileName = file.hashCode() + "_" + Calendar.getInstance().hashCode() + "." + imgType;
 			File destination = new File(context.getRealPath(resourcePath + UPLOADPATH + saveToPath) + "/" + saveFileName);
 			System.out.println(context.getRealPath(resourcePath + UPLOADPATH + saveToPath) + "/" + saveFileName);
 			BufferedImage src;
