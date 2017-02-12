@@ -48,7 +48,7 @@
 					    	<input id="accidentLongitude" type="text" class="form-control" name="accidentLongitude" disabled>
 					  	</div>
 						<div class="form-group">
-					    	<label>Cause of accident</label>
+					    	<label>Brief description of accident</label>
 					    	<input id="reportAccidentCause" type="text" class="form-control" name="reportAccidentCause">
 					  	</div>
 					  	<div class="form-group">
