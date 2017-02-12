@@ -23,7 +23,7 @@
 		        	<div class="col-lg-6 col-xs-6">
 						<div class="imageupload panel panel-default">
 			                <div class="panel-heading clearfix">
-			                    <h3 class="panel-title pull-left">Upload Image of Accident</h3>
+			                    <h3 class="panel-title pull-left">Upload image of accident</h3>
 			                </div>
 			                <div class="file-tab panel-body">
 			                    <label class="btn btn-default btn-file">

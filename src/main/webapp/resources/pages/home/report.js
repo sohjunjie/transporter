@@ -31,6 +31,8 @@ function event_reportAccidentAjax(){
 				success :  function(response){
 					console.log(response);
 					if(response){
+						$('.imageupload').imageupload('reset');
+						$("#reportAccidentCause").val("");
 						reportAccidentClose.click();
 						alert("Thank you. The accident was successfully reported.")
 					}else{
