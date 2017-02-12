@@ -17,7 +17,7 @@ import com.transporter.service.AccidentReportService;
 @Controller
 @RequestMapping(value="/accident")
 public class AccidentController {
-	
+
 	@Autowired
 	private AccidentReportService accidentReportService;
 

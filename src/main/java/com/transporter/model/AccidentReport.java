@@ -34,7 +34,7 @@ public class AccidentReport {
 	private double latitude;
 	@Column
 	private String imageLink;
-
+	
 	@Column
 	private Date approvedDateTime;
 	@ManyToOne(cascade=CascadeType.PERSIST)
@@ -43,12 +43,13 @@ public class AccidentReport {
 	
 	@Column
 	private Date resolvedDateTime;
-	@Column
-	private String officialCause;
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="officialCause")
+	private AccidentCause officialCause;
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="resolvedBy")
 	private LTAPersonnel resolvedBy;
-	
+
 	public boolean isPending(){
 		return !(isApproved() || isResolved());
 	}
@@ -80,7 +81,7 @@ public class AccidentReport {
 		this.numOfCasualties = numOfCasualties;
 	}
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -121,10 +122,10 @@ public class AccidentReport {
 	public void setResolvedDateTime(Date resolvedDateTime) {
 		this.resolvedDateTime = resolvedDateTime;
 	}
-	public String getOfficialCause() {
+	public AccidentCause getOfficialCause() {
 		return officialCause;
 	}
-	public void setOfficialCause(String officialCause) {
+	public void setOfficialCause(AccidentCause officialCause) {
 		this.officialCause = officialCause;
 	}
 	public LTAPersonnel getResolvedBy() {
@@ -133,7 +134,5 @@ public class AccidentReport {
 	public void setResolvedBy(LTAPersonnel resolvedBy) {
 		this.resolvedBy = resolvedBy;
 	}
-
-
 	
 }
