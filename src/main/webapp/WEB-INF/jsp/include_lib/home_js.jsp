@@ -35,10 +35,7 @@
 	<script src="${resourcePath}dist/js/app.min.js"></script>
 
 	<!-- AdminLTE dashboard demo (This is only for demo purposes)
-	<script src="${resourcePath}dist/js/pages/dashboard.js"></script> -->
-
-	<!-- AdminLTE for demo purposes -->
-	<script src="${resourcePath}dist/js/demo.js"></script>
+		<script src="${resourcePath}dist/js/demo.js"></script> -->
 
 	<script src="${resourcePath}pages/home/login-popup.js"></script>
 	<script src="${resourcePath}pages/home/login.js"></script>
