@@ -1,4 +1,7 @@
-/* Modal Content */
+#signInModal {
+	padding-top: 100px;
+}
+
 .signin-modal-content {
     margin: auto;
     padding: 20px;

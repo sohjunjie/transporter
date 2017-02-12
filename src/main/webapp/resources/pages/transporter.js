@@ -1,13 +1,16 @@
 $(document).ready(function() {
 	setDateTimePicker();
+	setImageUploadUI();
 });
 
+// GLOBAL ALERT HIDE
 function setHideAlert(AlertObject){
 	AlertObject.children('button').click(function(event){
         AlertObject.addClass('hide');
     });
 }
 
+// GLOBAL ALERT SHOW
 function showAlert(AlertObject, AlertType){
     var classList = AlertObject.attr("class").split(/\s+/);
     for (var i = 0; i < classList.length; i++) {
@@ -20,7 +23,7 @@ function showAlert(AlertObject, AlertType){
     AlertObject.removeClass('hide');
 }
 
-// TODO: How to set default datetime with format DD/MM/YYYY HH:MM
+// GLOBAL DATETIMEPICKER UI
 function setDateTimePicker(){
 	$('.datetimepicker').datetimepicker({
 		useCurrent: true,
@@ -28,3 +31,7 @@ function setDateTimePicker(){
 	});
 }
 
+// GLOBAL IMAGEUPLOAD UI
+function setImageUploadUI(){
+	$('.imageupload').imageupload();
+}
