@@ -20,12 +20,6 @@ function event_reportAccidentAjax(){
         	data.append("accidentCause", $("#reportAccidentCause").val());
         	data.append("accidentDateTime", $("#accidentOccuredDatetime").val());
         	data.append("accidentImage", $('#accidentImage')[0].files[0]);
-        	
-//			data["lat"] = marker.position.lat();
-//			data["lng"] = marker.position.lng();
-//			data["accidentCause"] = $("#reportAccidentCause").val();
-//			data["accidentDateTime"] = $("#accidentOccuredDatetime").val();
-//			data["accidentImage"] = $('#accidentImage')[0].files[0];
 
 			$.ajax({
 				type : 'POST',

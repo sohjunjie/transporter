@@ -37,8 +37,6 @@ public class AccidentController {
 		return "upload";
 	}
 
-	// http://digipiph.com/blog/submitting-multipartform-data-using-jquery-and-ajax
-	// http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
 	@RequestMapping(value = "/report/new", method = RequestMethod.POST)
 	public @ResponseBody String report(
 			@RequestParam double lat,
