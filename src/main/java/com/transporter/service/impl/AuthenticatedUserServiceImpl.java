@@ -44,18 +44,22 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 	}
 
 	@Transactional
-	public boolean loginUser(String usernameOrEmail, String password, HttpSession session) {
-
+	public boolean loginUser(String usernameOrEmail, String password, HttpSession httpSession) {
 		AuthenticatedUser verifiedUser = getAuthUserByLoginDetails(usernameOrEmail, password);
 		if(verifiedUser != null){
-			session.setAttribute("user", verifiedUser);
-			session.setAttribute("username", verifiedUser.getUsername());
-			session.setAttribute("userfullname", verifiedUser.getFullName());
+			httpSession.setAttribute("user", verifiedUser);
+			httpSession.setAttribute("username", verifiedUser.getUsername());
+			httpSession.setAttribute("userfullname", verifiedUser.getFullName());
 			return true;
 		}
-		session.invalidate();
+		httpSession.invalidate();
 		return false;
-
 	}
 
+	public boolean isAuthenticated(HttpSession httpSession){
+		AuthenticatedUser authUser = (AuthenticatedUser) httpSession.getAttribute("user");
+		if(authUser == null) return false;
+		return authUser.isAuthenticated();
+	}
+	
 }
