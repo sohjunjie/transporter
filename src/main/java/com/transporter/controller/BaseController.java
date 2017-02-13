@@ -11,6 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.transporter.service.AuthenticatedUserService;
 
+/**
+ * BaseController class handle request for a page
+ * and redirect user to the request page
+ * @author Soh Jun Jie
+ *
+ */
 @Controller
 public class BaseController {
 
@@ -21,8 +27,14 @@ public class BaseController {
 	public String goMainPage(){
 		return "home";
 	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/accident/pending", method=RequestMethod.GET)
+	public String goAccidentReportViewPending(HttpSession httpSession) {
+		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		return "accident_view_pending";
+	}
+	
+	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
 		boolean success = authUserService.loginUser(usernameOrEmail, password, session);
 		if(success){
@@ -33,10 +45,8 @@ public class BaseController {
 
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
-
 		session.invalidate();
 		return "redirect:/";
-
 	}
 	
 }
