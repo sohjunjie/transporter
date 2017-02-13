@@ -15,7 +15,7 @@
 	name="viewport">
 
 <!-- CSS Library Include -->
-<%@ include file="/WEB-INF/jsp/include_lib/home_css.jsp"%>
+<%@ include file="/WEB-INF/jsp/include_home/home_css.jsp"%>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -33,15 +33,13 @@
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
 		<!-- Report Accident Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_lib/report_popup.jsp"%>
+		<%@ include file="/WEB-INF/jsp/include_home/report_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>
-					Report Accident
-				</h1>
+				<h1>Report Accident</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-car"></i> Accident</a></li>
 					<li class="active"><i class="fa fa-exclamation-circle"></i> Report Accident</li>
@@ -70,7 +68,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_lib/home_js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/include_home/home_js.jsp"%>
 
 </body>
 </html>

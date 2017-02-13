@@ -5,16 +5,16 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
-					<li class="active treeview"><a href="index"> <i class="fa fa-car"></i>
+					<li id="vert_acc_menu" class="treeview"><a href="index"> <i class="fa fa-car"></i>
 							<span>Accident</span> <span class="pull-right-container"> 
 							<i class="fa fa-angle-left pull-right"></i>
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li class="active"><a href="index2.html">
+							<li id="vert_acc_menu_report"><a href="${pageContext.servletContext.contextPath}/index">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Report Accident</a></li>
 							<% if (session.getAttribute("username") != null) { %>
-							<li><a href="index.html">
+							<li id="vert_acc_menu_pending"><a href="${pageContext.servletContext.contextPath}/accident/pending">
 								<i class="fa fa-flag-o" style="color:white"></i> Pending Report
 								<span class="pull-right-container">
 								<!-- TODO: badge showing number of reports pending approval -->

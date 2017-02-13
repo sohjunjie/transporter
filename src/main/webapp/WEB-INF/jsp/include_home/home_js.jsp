@@ -34,9 +34,7 @@
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}dist/js/app.min.js"></script>
 
-	<!-- AdminLTE dashboard demo (This is only for demo purposes)
-		<script src="${resourcePath}dist/js/demo.js"></script> -->
-
+	<script src="${resourcePath}pages/home/home.js"></script>
 	<script src="${resourcePath}pages/home/login-popup.js"></script>
 	<script src="${resourcePath}pages/home/login.js"></script>
 	<script src="${resourcePath}pages/transporter.js"></script>
@@ -49,10 +47,11 @@
 	<script>
 
 	var marker;
+	var sgmap;
 
 	function initMap() {
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
-		var sgmap = new google.maps.Map(document.getElementById('map'), {
+		sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
 			center: sgloc,
 			mapTypeControl: false,
