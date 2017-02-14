@@ -23,7 +23,7 @@ public class AccidentReport {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int reportId;
 	@Column
-	private Date reportedDateTime;
+	private Date accidentDateTime;
 	@Column
 	private int numOfCasualties;
 	@Column
@@ -32,21 +32,24 @@ public class AccidentReport {
 	private double longitude;
 	@Column
 	private double latitude;
-
+	@Column
+	private String imageLink;
+	
 	@Column
 	private Date approvedDateTime;
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName="id")
+	@JoinColumn(name="approvedBy")
 	private LTAPersonnel approvedBy;
 	
 	@Column
 	private Date resolvedDateTime;
-	@Column
-	private int officialCause;
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(referencedColumnName="id")
+	@JoinColumn(name="officialCause")
+	private AccidentCause officialCause;
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="resolvedBy")
 	private LTAPersonnel resolvedBy;
-	
+
 	public boolean isPending(){
 		return !(isApproved() || isResolved());
 	}
@@ -58,22 +61,7 @@ public class AccidentReport {
 	}
 	
 	public AccidentReport(){ }
-	public AccidentReport(int reportId, Date reportedDateTime, int numOfCasualties, String description,
-			double longitude, double latitude, Date approvedDateTime, LTAPersonnel approvedBy, Date resolvedDateTime,
-			int officialCause, LTAPersonnel resolvedBy) {
-		super();
-		this.reportId = reportId;
-		this.reportedDateTime = reportedDateTime;
-		this.numOfCasualties = numOfCasualties;
-		this.description = description;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.approvedDateTime = approvedDateTime;
-		this.approvedBy = approvedBy;
-		this.resolvedDateTime = resolvedDateTime;
-		this.officialCause = officialCause;
-		this.resolvedBy = resolvedBy;
-	}
+
 	public int getReportId() {
 		return reportId;
 	}
@@ -81,10 +69,10 @@ public class AccidentReport {
 		this.reportId = reportId;
 	}
 	public Date getReportedDateTime() {
-		return reportedDateTime;
+		return accidentDateTime;
 	}
 	public void setReportedDateTime(Date reportedDateTime) {
-		this.reportedDateTime = reportedDateTime;
+		this.accidentDateTime = reportedDateTime;
 	}
 	public int getNumOfCasualties() {
 		return numOfCasualties;
@@ -93,7 +81,7 @@ public class AccidentReport {
 		this.numOfCasualties = numOfCasualties;
 	}
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -109,6 +97,12 @@ public class AccidentReport {
 	}
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+	public String getImageLink() {
+		return imageLink;
+	}
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
 	}
 	public Date getApprovedDateTime() {
 		return approvedDateTime;
@@ -128,10 +122,10 @@ public class AccidentReport {
 	public void setResolvedDateTime(Date resolvedDateTime) {
 		this.resolvedDateTime = resolvedDateTime;
 	}
-	public int getOfficialCause() {
+	public AccidentCause getOfficialCause() {
 		return officialCause;
 	}
-	public void setOfficialCause(int officialCause) {
+	public void setOfficialCause(AccidentCause officialCause) {
 		this.officialCause = officialCause;
 	}
 	public LTAPersonnel getResolvedBy() {
@@ -140,7 +134,5 @@ public class AccidentReport {
 	public void setResolvedBy(LTAPersonnel resolvedBy) {
 		this.resolvedBy = resolvedBy;
 	}
-
-
 	
 }

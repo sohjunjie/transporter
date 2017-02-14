@@ -17,10 +17,11 @@ function event_loginFormAjax(){
 			
 			$.ajax({
 				type : 'POST',
-				url  : 'login',
+				url  : pagectx + '/login',
 				data : data,
 				success :  function(response){
-					if(response=="OK"){
+					console.log(response);
+					if(response){
 						location.reload();
 					}else{
 						$("#login-feedback > span").html("Incorrect login details!");					
@@ -28,7 +29,7 @@ function event_loginFormAjax(){
 					}
 				},
 				error : function(e) {
-					$("#login-feedback > span").html("Error loggin in. Please try again!");
+					$("#login-feedback > span").html("Error logging in. Please try again!");
 					showAlert($( "#login-feedback" ), "danger");
 					console.log("ERROR: ", e);
 				},

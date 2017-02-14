@@ -8,5 +8,6 @@
         <mapping class="com.transporter.model.user.AuthenticatedUser" />
 		<mapping class="com.transporter.model.user.LTAPersonnel" />
 		<mapping class="com.transporter.model.AccidentReport" />
+		<mapping class="com.transporter.model.AccidentCause" />
     </session-factory>
 </hibernate-configuration>

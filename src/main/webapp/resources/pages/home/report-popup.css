@@ -1,0 +1,9 @@
+#report_accident_modal {
+	padding-top: 50px;
+}
+
+.report-modal-content {
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+}

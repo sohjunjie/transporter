@@ -15,7 +15,7 @@
 	      <h3 class="box-title">Sign in to transporter</h3>
 	      <!-- tools box -->
 	      <div class="pull-right box-tools">
-	        <button type="button" class="btn btn-info btn-sm close" data-toggle="tooltip" title="Close">
+	        <button id="signin_modal_close" type="button" class="btn btn-info btn-sm close" data-toggle="tooltip" title="Close">
 	          <i class="fa fa-times"></i></button>
 	      </div>
 	      <!-- /. tools -->
