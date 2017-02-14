@@ -12,20 +12,20 @@
 					<tbody>
 						<tr>
 						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-						    <td>John Doe</td>
+						    <td>Details here</td>
 						    <td>11-7-2014</td></tr>
 						<tr>
 						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-						    <td>Alexander Pierce</td>
+						    <td>Details here</td>
 						    <td>11-7-2014</td></tr>
 						<tr>
 						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td><span class="label label-primary">Approved</span></td>
-							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td></tr>
+							<td>Details here</td>
+							<td>11-7-2014</td></tr>
 						<tr>
 						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td><span class="label label-danger">Denied</span></td>
-							<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td></tr>
+							<td>Details here</td>
+							<td>11-7-2014</td></tr>
 					</tbody>
 				</table>
 			</div>

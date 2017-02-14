@@ -47,7 +47,11 @@
 	max-height: 500px;
 }
 .accident_img{
-	width:90px;
-	height:90px;
+	width: 90px;
+	height: 90px;
+}
+#accident_pending_viewer_table > thead > tr > th:nth-child(3),
+#accident_pending_viewer_table > thead > tr > th:nth-child(1){
+	width: 90px;
 }
 </style>

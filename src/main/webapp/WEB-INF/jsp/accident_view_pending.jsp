@@ -38,7 +38,7 @@
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-car"></i> Accident</a></li>
-					<li class="active"><i class="fa fa-flag-o"></i> Pending Report</li>
+					<li class="active"><i class="fa fa-flag-o" style="color: black;"></i> Pending Report</li>
 				</ol>
 			</section>
 
