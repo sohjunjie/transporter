@@ -42,7 +42,7 @@ function setImageUploadUI(){
 function event_PendingReportCountUpdater(){	
 	$.ajax({
 		type : 'GET',
-		url  : 'accident/report/pending/count',
+		url  : pagectx + '/accident/report/pending/count',
 		success :  function(response){
 			console.log(response);
 			if(parseInt(response) > 0){

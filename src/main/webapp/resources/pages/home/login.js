@@ -17,7 +17,7 @@ function event_loginFormAjax(){
 			
 			$.ajax({
 				type : 'POST',
-				url  : 'login',
+				url  : pagectx + '/login',
 				data : data,
 				success :  function(response){
 					console.log(response);

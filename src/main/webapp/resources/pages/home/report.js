@@ -23,7 +23,7 @@ function event_reportAccidentAjax(){
 
 			$.ajax({
 				type : 'POST',
-				url  : 'accident/report/new',
+				url  : pagectx + '/accident/report/new',
 				data : data,
 				dataType: 'text',
 				processData: false,
