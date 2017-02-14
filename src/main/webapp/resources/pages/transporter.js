@@ -1,6 +1,9 @@
 $(document).ready(function() {
 	setDateTimePicker();
 	setImageUploadUI();
+	event_PendingReportCountUpdater();
+	event_PendingReportCountUpdater();
+//	window.setInterval(function(){event_PendingReportCountUpdater()}, 60000);
 });
 
 // GLOBAL ALERT HIDE
@@ -34,4 +37,19 @@ function setDateTimePicker(){
 // GLOBAL IMAGEUPLOAD UI
 function setImageUploadUI(){
 	$('.imageupload').imageupload();
+}
+
+function event_PendingReportCountUpdater(){	
+	$.ajax({
+		type : 'GET',
+		url  : 'accident/report/pending/count',
+		success :  function(response){
+			console.log(response);
+			if(parseInt(response) > 0){
+				$('#pending_report_count_badge').text(response);
+			}else{
+				$('#pending_report_count_badge').text("");
+			}
+		}
+	});
 }
