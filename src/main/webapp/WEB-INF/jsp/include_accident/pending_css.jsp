@@ -43,15 +43,15 @@
 	height: 500px;
 	background-color: grey;
 }
-#accident_pending_viewer_table{
-	max-height: 500px;
-}
 .accident_img{
 	width: 90px;
 	height: 90px;
 }
-#accident_pending_viewer_table > thead > tr > th:nth-child(3),
-#accident_pending_viewer_table > thead > tr > th:nth-child(1){
+#accident_pending_viewer_table{
+	height: 500px;
+}
+#accident_pending_viewer_table > table > thead > tr > th:nth-child(3),
+#accident_pending_viewer_table > table > thead > tr > th:nth-child(1){
 	width: 90px;
 }
 </style>

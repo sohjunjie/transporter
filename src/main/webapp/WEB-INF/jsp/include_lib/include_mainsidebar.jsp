@@ -11,18 +11,18 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li id="vert_acc_menu_report"><a href="${pageContext.servletContext.contextPath}/index">
+							<li id="vert_acc_menu_report"><a href="${pageContext.servletContext.contextPath}">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Report Accident</a></li>
 							<% if (session.getAttribute("username") != null) { %>
 							<li id="vert_acc_menu_pending"><a href="${pageContext.servletContext.contextPath}/accident/pending">
 								<i class="fa fa-flag-o" style="color:white"></i> Pending Report
 								<span class="pull-right-container">
 								<!-- TODO: badge showing number of reports pending approval -->
-								<span class="label label-primary pull-right">4</span>
+								<span id="pending_report_count_badge" class="label label-primary pull-right"></span>
 								</span>
 								</a></li>
 
-							<li><a href="index.html">
+							<li><a href="#">
 								<i class="fa fa-flag-o" style="color:red"></i> Resolved Approved
 								</a></li>
 							<% } %>
@@ -35,22 +35,6 @@
 					<li><a href="pages/widgets.html"> <i class="fa fa-dashboard"></i>
 							<span>Statistics</span>
 					</a></li>
-
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
-							<span>Layout Options</span> <span class="pull-right-container">
-								<span class="label label-primary pull-right">4</span>
-						</span>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="pages/layout/top-nav.html"><i
-									class="fa fa-circle-o"></i> Top Navigation</a></li>
-							<li><a href="pages/layout/boxed.html"><i
-									class="fa fa-circle-o"></i> Boxed</a></li>
-							<li><a href="pages/layout/fixed.html"><i
-									class="fa fa-circle-o"></i> Fixed</a></li>
-							<li><a href="pages/layout/collapsed-sidebar.html"><i
-									class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-						</ul></li>
 				</ul>
 			</section>
 			<!-- /.sidebar -->
