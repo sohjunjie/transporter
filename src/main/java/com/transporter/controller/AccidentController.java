@@ -1,7 +1,6 @@
 package com.transporter.controller;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,22 +19,6 @@ public class AccidentController {
 
 	@Autowired
 	private AccidentReportService accidentReportService;
-
-	@RequestMapping(value = "/report/new", method = RequestMethod.GET)
-	public String testPath(){
-		return "upload";
-	}
-
-	@RequestMapping(value = "/report/upload", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") MultipartFile file, Map<String, Object> map) {
-		boolean success = accidentReportService.add(0, 0, new Date(), "Test", file);
-		if(success){
-			map.put("feedback", "image uploaded");
-		}else{
-			map.put("feedback", "image fail to upload");
-		}
-		return "upload";
-	}
 
 	@RequestMapping(value = "/report/new", method = RequestMethod.POST)
 	public @ResponseBody String report(
