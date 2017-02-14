@@ -17,7 +17,7 @@ function event_reportAccidentAjax(){
         	data.append("lat", marker.position.lat());
         	data.append("lng", marker.position.lng());
         	data.append("lng", marker.position.lng());
-        	data.append("accidentCause", $("#reportAccidentCause").val());
+        	data.append("accidentDescription", $("#reportAccidentDescription").val());
         	data.append("accidentDateTime", $("#accidentOccuredDatetime").val());
         	data.append("accidentImage", $('#accidentImage')[0].files[0]);
 
@@ -29,12 +29,11 @@ function event_reportAccidentAjax(){
 				processData: false,
 				contentType: false,
 				success :  function(response){
-					console.log(response);
 					if(response){
 						$('.imageupload').imageupload('reset');
-						$("#reportAccidentCause").val("");
+						$("#reportAccidentDescription").val("");
 						reportAccidentClose.click();
-						alert("Thank you. The accident was successfully reported.")
+						alert("The accident was successfully reported. Thank you for your contribution.");
 					}else{
 						$("#report-accident-feedback > span").html("A problem was encountered sending an accident report.");
 						showAlert($( "#report-accident-feedback" ), "danger");
@@ -43,7 +42,6 @@ function event_reportAccidentAjax(){
 				error : function(e) {
 					$("#report-accident-feedback > span").html("A problem was encountered sending an accident report.");
 					showAlert($( "#report-accident-feedback" ), "danger");
-					console.log("ERROR: ", e);
 				},
 				done : function(e) {}
 			});
@@ -57,12 +55,14 @@ function event_reportAccidentValidate(){
         errorClass: "help-block",
         focusInvalid: !1,
         rules: {
-        	reportAccidentCause: "required",
-        	accidentOccuredDatetime: "required"
+        	reportAccidentDescription: "required",
+        	accidentOccuredDatetime: "required",
+        	accidentImage: "required"
         },
         messages: {
-        	reportAccidentCause: "Please select cause of accident from the options",
-        	accidentOccuredDatetime: "Please enter the datetime of the accident"
+        	reportAccidentDescription: "Please select cause of accident from the options",
+        	accidentOccuredDatetime: "Please enter the datetime of the accident",
+        	accidentOccuredDatetime: "Please upload an image of the accident"
         },
         errorPlacement: function(e, r) {
             e.insertBefore(r)

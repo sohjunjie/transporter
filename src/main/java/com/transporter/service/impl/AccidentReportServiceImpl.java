@@ -32,7 +32,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	private AccidentReportDao accidentReportDao;
 
 	@Transactional
-	public boolean add(double lat, double lng, Date accidentDateTime, String accidentCause, MultipartFile accidentImage) {
+	public boolean add(double lat, double lng, Date accidentDateTime, String accidentDescription, MultipartFile accidentImage) {
 
 		ImageUpload imageUpload = new ImageUpload(resourcePath);
 		String savePath = imageUpload.save(accidentImage, saveToPath, context);
@@ -41,7 +41,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 			accidentReport.setLatitude(lat);
 			accidentReport.setLongitude(lng);
 			accidentReport.setReportedDateTime(accidentDateTime);
-			accidentReport.setDescription(accidentCause);
+			accidentReport.setDescription(accidentDescription);
 			accidentReport.setImageLink(savePath);
 			accidentReportDao.add(accidentReport);
 			return true;
