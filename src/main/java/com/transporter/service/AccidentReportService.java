@@ -14,5 +14,6 @@ public interface AccidentReportService {
 	public AccidentReport getAccidentReport(int reportId);
 	public void delete(int reportId);
 	public List<AccidentReport> getAllAccidentReport();
+	public Long getPendingAccidentCount();
 
 }

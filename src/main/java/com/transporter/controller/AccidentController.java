@@ -21,20 +21,25 @@ public class AccidentController {
 	private AccidentReportService accidentReportService;
 
 	@RequestMapping(value = "/report/new", method = RequestMethod.POST)
-	public @ResponseBody String report(
+	public @ResponseBody String reportAccident(
 			@RequestParam double lat,
 			@RequestParam double lng,
 			@RequestParam @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date accidentDateTime,
 			@RequestParam String accidentDescription,
 			@RequestParam MultipartFile accidentImage) {
-
 		boolean success = accidentReportService.add(lat, lng, accidentDateTime, accidentDescription, accidentImage);
 		if(success){
 			return "OK";
 		}else{
 			return "";
 		}
-
 	}
-	
+
+	@RequestMapping(value = "/report/pending/count", method = RequestMethod.GET)
+	public @ResponseBody String getPendingAccidentCount(){
+		if(accidentReportService.getPendingAccidentCount() > 0)
+			return Long.toString(accidentReportService.getPendingAccidentCount());
+		return "";
+	}
+
 }

@@ -41,4 +41,11 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 		return session.getCurrentSession().createQuery("from AccidentReport").list();
 	}
 
+	@Override
+	public Long getPendingAccidentCount() {
+		return (Long) session.getCurrentSession().createQuery("select count(*) from AccidentReport "
+				+ "where approvedBy=null "
+				+ "and resolvedBy=null").uniqueResult();
+	}
+
 }

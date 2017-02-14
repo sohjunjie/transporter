@@ -69,4 +69,9 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		return accidentReportDao.getAllAccidentReport();
 	}
 
+	@Transactional
+	public Long getPendingAccidentCount() {
+		return accidentReportDao.getPendingAccidentCount();
+	}
+
 }
