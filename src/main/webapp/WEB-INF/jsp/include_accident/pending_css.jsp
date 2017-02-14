@@ -43,4 +43,11 @@
 	height: 500px;
 	background-color: grey;
 }
+#accident_pending_viewer_table{
+	max-height: 500px;
+}
+.accident_img{
+	width:90px;
+	height:90px;
+}
 </style>

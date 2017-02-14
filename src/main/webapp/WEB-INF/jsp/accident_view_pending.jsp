@@ -8,21 +8,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <spring:url value="/resources/" var="resourcePath" />
 
-<title>transporter | Home</title>
+<title>transporter | Pending Report</title>
 <!-- Tell the browser to be responsive to screen width -->
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-<!-- start css library include -->
+<!-- css library include -->
 <%@ include file="/WEB-INF/jsp/include_accident/pending_css.jsp"%>
-<!--  end css library include  -->
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -41,18 +37,18 @@
 					Pending Report
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-dashboard"></i> Accident</a></li>
-					<li class="active">Pending Report</li>
+					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-car"></i> Accident</a></li>
+					<li class="active"><i class="fa fa-flag-o"></i> Pending Report</li>
 				</ol>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
-					<div class="col-lg-6 col-xs-6">
+					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
 						<div id="map"></div>
 					</div>
-					<div class="col-lg-6 col-xs-6">
+					<div class="col-lg-6 col-xs-12">
 						<%@ include file="/WEB-INF/jsp/include_accident/pending_viewer.jsp"%>
 					</div>
 				</div>

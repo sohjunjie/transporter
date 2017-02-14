@@ -49,7 +49,7 @@
 					  	</div>
 						<div class="form-group">
 					    	<label>Brief description of accident</label>
-					    	<input id="reportAccidentCause" type="text" class="form-control" name="reportAccidentCause">
+					    	<input id="reportAccidentDescription" type="text" class="form-control" name="reportAccidentDescription">
 					  	</div>
 					  	<div class="form-group">
 					    	<label>Accident date and time</label>
