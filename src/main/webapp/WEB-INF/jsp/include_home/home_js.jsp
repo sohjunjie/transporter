@@ -153,4 +153,5 @@
 			}
 		});
 	}
+    var pagectx = "${pageContext.servletContext.contextPath}"
 	</script>

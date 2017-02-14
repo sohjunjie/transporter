@@ -38,4 +38,49 @@
 	<script src="${resourcePath}pages/home/login.js"></script>
 	<script src="${resourcePath}pages/accident/pending.js"></script>
 	<script src="${resourcePath}pages/transporter.js"></script>
+
+	<!-- Google map api -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
+	<script>
+
+	var markers = {};
+	var sgmap;
+
+	function initMap() {
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};
+		sgmap = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			center: sgloc,
+			mapTypeControl: false,
+			streetViewControl: false,
+			fullscreenControl: false
+		});
+	}
+
+	function addMarkerToMap(lat, lng, map) {
+		var latlng = {lat: lat, lng: lng};
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map
+		});
+		return marker;
+	}
+
+    function setMapOnAll(map) {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(map);
+		}
+	}
+
+    function clearMarkers() {
+		setMapOnAll(null);
+    }
+
+    function deleteMarkers() {
+		clearMarkers();
+		markers = [];
+	}
+
+    var pagectx = "${pageContext.servletContext.contextPath}"
+    </script>
 	
