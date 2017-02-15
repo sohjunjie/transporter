@@ -62,6 +62,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 
 	@Transactional
 	public void delete(int reportId) {
+		// TODO: Delete image in server
 		accidentReportDao.delete(reportId);
 	}
 

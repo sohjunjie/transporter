@@ -42,10 +42,10 @@
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
 	<script>
-
 	var markers = {};
 	var sgmap;
-
+	var infowindow;
+	
 	function initMap() {
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
@@ -55,15 +55,24 @@
 			streetViewControl: false,
 			fullscreenControl: false
 		});
+		infowindow = new google.maps.InfoWindow();
+
+		// TODO: CUSTOMISE LEGENDS
+		// initialise pending accident locations
+		<c:forEach items="${pendingAccidents}" var="pAccident">
+		addMarkerToMap(${pAccident.latitude},
+				${pAccident.longitude}, sgmap,
+				${pAccident.reportId});
+		</c:forEach>
 	}
 
-	function addMarkerToMap(lat, lng, map) {
+	function addMarkerToMap(lat, lng, map, pid) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map
 		});
-		return marker;
+		markers[pid] = marker;
 	}
 
     function setMapOnAll(map) {
@@ -81,6 +90,6 @@
 		markers = [];
 	}
 
-    var pagectx = "${pageContext.servletContext.contextPath}"
+    var pagectx = "${pageContext.servletContext.contextPath}";
     </script>
 	

@@ -50,8 +50,19 @@
 #accident_pending_viewer_table{
 	height: 500px;
 }
-#accident_pending_viewer_table > table > tbody > tr > th:nth-child(3),
-#accident_pending_viewer_table > table > tbody > tr > th:nth-child(1){
-	width: 90px;
+#accident_pending_viewer_table > table > tbody > tr > td:nth-child(3),
+#accident_pending_viewer_table > table > tbody > tr > td:nth-child(1){
+	width: 120px;
 }
+#accident_pending_viewer_table > table > tbody > tr > td:nth-child(3){
+	vertical-align: middle;
+	text-align: right;
+}
+.itemOptions{display: none;}
+.itemOptions > button{float: none;}
+.itemOptions > button:focus, .itemOptions > button:hover {opacity: 1;}
+#accident_pending_viewer_table  > table > tbody > tr:hover .itemOptions{display:block;}
+.pAccidentDelete{color: #e83030 !important;}
+.pAccidentApprove{color: #07e007 !important;}
+.pAccidentMapLoc{color: #413dea !important;}
 </style>

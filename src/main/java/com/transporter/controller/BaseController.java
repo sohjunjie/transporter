@@ -43,8 +43,8 @@ public class BaseController {
 	}
 
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession session) {
-		boolean success = authUserService.loginUser(usernameOrEmail, password, session);
+	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession httpSession) {
+		boolean success = authUserService.loginUser(usernameOrEmail, password, httpSession);
 		if(success){
 			return "OK";
 		}

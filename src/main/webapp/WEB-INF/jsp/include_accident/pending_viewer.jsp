@@ -1,3 +1,6 @@
+<script>
+	var pendingAccidents = "${pendingAccidents}";
+</script>
 <div class="row">
 	<div class="col-xs-12">
 	    <div class="box">
@@ -11,7 +14,15 @@
 						    	${pAccident.description}<br/>
 						    	${pAccident.accidentDateTime}
 						    </td>
-						    <td>Options here</td></tr>
+						    <td><div class="itemOptions">
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentMapLoc">
+	          							<i class="fa fa-map-marker"></i></button>
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentApprove">
+	          							<i class="fa fa-check"></i></button>
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentDelete">
+	          							<i class="fa fa-times"></i></button>
+						    	</div>
+							</td></tr>
 					</c:forEach>
 					</tbody>
 				</table>
