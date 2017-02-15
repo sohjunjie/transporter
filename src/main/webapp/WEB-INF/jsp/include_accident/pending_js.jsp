@@ -36,12 +36,16 @@
 
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>
+	
 	<script src="${resourcePath}/pages/accident/pending.js"></script>
+	<script src="${resourcePath}/pages/accident/image_popup.js"></script>
+
 	<script src="${resourcePath}/pages/transporter.js"></script>
 
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
 	<script>
+    var pagectx = "${pageContext.servletContext.contextPath}";
 	var markers = {};
 	var sgmap;
 	var infowindow;
@@ -62,15 +66,16 @@
 		<c:forEach items="${pendingAccidents}" var="pAccident">
 		addMarkerToMap(${pAccident.latitude},
 				${pAccident.longitude}, sgmap,
-				${pAccident.reportId});
+				${pAccident.reportId}, pagectx + '/resources/icons/accident_report32x32.png');
 		</c:forEach>
 	}
 
-	function addMarkerToMap(lat, lng, map, pid) {
+	function addMarkerToMap(lat, lng, map, pid, iconImg) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
-			map: map
+			map: map,
+			icon: iconImg
 		});
 		markers[pid] = marker;
 	}
@@ -89,7 +94,5 @@
 		clearMarkers();
 		markers = [];
 	}
-
-    var pagectx = "${pageContext.servletContext.contextPath}";
     </script>
 	

@@ -9,7 +9,7 @@
 					<tbody>
 					<c:forEach items="${pendingAccidents}" var="pAccident">
 						<tr>
-						    <td><img src="${resourcePath}${pAccident.imageLink}" class="accident_img"></td>
+						    <td><img src="${resourcePath}${pAccident.imageLink}" class="accident_img imageEnlarge"></td>
 						    <td><b>${pAccident.formattedAddress}</b><br/>
 						    	${pAccident.description}<br/>
 						    	${pAccident.accidentDateTime}
@@ -42,3 +42,10 @@
 	<!-- /.box -->
 	</div>
 </div>
+
+<!-- The Modal -->
+<div id="imageModal" class="image-modal">
+	<span class="imageModalClose" onclick="document.getElementsByClassName('imageModal').style.display='none'">&times;</span>
+	<img class="modal-content" id="modalImage">
+</div>
+

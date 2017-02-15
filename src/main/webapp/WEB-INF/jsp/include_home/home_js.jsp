@@ -45,7 +45,7 @@
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
 	<script>
-
+    var pagectx = "${pageContext.servletContext.contextPath}";
 	var marker;
 	var sgmap;
 
@@ -164,6 +164,4 @@
 //	function showPosition(position) {
 //		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
 //	}
-
-    var pagectx = "${pageContext.servletContext.contextPath}"
 	</script>

@@ -34,6 +34,8 @@
 <!-- home -->
 <link rel="stylesheet" href="${resourcePath}/pages/home/login-popup.css">
 
+<link rel="stylesheet" href="${resourcePath}/pages/accident/image_popup.css">
+
 <!-- transporter -->
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
 
