@@ -42,15 +42,6 @@ public class BaseController {
 		return "accident_view_pending";
 	}
 
-	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession httpSession) {
-		boolean success = authUserService.loginUser(usernameOrEmail, password, httpSession);
-		if(success){
-			return "OK";
-		}
-		return "";
-	}
-
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.invalidate();
