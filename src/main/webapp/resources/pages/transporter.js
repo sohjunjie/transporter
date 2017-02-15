@@ -44,7 +44,6 @@ function event_PendingReportCountUpdater(){
 		type : 'GET',
 		url  : pagectx + '/accident/report/pending/count',
 		success :  function(response){
-			console.log(response);
 			if(parseInt(response) > 0){
 				$('#pending_report_count_badge').text(response);
 			}else{
