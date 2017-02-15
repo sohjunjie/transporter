@@ -28,7 +28,6 @@ public class ImageUpload {
 			String imgType = getFileExtension(file.getOriginalFilename());
 			String saveFileName = file.hashCode() + "_" + Calendar.getInstance().hashCode() + "." + imgType;
 			File destination = new File(context.getRealPath(resourcePath + UPLOADPATH + saveToPath) + "/" + saveFileName);
-			System.out.println(context.getRealPath(resourcePath + UPLOADPATH + saveToPath) + "/" + saveFileName);
 			BufferedImage src;
 			try {
 				src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));

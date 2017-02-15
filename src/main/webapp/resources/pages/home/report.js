@@ -17,6 +17,7 @@ function event_reportAccidentAjax(){
         	data.append("lat", marker.position.lat());
         	data.append("lng", marker.position.lng());
         	data.append("lng", marker.position.lng());
+        	data.append("accidentLocation", $("#accidentLocation").val());
         	data.append("accidentDescription", $("#reportAccidentDescription").val());
         	data.append("accidentDateTime", $("#accidentOccuredDatetime").val());
         	data.append("accidentImage", $('#accidentImage')[0].files[0]);

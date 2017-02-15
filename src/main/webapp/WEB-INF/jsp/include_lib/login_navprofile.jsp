@@ -1,12 +1,12 @@
 <li class="dropdown user user-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		<img src="${resourcePath}dist/img/avatar.jpg" class="user-image" alt="User Image">
+		<img src="${resourcePath}/dist/img/avatar.jpg" class="user-image" alt="User Image">
 			<!-- TODO: User full name goes here -->
 			<span class="hidden-xs">${ sessionScope.username }</span>
 	</a>
 	<ul class="dropdown-menu">
 		<!-- User image -->
-		<li class="user-header"><img src="${resourcePath}dist/img/avatar.jpg" class="img-circle" alt="User Image">
+		<li class="user-header"><img src="${resourcePath}/dist/img/avatar.jpg" class="img-circle" alt="User Image">
 			<p>${ sessionScope.userfullname } - LTA Personnel</p>
 		</li>
 		<!-- Menu Footer-->

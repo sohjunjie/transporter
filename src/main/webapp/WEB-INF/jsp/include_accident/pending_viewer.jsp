@@ -4,30 +4,15 @@
 			<div id="accident_pending_viewer_table" class="box-body table-responsive no-padding">
 				<table class="table table-hover">
 					<tbody>
+					<c:forEach items="${pendingAccidents}" var="pAccident">
 						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-						    <td>Details here</td>
-						    <td>11-7-2014</td></tr>
-						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-						    <td>Details here</td>
-						    <td>11-7-2014</td></tr>
-						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td>Details here</td>
-							<td>11-7-2014</td></tr>
-						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td>Details here</td>
-							<td>11-7-2014</td></tr>
-						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td>Details here</td>
-							<td>11-7-2014</td></tr>
-						<tr>
-						    <td><img src="${resourcePath}dist/img/avatar.jpg" class="accident_img"></td>
-							<td>Details here</td>
-							<td>11-7-2014</td></tr>
+						    <td><img src="${resourcePath}${pAccident.imageLink}" class="accident_img"></td>
+						    <td><b>${pAccident.formattedAddress}</b><br/>
+						    	${pAccident.description}<br/>
+						    	${pAccident.accidentDateTime}
+						    </td>
+						    <td>Options here</td></tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>

@@ -32,15 +32,16 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	private AccidentReportDao accidentReportDao;
 
 	@Transactional
-	public boolean add(double lat, double lng, Date accidentDateTime, String accidentDescription, MultipartFile accidentImage) {
+	public boolean add(String accidentLocation, double lat, double lng, Date accidentDateTime, String accidentDescription, MultipartFile accidentImage) {
 
 		ImageUpload imageUpload = new ImageUpload(resourcePath);
 		String savePath = imageUpload.save(accidentImage, saveToPath, context);
 		if(!savePath.isEmpty()){
 			AccidentReport accidentReport = new AccidentReport();
+			accidentReport.setFormattedAddress(accidentLocation);
 			accidentReport.setLatitude(lat);
 			accidentReport.setLongitude(lng);
-			accidentReport.setReportedDateTime(accidentDateTime);
+			accidentReport.setAccidentDateTime(accidentDateTime);
 			accidentReport.setDescription(accidentDescription);
 			accidentReport.setImageLink(savePath);
 			accidentReportDao.add(accidentReport);
@@ -72,6 +73,11 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	@Transactional
 	public Long getPendingAccidentCount() {
 		return accidentReportDao.getPendingAccidentCount();
+	}
+
+	@Transactional
+	public List<AccidentReport> getPendingAccidentReport() {
+		return accidentReportDao.getPendingAccidentReport();
 	}
 
 }

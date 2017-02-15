@@ -11,6 +11,8 @@ public interface AccidentReportDao {
 	public AccidentReport getAccidentReport(int reportId);
 	public void delete(int reportId);
 	public List<AccidentReport> getAllAccidentReport();
+	
 	public Long getPendingAccidentCount();
+	public List<AccidentReport> getPendingAccidentReport();
 	
 }
