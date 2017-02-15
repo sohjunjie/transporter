@@ -26,10 +26,12 @@
 					</c:forEach>
 					<c:choose>
 						<c:when test="${fn:length(pendingAccidents) <= 0}">
-							<tr class="emptyTableMessage"><td>
-								<i class="fa fa-smile-o"></i><br/>
-								<span>You have no pending accidents to approved.</span>
-							</td></tr>
+							<div class="emptyTableMessage" style="height: 500px;">
+								<div class="msgContent">
+									<i class="fa fa-smile-o"></i><br/>
+									<span>You have no pending accidents to approved.</span>
+								</div>
+							</div>
 						</c:when>
 					</c:choose>
 					</tbody>
