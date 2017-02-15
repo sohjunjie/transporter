@@ -23,6 +23,8 @@ public class AccidentReport {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int reportId;
 	@Column
+	private String formattedAddress;
+	@Column
 	private Date accidentDateTime;
 	@Column
 	private int numOfCasualties;
@@ -34,13 +36,13 @@ public class AccidentReport {
 	private double latitude;
 	@Column
 	private String imageLink;
-	
+
 	@Column
 	private Date approvedDateTime;
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="approvedBy")
 	private LTAPersonnel approvedBy;
-	
+
 	@Column
 	private Date resolvedDateTime;
 	@ManyToOne(cascade=CascadeType.PERSIST)
@@ -68,10 +70,16 @@ public class AccidentReport {
 	public void setReportId(int reportId) {
 		this.reportId = reportId;
 	}
-	public Date getReportedDateTime() {
+	public String getFormattedAddress() {
+		return formattedAddress;
+	}
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
+	}
+	public Date getAccidentDateTime() {
 		return accidentDateTime;
 	}
-	public void setReportedDateTime(Date reportedDateTime) {
+	public void setAccidentDateTime(Date reportedDateTime) {
 		this.accidentDateTime = reportedDateTime;
 	}
 	public int getNumOfCasualties() {

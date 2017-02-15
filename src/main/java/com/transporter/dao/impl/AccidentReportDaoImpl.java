@@ -48,4 +48,12 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccidentReport> getPendingAccidentReport() {
+		return session.getCurrentSession().createQuery("from AccidentReport "
+				+ "where approvedBy=null "
+				+ "and resolvedBy=null").list();
+	}
+
 }
