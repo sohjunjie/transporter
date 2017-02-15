@@ -62,7 +62,10 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 
 	@Transactional
 	public void delete(int reportId) {
-		// TODO: Delete image in server
+		AccidentReport accidentReport = getAccidentReport(reportId);
+		String imageLink = accidentReport.getImageLink();
+		ImageUpload imageUpload = new ImageUpload(resourcePath);
+		imageUpload.delete(imageLink, context);
 		accidentReportDao.delete(reportId);
 	}
 
