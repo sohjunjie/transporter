@@ -38,6 +38,12 @@ public class ImageUpload {
 		return "";
 	}
 
+	public void delete(String imagePath, ServletContext context){
+		File imageFile = new File(context.getRealPath(resourcePath + imagePath));
+		if (imageFile.exists())
+			imageFile.delete();
+	}
+
 	private String getFileExtension(String originalFileName){
 		String[] splitFileName = originalFileName.split("\\.");
 		return splitFileName[splitFileName.length-1];
