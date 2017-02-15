@@ -22,6 +22,7 @@ function event_deletePendingAccident(reportId){
 		success :  function(response){
 			if(response){
 				// UPDATE VIEW PENDING - REMOVE CURRENT ROW FROM VIEW
+				location.reload();
 			}
 		},
 		error : function(e) {console.log(e);},
