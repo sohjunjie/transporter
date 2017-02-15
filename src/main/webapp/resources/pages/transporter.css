@@ -22,3 +22,21 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+
+.emptyTableMessage{
+    text-align: center;
+    display:block;
+	color: #cabcbc;
+}
+.emptyTableMessage > .msgContent {
+	height: inherit;
+    display:table-cell;
+    vertical-align:middle;
+}
+.emptyTableMessage > .msgContent > span{
+	font-size: 3em;
+}
+.emptyTableMessage > .msgContent > i{
+	font-size: 8em;	
+}
