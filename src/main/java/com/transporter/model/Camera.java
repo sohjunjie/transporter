@@ -37,6 +37,63 @@ public class Camera {
 	@Enumerated(EnumType.ORDINAL)
 	private CameraStatus status;
 	
-	public Camera(){ }
+	public Camera(int cameraId, Date dateInstalled, double longitude, double latitude, CameraType type, CameraStatus status){ 
+		this.cameraId = cameraId;
+		this.dateInstalled = dateInstalled;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.type = type;
+		this.status = status;
+	}
+
+	public int getCameraId() {
+		return cameraId;
+	}
+
+	public void setCameraId(int cameraId) {
+		this.cameraId = cameraId;
+	}
+
+	public Date getDateInstalled() {
+		return dateInstalled;
+	}
+
+	public void setDateInstalled(Date dateInstalled) {
+		this.dateInstalled = dateInstalled;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public CameraType getType() {
+		return type;
+	}
+
+	public void setType(CameraType type) {
+		this.type = type;
+	}
+
+	public CameraStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(CameraStatus status) {
+		this.status = status;
+	}
+	
+
 	
 }
