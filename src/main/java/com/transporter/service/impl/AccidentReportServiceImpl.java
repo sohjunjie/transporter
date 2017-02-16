@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.transporter.dao.AccidentReportDao;
 import com.transporter.model.AccidentReport;
+import com.transporter.model.user.AuthenticatedUser;
+import com.transporter.model.user.LTAPersonnel;
 import com.transporter.service.AccidentReportService;
 import com.transporter.util.ImageUpload;
 
@@ -82,6 +84,26 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	@Transactional
 	public List<AccidentReport> getPendingAccidentReport() {
 		return accidentReportDao.getPendingAccidentReport();
+	}
+
+	@Transactional
+	public boolean approveAccidentReport(AuthenticatedUser authUser, int reportId) {
+		if(!(authUser instanceof LTAPersonnel)) return false;
+		AccidentReport accidentReport = this.getAccidentReport(reportId);
+		accidentReport.setApprovedBy((LTAPersonnel) authUser);
+		accidentReport.setApprovedDateTime(new Date());
+		this.edit(accidentReport);
+		return true;
+	}
+
+	@Transactional
+	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId) {
+		if(!(authUser instanceof LTAPersonnel)) return false;
+		AccidentReport accidentReport = this.getAccidentReport(reportId);
+		accidentReport.setResolvedBy((LTAPersonnel) authUser);
+		accidentReport.setResolvedDateTime(new Date());
+		this.edit(accidentReport);
+		return true;
 	}
 
 }
