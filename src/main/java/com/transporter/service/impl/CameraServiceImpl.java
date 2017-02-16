@@ -6,14 +6,16 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.transporter.dao.AccidentReportDao;
 import com.transporter.dao.CameraDao;
 import com.transporter.model.Camera;
 import com.transporter.model.Camera.CameraStatus;
 import com.transporter.model.Camera.CameraType;
 import com.transporter.service.CameraService;
 
+@Service
 public class CameraServiceImpl implements CameraService {
 
 	@Autowired
@@ -22,73 +24,73 @@ public class CameraServiceImpl implements CameraService {
 	@Autowired
 	private CameraDao cameraDao;
 	
-	@Override
+	@Transactional
 	public void add(int cameraId, Date dateInstalled, double longitude, double latitude, CameraType type, CameraStatus status) {
 		Camera camera = new Camera(cameraId, dateInstalled, longitude, latitude, type, status);
 		cameraDao.add(camera);
 	}
 
-	@Override
+	@Transactional
 	public void edit(Camera camera) {
 		cameraDao.edit(camera);
 	}
 
-	@Override
+	@Transactional
 	public Camera getCamera(int cameraId) {
 		return cameraDao.getCamera(cameraId);
 	}
 
-	@Override
+	@Transactional
 	public void delete(int cameraId) {
 		cameraDao.delete(cameraId);
 	}
 
-	@Override
+	@Transactional
 	public List<Camera> getAllCamera() {
 		return cameraDao.getAllCamera();
 	}
 
-	@Override
+	@Transactional
 	public List<Camera> getAllSpeedCamera() {
 		return cameraDao.getAllSpeedCamera();
 	}
 
-	@Override
+	@Transactional
 	public List<Camera> getAllTrafficCamera() {
 		return cameraDao.getAllTrafficCamera();
 	}
 
-	@Override
+	@Transactional
 	public List<Camera> getAllPendingCamera() {
 		return cameraDao.getAllPendingCamera();
 	}
 
-	@Override
+	@Transactional
 	public List<Camera> getAllInstalledCamera() {
 		return cameraDao.getAllInstalledCamera();
 	}
 
-	@Override
+	@Transactional
 	public Long getCameraCount() {
 		return cameraDao.getCameraCount();
 	}
 
-	@Override
+	@Transactional
 	public Long getSpeedCameraCount() {
 		return cameraDao.getSpeedCameraCount();
 	}
 
-	@Override
+	@Transactional
 	public Long getTrafficCameraCount() {
 		return cameraDao.getTrafficCameraCount();
 	}
 
-	@Override
+	@Transactional
 	public Long getPendingCameraCount() {
 		return cameraDao.getPendingCameraCount();
 	}
 
-	@Override
+	@Transactional
 	public Long getInstalledCameraCount() {
 		return cameraDao.getInstalledCameraCount();
 	}
