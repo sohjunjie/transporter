@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.transporter.dao.CameraDao;
-import com.transporter.model.AccidentReport;
 import com.transporter.model.Camera;
 import com.transporter.model.Camera.CameraStatus;
 import com.transporter.model.Camera.CameraType;
 
+@Repository
 public class CameraDaoImpl implements CameraDao {
 
 	@Autowired
