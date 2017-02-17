@@ -18,7 +18,7 @@
 	                <span></span>
 	        </div>
 	        <div id="accidentToResolve" class="row" style="padding-bottom:15px;">
-				<div class="col-lg-4" style="text-align:center;"">
+				<div class="col-lg-4" style="text-align:center;">
 					<img id="accidentToResolveImage">
 				</div>
 				<div class="col-lg-8">

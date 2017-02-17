@@ -13,7 +13,7 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 <!-- css library include -->
-<%@ include file="/WEB-INF/jsp/include_accident/approved_css.jsp"%>
+<%@ include file="/WEB-INF/jsp/include_accident/approved/approved_css.jsp"%>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -31,7 +31,7 @@
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
 		<!-- Resolve Accident Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_accident/resolve_popup.jsp"%>
+		<%@ include file="/WEB-INF/jsp/include_accident/approved/resolve_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -53,7 +53,7 @@
 						<div id="map"></div>
 					</div>
 					<div class="col-lg-6 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_accident/approved_viewer.jsp"%>
+						<%@ include file="/WEB-INF/jsp/include_accident/approved/approved_viewer.jsp"%>
 					</div>
 				</div>
 			</section>
@@ -70,7 +70,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_accident/approved_js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/include_accident/approved/approved_js.jsp"%>
 
 </body>
 </html>
