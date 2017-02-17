@@ -2,7 +2,7 @@ $(document).ready(function() {
 	setDateTimePicker();
 	setImageUploadUI();
 	event_PendingReportCountUpdater();
-	event_PendingReportCountUpdater();
+	event_ApprovedReportCountUpdater();
 //	window.setInterval(function(){event_PendingReportCountUpdater()}, 60000);
 });
 
@@ -48,6 +48,20 @@ function event_PendingReportCountUpdater(){
 				$('#pending_report_count_badge').text(response);
 			}else{
 				$('#pending_report_count_badge').text("");
+			}
+		}
+	});
+}
+
+function event_ApprovedReportCountUpdater(){	
+	$.ajax({
+		type : 'GET',
+		url  : pagectx + '/accident/report/approved/count',
+		success :  function(response){
+			if(parseInt(response) > 0){
+				$('#approved_report_count_badge').text(response);
+			}else{
+				$('#approved_report_count_badge').text("");
 			}
 		}
 	});
