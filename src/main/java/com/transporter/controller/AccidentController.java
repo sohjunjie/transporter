@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
 
@@ -44,8 +45,10 @@ public class AccidentController {
 	@RequestMapping(value = "/report/approve", method=RequestMethod.POST)
 	public @ResponseBody String approvePendingAccident(@RequestParam int reportId, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
-		// Method to approve pending report
-		return "";
+		AuthenticatedUser authUser = (AuthenticatedUser) httpSession.getAttribute("user");
+		boolean success = accidentReportService.approveAccidentReport(authUser, reportId);
+		if(!success) return "";
+		return "OK";
 	}
 
 	@RequestMapping(value = "/report/reject", method=RequestMethod.POST)
@@ -58,8 +61,10 @@ public class AccidentController {
 	@RequestMapping(value = "/report/resolve", method=RequestMethod.POST)
 	public @ResponseBody String resolvePendingAccident(@RequestParam int reportId, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
-		// Method to resolve pending report
-		return "";
+		AuthenticatedUser authUser = (AuthenticatedUser) httpSession.getAttribute("user");
+		boolean success = accidentReportService.resolveAccidentReport(authUser, reportId);
+		if(!success) return "";
+		return "OK";
 	}
 
 	@RequestMapping(value = "/report/pending/count", method=RequestMethod.GET)

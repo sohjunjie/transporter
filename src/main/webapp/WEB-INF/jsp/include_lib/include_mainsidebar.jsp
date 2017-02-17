@@ -23,7 +23,7 @@
 								</a></li>
 
 							<li><a href="#">
-								<i class="fa fa-flag-o" style="color:red"></i> Resolved Approved
+								<i class="fa fa-flag-o" style="color:red"></i> Resolve Approved
 								</a></li>
 							<% } %>
 						</ul></li>

@@ -2,7 +2,6 @@ package com.transporter.dao;
 
 import java.util.List;
 
-import com.transporter.model.AccidentReport;
 import com.transporter.model.Camera;
 
 public interface CameraDao {
