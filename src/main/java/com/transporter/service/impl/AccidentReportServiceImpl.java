@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.transporter.dao.AccidentCauseDao;
 import com.transporter.dao.AccidentReportDao;
+import com.transporter.model.AccidentCause;
 import com.transporter.model.AccidentReport;
 import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.model.user.LTAPersonnel;
@@ -32,7 +34,9 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 
 	@Autowired
 	private AccidentReportDao accidentReportDao;
-
+	@Autowired
+	private AccidentCauseDao accidentCauseDao;
+	
 	@Transactional
 	public boolean add(String accidentLocation, double lat, double lng, Date accidentDateTime, String accidentDescription, MultipartFile accidentImage) {
 
@@ -97,11 +101,17 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	}
 
 	@Transactional
-	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId) {
+	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId, int causeId, int numOfCasualties) {
 		if(!(authUser instanceof LTAPersonnel)) return false;
+
 		AccidentReport accidentReport = this.getAccidentReport(reportId);
+		AccidentCause accidentCause = accidentCauseDao.getAccidentCause(causeId);
+
 		accidentReport.setResolvedBy((LTAPersonnel) authUser);
 		accidentReport.setResolvedDateTime(new Date());
+		accidentReport.setOfficialCause(accidentCause);
+		accidentReport.setNumOfCasualties(numOfCasualties);
+
 		this.edit(accidentReport);
 		return true;
 	}

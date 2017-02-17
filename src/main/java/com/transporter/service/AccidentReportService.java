@@ -23,6 +23,6 @@ public interface AccidentReportService {
 	public List<AccidentReport> getApprovedAccidentReport();
 	
 	public boolean approveAccidentReport(AuthenticatedUser authUser, int reportId);
-	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId);
+	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId, int causeId, int numOfCasualties);
 	
 }
