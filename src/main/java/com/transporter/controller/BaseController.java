@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.transporter.model.AccidentCause;
 import com.transporter.model.AccidentReport;
+import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
 
@@ -25,6 +28,8 @@ public class BaseController {
 	private AuthenticatedUserService authUserService;
 	@Autowired
 	private AccidentReportService accidentReportService;
+	@Autowired
+	private AccidentCauseService accidentCauseService;
 
 	@RequestMapping("/")
 	public String goMainPage(){
@@ -39,6 +44,16 @@ public class BaseController {
 		return "accident_view_pending";
 	}
 
+	@RequestMapping(value = "/accident/approved", method=RequestMethod.GET)
+	public String goAccidentReportResolveApproved(Map<String, Object> map, HttpSession httpSession) {
+		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		List<AccidentReport> approvedAccidents = accidentReportService.getApprovedAccidentReport();
+		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
+		map.put("approvedAccidents", approvedAccidents);
+		map.put("accidentCauses", accidentCauses);
+		return "accident_view_approved";
+	}
+	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.invalidate();

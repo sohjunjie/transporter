@@ -17,13 +17,15 @@
 							<li id="vert_acc_menu_pending"><a href="${pageContext.servletContext.contextPath}/accident/pending">
 								<i class="fa fa-flag-o" style="color:white"></i> Pending Report
 								<span class="pull-right-container">
-								<!-- TODO: badge showing number of reports pending approval -->
 								<span id="pending_report_count_badge" class="label label-primary pull-right"></span>
 								</span>
 								</a></li>
 
-							<li><a href="#">
+							<li id="vert_acc_menu_approved"><a href="${pageContext.servletContext.contextPath}/accident/approved">
 								<i class="fa fa-flag-o" style="color:red"></i> Resolve Approved
+								<span class="pull-right-container">
+								<span id="approved_report_count_badge" class="label label-primary pull-right"></span>
+								</span>
 								</a></li>
 							<% } %>
 						</ul></li>

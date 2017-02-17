@@ -37,19 +37,23 @@
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>
 	
-	<script src="${resourcePath}/pages/accident/pending.js"></script>
+	<script src="${resourcePath}/pages/accident/approved.js"></script>
 	<script src="${resourcePath}/pages/accident/image_popup.js"></script>
+	<script src="${resourcePath}/pages/accident/resolve-popup.js"></script>
+	<script src="${resourcePath}/pages/accident/resolve.js"></script>
 
 	<script src="${resourcePath}/pages/transporter.js"></script>
-	
+
 	<!-- Script Variables -->
 	<script>
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var googleApiKey = "${properties['api.google.services']}";
 	</script>
+
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&callback=initMap" type="text/javascript"></script>
 	<script>
+    var pagectx = "${pageContext.servletContext.contextPath}";
 	var markers = {};
 	var sgmap;
 
@@ -64,10 +68,10 @@
 		});
 
 		// initialise pending accident locations
-		<c:forEach items="${pendingAccidents}" var="pAccident">
-		addMarkerToMap(${pAccident.latitude},
-				${pAccident.longitude}, sgmap,
-				${pAccident.reportId}, pagectx + '/resources/icons/accident_pending32x32.png');
+		<c:forEach items="${approvedAccidents}" var="aAccident">
+		addMarkerToMap(${aAccident.latitude},
+				${aAccident.longitude}, sgmap,
+				${aAccident.reportId}, pagectx + '/resources/icons/accident_approved32x32.png');
 		</c:forEach>
 	}
 
@@ -96,4 +100,3 @@
 		markers = [];
 	}
     </script>
-	
