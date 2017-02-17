@@ -31,8 +31,10 @@
 						</ul></li>
 
 					<% if (session.getAttribute("username") != null) { %>
-					<li><a href="${pageContext.servletContext.contextPath}/camera/suggest"> <i class="fa fa-video-camera"></i>
-							<span>Enforcement Camera</span></a>
+					<li id="vert_cam_menu" class="treeview"><a href="${pageContext.servletContext.contextPath}/camera/suggest"> <i class="fa fa-video-camera"></i>
+							<span>Enforcement Camera</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
+								</span></a>
 						<ul class="treeview-menu">
 							<li id="vert_cam_menu_suggest"><a href="${pageContext.servletContext.contextPath}/camera/suggest">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Suggest Camera</a></li>

@@ -132,7 +132,7 @@
 				};
 
 				// Update our marker for each place.
-				marker.setPosition(place.geometry.location)
+				marker.setPosition(place.geometry.location);
 				
 				if (place.geometry.viewport) {
 				  	// Only geocodes have viewport.
