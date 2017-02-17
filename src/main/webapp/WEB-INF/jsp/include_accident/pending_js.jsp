@@ -41,11 +41,15 @@
 	<script src="${resourcePath}/pages/accident/image_popup.js"></script>
 
 	<script src="${resourcePath}/pages/transporter.js"></script>
-
-	<!-- Google map api -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Cha4wQszJ2djt-AxJ_tYfGhSI70IDpk&region=SG&callback=initMap" type="text/javascript"></script>
+	
+	<!-- Script Variables -->
 	<script>
     var pagectx = "${pageContext.servletContext.contextPath}";
+	var googleApiKey = "${properties['api.google.services']}";
+	</script>
+	<!-- Google map api -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&callback=initMap" type="text/javascript"></script>
+	<script>
 	var markers = {};
 	var sgmap;
 
