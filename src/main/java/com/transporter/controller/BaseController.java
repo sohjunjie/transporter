@@ -39,7 +39,7 @@ public class BaseController {
 		return "accident_view_pending";
 	}
 
-	@RequestMapping(value = "/accident/approve", method=RequestMethod.GET)
+	@RequestMapping(value = "/accident/approved", method=RequestMethod.GET)
 	public String goAccidentReportResolveApproved(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
 		List<AccidentReport> approvedAccidents = accidentReportService.getPendingAccidentReport();

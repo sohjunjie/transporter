@@ -21,7 +21,7 @@
 								</span>
 								</a></li>
 
-							<li id="vert_acc_menu_approve"><a href="${pageContext.servletContext.contextPath}/accident/approve">
+							<li id="vert_acc_menu_approved"><a href="${pageContext.servletContext.contextPath}/accident/approved">
 								<i class="fa fa-flag-o" style="color:red"></i> Resolve Approved
 								<span class="pull-right-container">
 								<span id="approved_report_count_badge" class="label label-primary pull-right"></span>

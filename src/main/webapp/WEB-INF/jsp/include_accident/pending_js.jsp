@@ -67,14 +67,14 @@
 		</c:forEach>
 	}
 
-	function addMarkerToMap(lat, lng, map, pid, iconImg) {
+	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			icon: iconImg
 		});
-		markers[pid] = marker;
+		markers[reportId] = marker;
 	}
 
     function setMapOnAll(map) {
