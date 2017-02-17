@@ -1,7 +1,7 @@
 $('#vert_acc_menu').addClass('active');
 $('#vert_acc_menu_approved').addClass('active');
 
-$('.aAccidentApprove').on( "click", function() {
+$('.aAccidentResolve').on( "click", function() {
 	event_resolveApprovedAccident(this.value);
 });
 $('.aAccidentMapLoc').on( "click", function() {

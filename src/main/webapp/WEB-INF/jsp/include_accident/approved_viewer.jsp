@@ -17,7 +17,7 @@
 						    <td><div class="itemOptions">
 									<button value="${aAccident.reportId}" type="button" class="close aAccidentMapLoc">
 	          							<i class="fa fa-map-marker"></i></button>
-									<button value="${aAccident.reportId}" type="button" class="close aAccidentApprove">
+									<button value="${aAccident.reportId}" type="button" class="close aAccidentResolve">
 	          							<i class="fa fa-check"></i></button>
 						    	</div>
 							</td></tr>

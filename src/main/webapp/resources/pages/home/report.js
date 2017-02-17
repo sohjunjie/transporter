@@ -16,7 +16,6 @@ function event_reportAccidentAjax(){
         	var data = new FormData();
         	data.append("lat", marker.position.lat());
         	data.append("lng", marker.position.lng());
-        	data.append("lng", marker.position.lng());
         	data.append("accidentLocation", $("#accidentLocation").val());
         	data.append("accidentDescription", $("#reportAccidentDescription").val());
         	data.append("accidentDateTime", $("#accidentOccuredDatetime").val());
@@ -61,7 +60,7 @@ function event_reportAccidentValidate(){
         	accidentImage: "required"
         },
         messages: {
-        	reportAccidentDescription: "Please select cause of accident from the options",
+        	reportAccidentDescription: "Please give a description of the accident",
         	accidentOccuredDatetime: "Please enter the datetime of the accident",
         	accidentOccuredDatetime: "Please upload an image of the accident"
         },

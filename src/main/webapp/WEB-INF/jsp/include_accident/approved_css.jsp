@@ -65,6 +65,6 @@
 .itemOptions > button:focus, .itemOptions > button:hover {opacity: 1;}
 #accident_approved_viewer_table  > table > tbody > tr:hover .itemOptions{display:block;}
 .aAccidentDelete{color: #e83030 !important;}
-.aAccidentApprove{color: #07e007 !important;}
+.aAccidentResolve{color: #07e007 !important;}
 .aAccidentMapLoc{color: #413dea !important;}
 </style>
