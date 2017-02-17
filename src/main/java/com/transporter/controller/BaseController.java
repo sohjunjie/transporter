@@ -39,6 +39,14 @@ public class BaseController {
 		return "accident_view_pending";
 	}
 
+	@RequestMapping(value = "/accident/approve", method=RequestMethod.GET)
+	public String goAccidentReportResolveApproved(Map<String, Object> map, HttpSession httpSession) {
+		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		List<AccidentReport> approvedAccidents = accidentReportService.getPendingAccidentReport();
+		map.put("approvedAccidents", approvedAccidents);
+		return "accident_view_approved";
+	}
+	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.invalidate();

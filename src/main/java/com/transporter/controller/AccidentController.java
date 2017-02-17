@@ -69,9 +69,18 @@ public class AccidentController {
 
 	@RequestMapping(value = "/report/pending/count", method=RequestMethod.GET)
 	public @ResponseBody String getPendingAccidentCount(){
-		if(accidentReportService.getPendingAccidentCount() > 0)
-			return Long.toString(accidentReportService.getPendingAccidentCount());
+		Long pendingAccidentCount = accidentReportService.getPendingAccidentCount();
+		if(pendingAccidentCount > 0)
+			return Long.toString(pendingAccidentCount);
 		return "";
 	}
 
+	@RequestMapping(value = "/report/approved/count", method=RequestMethod.GET)
+	public @ResponseBody String getApprovedAccidentCount(){
+		Long approvedAccidentCount = accidentReportService.getApprovedAccidentCount();
+		if(approvedAccidentCount > 0)
+			return Long.toString(approvedAccidentCount);
+		return "";
+	}
+	
 }

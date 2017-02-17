@@ -19,6 +19,9 @@ public interface AccidentReportService {
 	public Long getPendingAccidentCount();
 	public List<AccidentReport> getPendingAccidentReport();
 
+	public Long getApprovedAccidentCount();
+	public List<AccidentReport> getApprovedAccidentReport();
+	
 	public boolean approveAccidentReport(AuthenticatedUser authUser, int reportId);
 	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId);
 	

@@ -14,5 +14,8 @@ public interface AccidentReportDao {
 	
 	public Long getPendingAccidentCount();
 	public List<AccidentReport> getPendingAccidentReport();
+
+	public Long getApprovedAccidentCount();
+	public List<AccidentReport> getApprovedAccidentReport();
 	
 }

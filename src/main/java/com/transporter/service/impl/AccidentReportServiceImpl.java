@@ -106,4 +106,14 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		return true;
 	}
 
+	@Transactional
+	public Long getApprovedAccidentCount() {
+		return accidentReportDao.getApprovedAccidentCount();
+	}
+
+	@Transactional
+	public List<AccidentReport> getApprovedAccidentReport() {
+		return accidentReportDao.getApprovedAccidentReport();
+	}
+
 }
