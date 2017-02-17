@@ -48,7 +48,6 @@
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var markers = {};
 	var sgmap;
-	var infowindow;
 
 	function initMap() {
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
@@ -59,7 +58,6 @@
 			streetViewControl: false,
 			fullscreenControl: false
 		});
-		infowindow = new google.maps.InfoWindow();
 
 		// initialise pending accident locations
 		<c:forEach items="${pendingAccidents}" var="pAccident">
