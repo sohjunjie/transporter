@@ -63,8 +63,6 @@
 		<!-- Control Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_controlsidebar.jsp"%>
 
-
-
 	</div>
 
 	<!-- JS Library Include -->

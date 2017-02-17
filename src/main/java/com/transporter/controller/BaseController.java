@@ -18,7 +18,7 @@ import com.transporter.service.AuthenticatedUserService;
 
 /**
  * BaseController class handle request for a page
- * and redirect user to the request page
+ * and redirect user to the requested page
  * @author Soh Jun Jie
  */
 @Controller
@@ -53,7 +53,13 @@ public class BaseController {
 		map.put("accidentCauses", accidentCauses);
 		return "accident_view_approved";
 	}
-	
+
+	@RequestMapping(value = "/camera/suggest", method=RequestMethod.GET)
+	public String goSuggestCameraPage(Map<String, Object> map, HttpSession httpSession) {
+		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		return "camera_suggest";
+	}
+
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.invalidate();
