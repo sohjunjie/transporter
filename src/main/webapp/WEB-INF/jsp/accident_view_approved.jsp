@@ -30,6 +30,9 @@
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
+		<!-- Resolve Accident Popup Form Include -->
+		<%@ include file="/WEB-INF/jsp/include_accident/resolve_popup.jsp"%>
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
