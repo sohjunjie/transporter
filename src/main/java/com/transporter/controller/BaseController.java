@@ -42,7 +42,7 @@ public class BaseController {
 	@RequestMapping(value = "/accident/approved", method=RequestMethod.GET)
 	public String goAccidentReportResolveApproved(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
-		List<AccidentReport> approvedAccidents = accidentReportService.getPendingAccidentReport();
+		List<AccidentReport> approvedAccidents = accidentReportService.getApprovedAccidentReport();
 		map.put("approvedAccidents", approvedAccidents);
 		return "accident_view_approved";
 	}
