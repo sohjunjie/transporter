@@ -32,6 +32,21 @@ function event_deletePendingAccident(reportId){
 
 function event_approvePendingAccident(reportId){
 	//send ajax approve pending accident
+	data = {}
+	data['reportId'] = reportId;
+	$.ajax({
+		type : 'POST',
+		url  : pagectx + '/accident/report/approve',
+		data : data,
+		success :  function(response){
+			if(response){
+				// UPDATE VIEW PENDING - REMOVE CURRENT ROW FROM VIEW
+				location.reload();
+			}
+		},
+		error : function(e) {console.log(e);},
+		done : function(e) {console.log(e);}
+	});
 }
 
 function event_getPendingAccidentMapLoc(reportId){

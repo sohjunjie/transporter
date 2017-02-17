@@ -49,7 +49,7 @@
 	var markers = {};
 	var sgmap;
 	var infowindow;
-	
+
 	function initMap() {
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
@@ -61,12 +61,11 @@
 		});
 		infowindow = new google.maps.InfoWindow();
 
-		// TODO: CUSTOMISE LEGENDS
 		// initialise pending accident locations
 		<c:forEach items="${pendingAccidents}" var="pAccident">
 		addMarkerToMap(${pAccident.latitude},
 				${pAccident.longitude}, sgmap,
-				${pAccident.reportId}, pagectx + '/resources/icons/accident_report32x32.png');
+				${pAccident.reportId}, pagectx + '/resources/icons/accident_pending32x32.png');
 		</c:forEach>
 	}
 
