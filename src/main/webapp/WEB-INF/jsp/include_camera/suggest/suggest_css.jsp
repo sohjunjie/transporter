@@ -37,6 +37,9 @@
 <!-- transporter -->
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
 
+<!-- suggest camera popup form -->
+<link rel="stylesheet" href="${resourcePath}/pages/camera/suggest-camera-popup.css">
+
 <style>
 #map {
 	width: 100%;

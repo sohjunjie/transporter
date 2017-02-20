@@ -32,6 +32,9 @@
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
+		<!-- Suggest Camera Popup Form Include -->
+		<%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_camera_popup.jsp"%>
+
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
