@@ -29,14 +29,14 @@ public class Camera {
 	@Column
 	private Date dateInstalled;
 	@Column
+	private String formattedAddress;
+	@Column
 	private double longitude;
 	@Column
 	private double latitude;
-
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraType type;
-
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraStatus status;
@@ -64,6 +64,14 @@ public class Camera {
 
 	public void setDateInstalled(Date dateInstalled) {
 		this.dateInstalled = dateInstalled;
+	}
+
+	public String getFormattedAddress() {
+		return formattedAddress;
+	}
+
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
 	}
 
 	public double getLongitude() {

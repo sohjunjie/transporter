@@ -1,9 +1,10 @@
+<!-- TODO: Refine suggest camera popup form -->
 <div id="suggest_camera_modal" class="modal">
 
 	<!-- Modal content -->
 	<div class="camera-modal-content box box-info">
 	    <div class="box-header ui-sortable-handle">
-	      <i class="fa fa-video-camera"></i>	
+	      <i class="fa fa-video-camera"></i>
 	      <h3 class="box-title">Suggest Camera</h3>
 	      <!-- tools box -->
 	      <div class="pull-right box-tools">
@@ -20,24 +21,21 @@
 			<form class="suggest-camera-form" action="" method="post">
 				<div>
 					<div class="form-group">
-				    	<label>Accident Location</label>
-				    	<input id="accidentLocation" type="text" class="form-control" name="accidentLocation" disabled>
+				    	<label>Camera Location</label>
+				    	<input id="cameraLocation" type="text" class="form-control" name="cameraLocation" disabled>
 				  	</div>
 					<div class="form-group">
 				    	<label>Latitude</label>
-				    	<input id="accidentLatitude" type="text" class="form-control" name="accidentLatitude" disabled>
+				    	<input id="cameraLatitude" type="text" class="form-control" name="cameraLatitude" disabled>
 				  	</div>
 						<div class="form-group">
 				    	<label>Longitude</label>
-				    	<input id="accidentLongitude" type="text" class="form-control" name="accidentLongitude" disabled>
+				    	<input id="cameraLongitude" type="text" class="form-control" name="cameraLongitude" disabled>
 				  	</div>
-					<div class="form-group">
-				    	<label>Brief description of accident</label>
-				    	<input id="reportAccidentDescription" type="text" class="form-control" name="reportAccidentDescription">
-				  	</div>
+
 				  	<div class="form-group">
-				    	<label>Accident date and time</label>
-				    	<input id="accidentOccuredDatetime" type="text" class="datetimepicker form-control" name="accidentOccuredDatetime">
+				    	<label>Installed date and time</label>
+				    	<input id="cameraInstalledDatetime" type="text" class="datetimepicker form-control" name="cameraInstalledDatetime">
 				  	</div>
 				</div>
 
