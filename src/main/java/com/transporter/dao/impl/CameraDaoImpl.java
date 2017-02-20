@@ -41,42 +41,49 @@ public class CameraDaoImpl implements CameraDao {
 	@SuppressWarnings("unchecked")
 	public List<Camera> getAllSpeedCamera() {
 		return session.getCurrentSession().createQuery("from Camera "
-				+ "where type="+CameraType.SPEED).list();
+				+ "where type=" + CameraType.SPEED.ordinal()).list();
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Camera> getAllTrafficCamera() {
 		return session.getCurrentSession().createQuery("from Camera "
-				+ "where type="+CameraType.TRAFFIC).list();
+				+ "where type=" + CameraType.TRAFFIC.ordinal()).list();		
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<Camera> getAllPendingCamera() {
 		return session.getCurrentSession().createQuery("from Camera "
-				+ "where status="+CameraStatus.PENDING).list();
+				+ "where status=" + CameraStatus.PENDING.ordinal()).list();
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<Camera> getAllInstalledCamera() {
 		return session.getCurrentSession().createQuery("from Camera "
-				+ "where status="+CameraStatus.INSTALLED).list();
+				+ "where status=" + CameraStatus.INSTALLED.ordinal()).list();
 	}
-	
+
 	public Long getCameraCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from Camera ").uniqueResult();
 	}
+
 	public Long getSpeedCameraCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from Camera "
-				+ "where type="+CameraType.SPEED).uniqueResult();
+				+ "where type=" + CameraType.SPEED.ordinal()).uniqueResult();
 	}
+
 	public Long getTrafficCameraCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from Camera "
-				+ "where type="+CameraType.TRAFFIC).uniqueResult();
+				+ "where type=" + CameraType.TRAFFIC.ordinal()).uniqueResult();
 	}
+
 	public Long getPendingCameraCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from Camera "
-				+ "where status="+CameraStatus.PENDING).uniqueResult();
+				+ "where status=" + CameraStatus.PENDING.ordinal()).uniqueResult();
 	}
+
 	public Long getInstalledCameraCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from Camera "
-				+ "where status="+CameraStatus.INSTALLED).uniqueResult();
+				+ "where status=" + CameraStatus.INSTALLED.ordinal()).uniqueResult();
 	}
 	
 }

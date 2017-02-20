@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.transporter.model.AccidentCause;
 import com.transporter.model.AccidentReport;
+import com.transporter.model.Camera;
 import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
+import com.transporter.service.CameraService;
 
 /**
  * BaseController class handle request for a page
@@ -30,6 +32,8 @@ public class BaseController {
 	private AccidentReportService accidentReportService;
 	@Autowired
 	private AccidentCauseService accidentCauseService;
+	@Autowired
+	private CameraService cameraService;	
 
 	@RequestMapping("/")
 	public String goMainPage(){
@@ -57,6 +61,12 @@ public class BaseController {
 	@RequestMapping(value = "/camera/suggest", method=RequestMethod.GET)
 	public String goSuggestCameraPage(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+
+		List<Camera> speedCamera = cameraService.getAllSpeedCamera();
+		List<Camera> trafficCamera = cameraService.getAllTrafficCamera();
+		map.put("speedCamera", speedCamera);
+		map.put("trafficCamera", trafficCamera);
+
 		return "camera_suggest";
 	}
 

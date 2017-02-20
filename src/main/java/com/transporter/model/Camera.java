@@ -32,8 +32,12 @@ public class Camera {
 	private double longitude;
 	@Column
 	private double latitude;
+
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraType type;
+
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraStatus status;
 	
