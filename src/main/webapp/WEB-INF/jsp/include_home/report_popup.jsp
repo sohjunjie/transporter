@@ -51,7 +51,7 @@
 					    	<label>Brief description of accident</label>
 					    	<input id="reportAccidentDescription" type="text" class="form-control" name="reportAccidentDescription">
 					  	</div>
-					  	<div class="form-group">
+					  	<div class="form-group" style="position: relative;">
 					    	<label>Accident date and time</label>
 					    	<input id="accidentOccuredDatetime" type="text" class="datetimepicker form-control" name="accidentOccuredDatetime">
 					  	</div></div>
