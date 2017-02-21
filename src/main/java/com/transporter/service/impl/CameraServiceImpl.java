@@ -1,6 +1,5 @@
 package com.transporter.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -25,8 +24,8 @@ public class CameraServiceImpl implements CameraService {
 	private CameraDao cameraDao;
 	
 	@Transactional
-	public void add(int cameraId, Date dateInstalled, double longitude, double latitude, CameraType type, CameraStatus status) {
-		Camera camera = new Camera(cameraId, dateInstalled, longitude, latitude, type, status);
+	public void add(int cameraId, double longitude, double latitude, CameraType type, CameraStatus status) {
+		Camera camera = new Camera(cameraId, longitude, latitude, type, status);
 		cameraDao.add(camera);
 	}
 
