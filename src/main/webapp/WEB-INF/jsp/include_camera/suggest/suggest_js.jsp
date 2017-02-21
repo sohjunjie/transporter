@@ -73,11 +73,20 @@
 			draggable: true
 		});
 
+		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow({
-		    content: "Drag pin to specify location of accident"
+		    content: "Drag pin to specify location to suggest camera"
 		});
+		document.getElementById('cameraLatitude').value = suggestMarker.position.lat();
+    	document.getElementById('cameraLongitude').value = suggestMarker.position.lng();
+    	geocodeLatLng(geocoder, suggestMarker);
+    	suggestMarker.addListener('dragend', function() {
+	    	document.getElementById('cameraLatitude').value = this.position.lat();
+	    	document.getElementById('cameraLongitude').value = this.position.lng();
+	    	geocodeLatLng(geocoder, this);
+	   	});
 		suggestMarker.addListener('click', function() {
-	        infowindow.open(sgmap, marker);
+	        infowindow.open(sgmap, suggestMarker);
 	   	});
 
 	    var suggestCameraBtn = document.getElementById('suggest_camera_btn');
@@ -156,5 +165,20 @@
     function deleteMarkers() {
 		clearMarkers();
 		markers = [];
+	}
+
+	function geocodeLatLng(geocoder, markerloc) {
+		var latlng = {lat: markerloc.position.lat(), lng: markerloc.position.lng()};
+		geocoder.geocode({'location': latlng}, function(results, status) {
+			if (status === 'OK') {
+				if (results[0]) {
+					document.getElementById('cameraLocation').value = results[0].formatted_address;
+			    } else {
+			    	document.getElementById('cameraLocation').value = "Location cannot be identified";
+			    }
+			} else {
+				document.getElementById('cameraLocation').value = "Location cannot be identified due to: " + status;
+			}
+		});
 	}
     </script>
