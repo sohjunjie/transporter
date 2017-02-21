@@ -68,16 +68,16 @@
 			fullscreenControl: false
 		});
 		marker = new google.maps.Marker({
-			position: sgloc,
+			position: currentloc,
 			map: sgmap,
 			draggable: true,
 			title: "Accident location"
 		});
-		currentmarker = new google.maps.Marker({
+		/*currentmarker = new google.maps.Marker({
 			position: currentloc,
 			map: sgmap,
 			title: "Current location"
-		});
+		});*/
     	
 		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow({
@@ -172,10 +172,10 @@
 
 	function getLocation() {
 	    if (navigator.geolocation) {
-	        navigator.geolocation.watchPosition(showPosition);
+	        navigator.geolocation.getCurrentPosition(showPosition);
 	    }
 	}
 	function showPosition(position) {
-		currentmarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
+		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
 	}
 	</script>
