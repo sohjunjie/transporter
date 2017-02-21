@@ -4,7 +4,7 @@ var reportAccidentClose = document.getElementById("report_modal_close");
 
 if(reportAccidentModal != null){
 	reportAccidentBtn.onclick = function() {
-		$('.datetimepicker').val(moment().format("DD/MM/YYYY HH:mm"))
+		$('.datetimepicker').val(moment().format("DD/MM/YYYY HH:mm"));
 		reportAccidentModal.style.display = "block";
 	}
 	reportAccidentClose.onclick = function() {

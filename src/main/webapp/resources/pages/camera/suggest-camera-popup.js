@@ -4,7 +4,6 @@ var suggestCameraClose = document.getElementById("suggest_camera_close");
 
 if(suggestCameraModal != null){
 	suggestCameraBtn.onclick = function() {
-		$('.datetimepicker').val(moment().format("DD/MM/YYYY HH:mm"))
 		suggestCameraModal.style.display = "block";
 	}
 	suggestCameraClose.onclick = function() {

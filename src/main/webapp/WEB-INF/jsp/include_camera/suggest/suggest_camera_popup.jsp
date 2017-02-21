@@ -32,11 +32,6 @@
 				    	<label>Longitude</label>
 				    	<input id="cameraLongitude" type="text" class="form-control" name="cameraLongitude" disabled>
 				  	</div>
-
-				  	<div class="form-group" style="position: relative;">
-				    	<label>Installed date and time</label>
-				    	<input id="cameraInstalledDatetime" type="text" class="datetimepicker form-control" name="cameraInstalledDatetime">
-				  	</div>
 				</div>
 
 			    <div class="box-footer clearfix">

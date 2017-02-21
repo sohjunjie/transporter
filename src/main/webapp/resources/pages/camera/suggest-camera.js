@@ -13,33 +13,29 @@ function event_reportAccidentAjax(){
         if(isvalidate){ return; }
 
     	var data = new FormData();
-    	data.append("lat", marker.position.lat());
-    	data.append("lng", marker.position.lng());
-    	data.append("accidentLocation", $("#accidentLocation").val());
-    	data.append("accidentDescription", $("#reportAccidentDescription").val());
-    	data.append("accidentDateTime", $("#accidentOccuredDatetime").val());
-    	data.append("accidentImage", $('#accidentImage')[0].files[0]);
+    	data.append("lat", suggestMarker.position.lat());
+    	data.append("lng", suggestMarker.position.lng());
+    	data.append("cameraLocation", $("#cameraLocation").val());
+    	data.append("cameraInstalledDatetime", $("#cameraInstalledDatetime").val());
 
 		$.ajax({
 			type : 'POST',
-			url  : pagectx + '/accident/report/new',
+			url  : pagectx + '/camera/suggest/new',
 			data : data,
 			dataType: 'text',
 			processData: false,
 			contentType: false,
 			success :  function(response){
 				if(response){
-					$('.imageupload').imageupload('reset');
-					$("#reportAccidentDescription").val("");
-					reportAccidentClose.click();
-					alert("The accident was successfully reported. Thank you for your contribution.");
+					suggestCameraClose.click();
+					alert("The camera was suggested.");
 				}else{
-					$("#suggest-camera-feedback > span").html("A problem was encountered sending an accident report.");
-					showAlert($( "#report-accident-feedback" ), "danger");
+					$("#suggest-camera-feedback > span").html("A problem was encountered suggesting camera.");
+					showAlert($( "#suggest-camera-feedback" ), "danger");
 				}
 			},
 			error : function(e) {
-				$("#suggest-camera-feedback > span").html("A problem was encountered sending an accident report.");
+				$("#suggest-camera-feedback > span").html("A problem was encountered suggesting camera.");
 				showAlert($( "#suggest-camera-feedback" ), "danger");
 			},
 			done : function(e) {}
