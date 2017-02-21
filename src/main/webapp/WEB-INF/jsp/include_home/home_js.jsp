@@ -54,10 +54,12 @@
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var marker;
 	var sgmap;
+	var currentmarker;
 
 	function initMap() {
 
-		var sgloc = {lat: 1.3553794, lng: 103.8677444};	    
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};	 
+		var currentloc = getLocation();
 		sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
 			center: sgloc,
@@ -70,6 +72,11 @@
 			map: sgmap,
 			draggable: true,
 			title: "Accident location"
+		});
+		currentmarker = new google.maps.Marker({
+			position: currentloc,
+			map: sgmap,
+			title: "Current location"
 		});
     	
 		var geocoder = new google.maps.Geocoder;
@@ -162,12 +169,13 @@
 	}
 
 //	https://www.w3schools.com/html/html5_geolocation.asp
-//	function getLocation() {
-//	    if (navigator.geolocation) {
-//	        navigator.geolocation.watchPosition(showPosition);
-//	    }
-//	}
-//	function showPosition(position) {
-//		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
-//	}
+
+	function getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.watchPosition(showPosition);
+	    }
+	}
+	function showPosition(position) {
+		currentmarker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
+	}
 	</script>
