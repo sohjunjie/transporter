@@ -1,7 +1,5 @@
 package com.transporter.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,19 +25,20 @@ public class Camera {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cameraId;
 	@Column
-	private Date dateInstalled;
+	private String formattedAddress;
 	@Column
 	private double longitude;
 	@Column
 	private double latitude;
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraType type;
+	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraStatus status;
 	
-	public Camera(int cameraId, Date dateInstalled, double longitude, double latitude, CameraType type, CameraStatus status){ 
+	public Camera(int cameraId, double longitude, double latitude, CameraType type, CameraStatus status){ 
 		this.cameraId = cameraId;
-		this.dateInstalled = dateInstalled;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.type = type;
@@ -54,12 +53,12 @@ public class Camera {
 		this.cameraId = cameraId;
 	}
 
-	public Date getDateInstalled() {
-		return dateInstalled;
+	public String getFormattedAddress() {
+		return formattedAddress;
 	}
 
-	public void setDateInstalled(Date dateInstalled) {
-		this.dateInstalled = dateInstalled;
+	public void setFormattedAddress(String formattedAddress) {
+		this.formattedAddress = formattedAddress;
 	}
 
 	public double getLongitude() {

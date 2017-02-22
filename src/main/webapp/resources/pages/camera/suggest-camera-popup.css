@@ -1,0 +1,9 @@
+#suggest_camera_modal {
+	padding-top: 50px;
+}
+
+.camera-modal-content {
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+}

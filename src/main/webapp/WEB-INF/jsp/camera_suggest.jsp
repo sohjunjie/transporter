@@ -8,14 +8,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <spring:url value="/resources" var="resourcePath" />
 
-<title>transporter | Home</title>
+<title>transporter | Suggest Camera</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
 
-<!-- CSS Library Include -->
-<%@ include file="/WEB-INF/jsp/include_home/home_css.jsp"%>
+<!-- css library include -->
+<%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_css.jsp"%>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,29 +28,29 @@
 		
 		<!-- Main Header Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainheader.jsp"%>
-		
+
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
-		<!-- Report Accident Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_home/report_popup.jsp"%>
+		<!-- Suggest Camera Popup Form Include -->
+		<%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_camera_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>Report Accident</h1>
+				<h1>Suggest Camera</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-car"></i> Accident</a></li>
-					<li class="active"><i class="fa fa-exclamation-circle"></i> Report Accident</li>
+					<li><a href="#"><i class="fa fa-video-camera"></i> Camera</a></li>
+					<li class="active">Suggest Camera</li>
 				</ol>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
 				<input id="pac_input" class="form-control" type="text" placeholder="Type address to search" style="width: 300px;">
-				<button id="report_accident_btn" class="btn btn-danger">
-					<i class="fa fa-exclamation-circle"></i> Report here!</button>
+				<button id="suggest_camera_btn" class="btn btn-info">
+					<i class="fa fa-video-camera"></i> Suggest here!</button>
 				<div id="map"></div>
 			</section>
 			<!-- /.content -->
@@ -66,7 +66,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_home/home_js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_js.jsp"%>
 
 </body>
 </html>

@@ -5,11 +5,11 @@
 				<!-- sidebar menu: : style can be found in sidebar.less -->
 				<ul class="sidebar-menu">
 					<li class="header">MAIN NAVIGATION</li>
-					<li id="vert_acc_menu" class="treeview"><a href="index"> <i class="fa fa-car"></i>
-							<span>Accident</span> <span class="pull-right-container"> 
-							<i class="fa fa-angle-left pull-right"></i>
-						</span>
-					</a>
+					<li id="vert_acc_menu" class="treeview"><a href="${pageContext.servletContext.contextPath}">
+						<i class="fa fa-car"></i>
+							<span>Accident</span>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
+								</span></a>
 						<ul class="treeview-menu">
 							<li id="vert_acc_menu_report"><a href="${pageContext.servletContext.contextPath}">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Report Accident</a></li>
@@ -30,9 +30,20 @@
 							<% } %>
 						</ul></li>
 
-					<li><a href="pages/widgets.html"> <i class="fa fa-video-camera"></i>
+					<% if (session.getAttribute("username") != null) { %>
+					<li id="vert_cam_menu" class="treeview"><a href="${pageContext.servletContext.contextPath}/camera/suggest"> <i class="fa fa-video-camera"></i>
 							<span>Enforcement Camera</span>
-					</a></li>
+							<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
+								</span></a>
+						<ul class="treeview-menu">
+							<li id="vert_cam_menu_suggest"><a href="${pageContext.servletContext.contextPath}/camera/suggest">
+								<i class="fa fa-exclamation-circle" style="color:red"></i> Suggest Camera</a></li>
+
+							<li id="vert_cam_menu_manage"><a href="${pageContext.servletContext.contextPath}">
+								<i class="fa fa-exclamation-circle" style="color:red"></i> Manage Camera</a></li>
+
+						</ul></li>
+					<% } %>
 
 					<li><a href="pages/widgets.html"> <i class="fa fa-dashboard"></i>
 							<span>Statistics</span>
