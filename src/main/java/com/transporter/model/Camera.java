@@ -36,7 +36,8 @@ public class Camera {
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private CameraStatus status;
-	
+
+	public Camera(){};
 	public Camera(int cameraId, double longitude, double latitude, CameraType type, CameraStatus status){ 
 		this.cameraId = cameraId;
 		this.longitude = longitude;

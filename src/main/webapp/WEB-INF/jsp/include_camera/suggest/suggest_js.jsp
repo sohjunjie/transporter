@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 	<!-- jQuery 2.2.3 -->
 	<script src="${resourcePath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
@@ -134,12 +136,18 @@
           	sgmap.fitBounds(bounds);
         });
 
-// initialise cameras locations
-//		<c:forEach items="${approvedAccidents}" var="aAccident">
-//		addMarkerToMap(${aAccident.latitude},
-//				${aAccident.longitude}, sgmap,
-//				${aAccident.reportId}, pagectx + '/resources/icons/accident_approved32x32.png');
-//		</c:forEach>
+		<c:forEach items="${speedCameras}" var="speedCamera">
+		addMarkerToMap(${speedCamera.latitude},
+				${speedCamera.longitude}, sgmap,
+				${speedCamera.cameraId}, pagectx + '/resources/icons/speed_camera32x32.png');
+		</c:forEach>
+
+		<c:forEach items="${trafficCameras}" var="trafficCamera">
+		addMarkerToMap(${trafficCamera.latitude},
+				${trafficCamera.longitude}, sgmap,
+				${trafficCamera.cameraId}, pagectx + '/resources/icons/traffic_camera32x32.png');
+		</c:forEach>
+
 	}
 
 	function addMarkerToMap(lat, lng, map, reportId, iconImg) {

@@ -45,6 +45,18 @@ public class CameraServiceImpl implements CameraService {
 	}
 
 	@Transactional
+	public boolean suggestNewCamera(double lat, double lng, String formattedAddress, int cameraTypeOrdinal){
+		Camera camera = new Camera();
+		camera.setLatitude(lat);
+		camera.setLongitude(lng);
+		camera.setFormattedAddress(formattedAddress);
+		camera.setStatus(CameraStatus.PENDING);
+		camera.setType(CameraType.values()[cameraTypeOrdinal]);
+		cameraDao.add(camera);
+		return true;
+	}
+	
+	@Transactional
 	public List<Camera> getAllCamera() {
 		return cameraDao.getAllCamera();
 	}

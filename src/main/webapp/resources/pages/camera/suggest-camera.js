@@ -1,22 +1,22 @@
 $(document).ready(function() {
 	setHideAlert($("#suggest-camera-feedback"));
-	event_reportAccidentAjax();
-	event_reportAccidentValidate();
+	event_suggestCameraAjax();
+	event_suggestCameraValidate();
 });
 
-function event_reportAccidentAjax(){
+function event_suggestCameraAjax(){
 	$(".suggest-camera-form").on('submit', function(event){
 
 	    event.preventDefault();
 		setHideAlert($("#suggest-camera-feedback"));
-        var isvalidate = $( this ).valid();
-        if(isvalidate){ return; }
+        var isvalid = $( this ).valid();
+        if(!isvalid){ return; }
 
     	var data = new FormData();
     	data.append("lat", suggestMarker.position.lat());
     	data.append("lng", suggestMarker.position.lng());
     	data.append("cameraLocation", $("#cameraLocation").val());
-    	data.append("cameraInstalledDatetime", $("#cameraInstalledDatetime").val());
+    	data.append("cameraTypeOrdinal", $("#cameraType").val());
 
 		$.ajax({
 			type : 'POST',
@@ -29,6 +29,7 @@ function event_reportAccidentAjax(){
 				if(response){
 					suggestCameraClose.click();
 					alert("The camera was suggested.");
+					location.reload();
 				}else{
 					$("#suggest-camera-feedback > span").html("A problem was encountered suggesting camera.");
 					showAlert($( "#suggest-camera-feedback" ), "danger");
@@ -44,18 +45,16 @@ function event_reportAccidentAjax(){
 	});
 }
 
-function event_reportAccidentValidate(){
+function event_suggestCameraValidate(){
     $(".suggest-camera-form").validate({
         errorElement: "span",
         errorClass: "help-block",
         focusInvalid: !1,
         rules: {
-        	reportAccidentDescription: "required",
-        	accidentOccuredDatetime: "required"
+        	cameraTypeOrdinal: "required"
         },
         messages: {
-        	reportAccidentDescription: "Please give a description of the accident",
-        	accidentOccuredDatetime: "Please enter the datetime of the accident"
+        	cameraTypeOrdinal: "Please select type of camera."
         },
         errorPlacement: function(e, r) {
             e.insertBefore(r)

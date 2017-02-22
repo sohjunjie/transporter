@@ -58,8 +58,7 @@
 
 	function initMap() {
 
-		var sgloc = {lat: 1.3553794, lng: 103.8677444};	 
-		var currentloc = getLocation();
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
 			center: sgloc,
@@ -68,11 +67,13 @@
 			fullscreenControl: false
 		});
 		marker = new google.maps.Marker({
-			position: currentloc,
+			position: sgloc,
 			map: sgmap,
 			draggable: true,
 			title: "Accident location"
 		});
+
+//		getLocation();
     	
 		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow({
@@ -163,14 +164,14 @@
 		});
 	}
 
-//	https://www.w3schools.com/html/html5_geolocation.asp
-
 	function getLocation() {
 	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(showPosition);
+	    	navigator.geolocation.getCurrentPosition(showPosition);
 	    }
 	}
 	function showPosition(position) {
-		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude})
+		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
+		sgmap.setZoom(13);
+		sgmap.panTo(marker);
 	}
 	</script>
