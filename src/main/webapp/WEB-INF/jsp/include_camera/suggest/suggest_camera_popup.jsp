@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"		prefix="c"%>
+
 <!-- TODO: Refine suggest camera popup form -->
 <div id="suggest_camera_modal" class="modal">
 
@@ -31,6 +33,14 @@
 						<div class="form-group">
 				    	<label>Longitude</label>
 				    	<input id="cameraLongitude" type="text" class="form-control" name="cameraLongitude" disabled>
+				  	</div>
+				  	</div>
+						<div class="form-group">
+				    	<label>Type of camera</label>
+				    	<select id="cameraType" class="form-control" name="cameraType">
+				    		<option value=0 selected>Speed</option>
+							<option value=1 selected>Traffic</option>
+				    	</select>
 				  	</div>
 				</div>
 

@@ -16,7 +16,7 @@ function event_reportAccidentAjax(){
     	data.append("lat", suggestMarker.position.lat());
     	data.append("lng", suggestMarker.position.lng());
     	data.append("cameraLocation", $("#cameraLocation").val());
-    	data.append("cameraInstalledDatetime", $("#cameraInstalledDatetime").val());
+    	data.append("cameraTypeOrdinal", $("#cameraType").val());
 
 		$.ajax({
 			type : 'POST',
