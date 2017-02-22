@@ -1,5 +1,6 @@
 package com.transporter.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -38,7 +39,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getAllAccidentReport() {
-		return session.getCurrentSession().createQuery("from AccidentReport").list();
+		return session.getCurrentSession().createQuery("FROM AccidentReport").list();
 	}
 
 	@Override
@@ -70,5 +71,11 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "where approvedBy!=null "
 				+ "and resolvedBy=null").list();
 	}
-
+/*
+	@SuppressWarnings("unchecked")
+	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate) {
+		return session.getCurrentSession().createQuery("from AccidentReport "
+			+ "where accidentDateTime >= startDate "
+			+ "and accidentDateTime <= endDate").list();
+	}*/
 }

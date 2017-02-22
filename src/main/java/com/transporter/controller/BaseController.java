@@ -1,5 +1,7 @@
 package com.transporter.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import com.transporter.model.AccidentReport;
 import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
+import com.transporter.service.SummaryReportService;
 
 /**
  * BaseController class handle request for a page
@@ -30,6 +33,8 @@ public class BaseController {
 	private AccidentReportService accidentReportService;
 	@Autowired
 	private AccidentCauseService accidentCauseService;
+	@Autowired
+	private SummaryReportService summaryReportService;
 
 	@RequestMapping("/")
 	public String goMainPage(){
@@ -59,5 +64,23 @@ public class BaseController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/summary/cause", method=RequestMethod.GET)
+	public String goSummaryCause(Map<String, Object> map, HttpSession httpSession) {
+		//List<AccidentReport> accidentReports = accidentReportService.getAllAccidentReport();
+		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
+		/*int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
+		map.put("accidentCauses", accidentCauses);
+		map.put("causeCount", causeCount);*/
+		return "summary_cause";
+	}
+	/*
+	@RequestMapping(value="/summary/time", method=RequestMethod.GET)
+	public String goSummaryTime(Map<String, Object> map, HttpSession httpSession) {
+		List<AccidentReport> accidentReports = accidentReportService.getAllAccidentReport();
+		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
+		map.put("hrAccidentCount", hrAccidentCount);
+		return "summary_time";
+	}*/
 	
 }

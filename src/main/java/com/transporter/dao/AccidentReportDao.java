@@ -1,5 +1,6 @@
 package com.transporter.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.transporter.model.AccidentReport;
@@ -18,4 +19,5 @@ public interface AccidentReportDao {
 	public Long getApprovedAccidentCount();
 	public List<AccidentReport> getApprovedAccidentReport();
 	
+	//public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate);
 }
