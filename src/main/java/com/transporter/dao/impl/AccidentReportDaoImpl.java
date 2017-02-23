@@ -71,11 +71,13 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "where approvedBy!=null "
 				+ "and resolvedBy=null").list();
 	}
-/*
+
 	@SuppressWarnings("unchecked")
 	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate) {
 		return session.getCurrentSession().createQuery("from AccidentReport "
-			+ "where accidentDateTime >= startDate "
-			+ "and accidentDateTime <= endDate").list();
-	}*/
+			+ "where accidentDateTime >= :startDate "
+			+ "and accidentDateTime <= :endDate")
+				.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate).list();
+	}
 }

@@ -30,6 +30,24 @@
 	</div>
 </div>
 
+<form method="get" enctype="multipart/form-data">
+    <table>
+    <tr>
+        <td>Start Date</td>
+        <td><input type="date" name="startdate" class="datetimepicker form-control" size="20"></td>
+    </tr>
+    <tr>
+        <td>End Date</td>
+        <td><input type="date" name="enddate" class="datetimepicker form-control" size="20"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="send"/>
+        </td>
+    </tr>
+</table>
+</form>
+
 <!-- The Modal -->
 <div id="imageModal" class="image-modal">
 	<span class="imageModalClose" onclick="document.getElementsByClassName('imageModal').style.display='none'">&times;</span>
