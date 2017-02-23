@@ -2,6 +2,7 @@ package com.transporter.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,20 +68,25 @@ public class BaseController {
 	
 	@RequestMapping(value="/summary/cause", method=RequestMethod.GET)
 	public String goSummaryCause(Map<String, Object> map, HttpSession httpSession) {
-		//List<AccidentReport> accidentReports = accidentReportService.getAllAccidentReport();
+		List<AccidentReport> accidentReports = accidentReportService.getAllAccidentReport();
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		/*int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
+		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
 		map.put("accidentCauses", accidentCauses);
-		map.put("causeCount", causeCount);*/
+		map.put("causeCount", causeCount);
 		return "summary_cause";
 	}
-	/*
+	
 	@RequestMapping(value="/summary/time", method=RequestMethod.GET)
 	public String goSummaryTime(Map<String, Object> map, HttpSession httpSession) {
 		List<AccidentReport> accidentReports = accidentReportService.getAllAccidentReport();
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
+		int[] hrsOfDay = new int[24];
+		for (int i = 0; i < 24; i++) {
+			hrsOfDay[i] = i;
+		}
 		map.put("hrAccidentCount", hrAccidentCount);
+		map.put("hrsOfDay", hrsOfDay);
 		return "summary_time";
-	}*/
+	}
 	
 }

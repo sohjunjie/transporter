@@ -41,7 +41,7 @@
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
 
 <style>
-#summary_cause_viewer_table{
+#summary_time_viewer_table{
 	width: 2000dp;
 }
 .itemOptions{display: none;}

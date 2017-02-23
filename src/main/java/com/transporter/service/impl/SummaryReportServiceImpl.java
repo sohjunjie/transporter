@@ -3,6 +3,7 @@ package com.transporter.service.impl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class SummaryReportServiceImpl implements SummaryReportService {
 	@Transactional
 	public int[] summariseByTime (List<AccidentReport> allReports) {
 		/*HashMap<Integer, Integer> hourAccidentCount = new HashMap<Integer, Integer>();
-		for (int i = 0; i < 23; i++) {
+		for (int i = 0; i < 24; i++) {
 			hourAccidentCount.put(i, 0);
 		}
 		for (int i = 0; i < allReports.size();i++) {
@@ -65,7 +66,7 @@ public class SummaryReportServiceImpl implements SummaryReportService {
 		return hourAccidentCount;*/
 		
 		int hourAccidentCount[] = new int[24];
-		for (int i = 0; i < 23; i++) {
+		for (int i = 0; i < 24; i++) {
 			hourAccidentCount[i]=0;
 		}
 		for (int i = 0; i < allReports.size();i++) {
