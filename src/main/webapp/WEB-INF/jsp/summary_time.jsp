@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ include file="/WEB-INF/jsp/includes.jsp"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -42,21 +44,26 @@
 					Summary Report By Time of Day
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-car"></i> Accident</a></li>
-					<li class="active"><i class="fa fa-file" style="color: black;"></i> Summary Report</li>
+					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-dashboard"></i> Statistics</a></li>
+					<li class="active"><i class="fa fa-file" style="color: black;"></i> Summary Report By Time</li>
 				</ol>
 			</section>
 
 			<!-- Main content -->
 			<section class="content">
 				<div class="row">
+					<div class="col-lg-5 col-xs-12">
+						<%@ include file="/WEB-INF/jsp/include_summary/time_viewer.jsp"%>
+					</div>
+					<div class="col-lg-5 col-xs-12">
+						<IMG SRC="timepiechart.png" WIDTH="550" HEIGHT="400" BORDER="0" USEMAP="#chart">
+						<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
+					</div>
 					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
 						<div id="map"></div>
 					</div>
-					<div class="col-lg-6 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_summary/time_viewer.jsp"%>
-					</div>
 				</div>
+				
 			</section>
 			<!-- /.content -->
 		</div>
