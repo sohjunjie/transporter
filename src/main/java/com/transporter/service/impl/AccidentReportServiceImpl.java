@@ -127,6 +127,11 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	}
 
 	@Transactional
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
+		return accidentReportDao.getApprovedAndResolvedAccidentReport();
+	}
+	
+	@Transactional
 	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate) {
 		return accidentReportDao.getAccidentReportBetweenDate(startDate, endDate);
 	}

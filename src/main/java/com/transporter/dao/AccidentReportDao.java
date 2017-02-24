@@ -20,4 +20,5 @@ public interface AccidentReportDao {
 	public List<AccidentReport> getApprovedAccidentReport();
 	
 	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate);
+	List<AccidentReport> getApprovedAndResolvedAccidentReport();
 }

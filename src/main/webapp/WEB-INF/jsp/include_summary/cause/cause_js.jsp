@@ -87,5 +87,4 @@
 		markers[reportId] = marker;
 	}
 
-	function 
     </script>

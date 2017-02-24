@@ -69,6 +69,15 @@ public class SummaryController
 		return "summary_time";
 	}
 	
+	@RequestMapping(value="/location", method=RequestMethod.GET)
+	public String goSummaryLocation(@RequestParam(value="startdate", required=false) String textStartDate, 
+			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
+			HttpSession httpSession) {
+		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+		map.put("accidentReports", accidentReports);
+		return "summary_location";
+	   }
+	
 	@RequestMapping(value = "/timepiechart.png", method = RequestMethod.GET)
 	public void drawTimePieChart(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam(value="startdate", required=false) String textStartDate, 
@@ -164,7 +173,7 @@ public class SummaryController
 			endDate = (Date)formatter.parse(textEndDate); 
 			return accidentReportService.getAccidentReportBetweenDate(startDate, endDate);
 		} catch (Exception e) {
-			return accidentReportService.getAllAccidentReport();
+			return accidentReportService.getApprovedAndResolvedAccidentReport();
 		} 
 	}
 }
