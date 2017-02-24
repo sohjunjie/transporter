@@ -9,5 +9,6 @@
 		<mapping class="com.transporter.model.user.LTAPersonnel" />
 		<mapping class="com.transporter.model.AccidentReport" />
 		<mapping class="com.transporter.model.AccidentCause" />
+		<mapping class="com.transporter.model.Camera" />
     </session-factory>
 </hibernate-configuration>

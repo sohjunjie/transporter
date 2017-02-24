@@ -62,7 +62,7 @@ function event_reportAccidentValidate(){
         messages: {
         	reportAccidentDescription: "Please give a description of the accident",
         	accidentOccuredDatetime: "Please enter the datetime of the accident",
-        	accidentOccuredDatetime: "Please upload an image of the accident"
+        	accidentImage: "Please upload an image of the accident"
         },
         errorPlacement: function(e, r) {
             e.insertBefore(r)

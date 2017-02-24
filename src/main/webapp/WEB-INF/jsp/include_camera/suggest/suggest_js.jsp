@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 	<!-- jQuery 2.2.3 -->
 	<script src="${resourcePath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
@@ -34,13 +36,14 @@
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
 
-	<script src="${resourcePath}/pages/home/home.js"></script>
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>
+
 	<script src="${resourcePath}/pages/transporter.js"></script>
-	
-	<script src="${resourcePath}/pages/home/report-popup.js"></script>
-	<script src="${resourcePath}/pages/home/report.js"></script>
+
+	<script src="${resourcePath}/pages/camera/suggest.js"></script>
+	<script src="${resourcePath}/pages/camera/suggest-camera.js"></script>
+	<script src="${resourcePath}/pages/camera/suggest-camera-popup.js"></script>
 
 	<!-- Script Variables -->
 	<script>
@@ -52,12 +55,11 @@
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
 	<script>
     var pagectx = "${pageContext.servletContext.contextPath}";
-	var marker;
+	var markers = {};
+	var suggestMarker;
 	var sgmap;
-	var currentmarker;
 
 	function initMap() {
-
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
@@ -66,41 +68,37 @@
 			streetViewControl: false,
 			fullscreenControl: false
 		});
-		marker = new google.maps.Marker({
+
+		suggestMarker = new google.maps.Marker({
 			position: sgloc,
 			map: sgmap,
-			draggable: true,
-			title: "Accident location"
+			draggable: true
 		});
 
-//		getLocation();
-    	
 		var geocoder = new google.maps.Geocoder;
 		var infowindow = new google.maps.InfoWindow({
-		    content: "Drag pin to specify location of accident"
+		    content: "Drag pin to specify location to suggest camera"
 		});
-		document.getElementById('accidentLatitude').value = marker.position.lat();
-    	document.getElementById('accidentLongitude').value = marker.position.lng();
-    	geocodeLatLng(geocoder, marker);
-		marker.addListener('dragend', function() {
-	    	document.getElementById('accidentLatitude').value = this.position.lat();
-	    	document.getElementById('accidentLongitude').value = this.position.lng();
+		document.getElementById('cameraLatitude').value = suggestMarker.position.lat();
+    	document.getElementById('cameraLongitude').value = suggestMarker.position.lng();
+    	geocodeLatLng(geocoder, suggestMarker);
+    	suggestMarker.addListener('dragend', function() {
+	    	document.getElementById('cameraLatitude').value = this.position.lat();
+	    	document.getElementById('cameraLongitude').value = this.position.lng();
 	    	geocodeLatLng(geocoder, this);
 	   	});
-	    marker.addListener('click', function() {
-	        infowindow.open(sgmap, marker);
+		suggestMarker.addListener('click', function() {
+	        infowindow.open(sgmap, suggestMarker);
 	   	});
 
-	    // Create report accident button and link it to the UI element
-	    var reportBtn = document.getElementById('report_accident_btn');
-	    sgmap.controls[google.maps.ControlPosition.TOP_RIGHT].push(reportBtn);
+	    var suggestCameraBtn = document.getElementById('suggest_camera_btn');
+	    sgmap.controls[google.maps.ControlPosition.TOP_RIGHT].push(suggestCameraBtn);
 
-	    // Create the search box and link it to the UI element.
 	    var input = document.getElementById('pac_input');
-	    var searchBox = new google.maps.places.SearchBox(input);
 	    sgmap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-	    // Bias the SearchBox results towards current map's viewport.
+	    var searchBox = new google.maps.places.SearchBox(input);
+
 	    sgmap.addListener('bounds_changed', function() {
     		searchBox.setBounds(sgmap.getBounds());
 	    });
@@ -108,7 +106,7 @@
         var searchMarkers = [];
         searchBox.addListener('places_changed', function() {
 	        var places = searchBox.getPlaces();
-	        
+
 	        if (places.length == 0) {
 	          return;
 	        }
@@ -126,19 +124,10 @@
 					console.log("Returned place contains no geometry");
 					return;
 				}
-				var icon = {
-					url: place.icon,
-					size: new google.maps.Size(71, 71),
-					origin: new google.maps.Point(0, 0),
-					anchor: new google.maps.Point(17, 34),
-					scaledSize: new google.maps.Size(25, 25)
-				};
 
-				// Update our marker for each place.
-				marker.setPosition(place.geometry.location);
+				suggestMarker.setPosition(place.geometry.location);
 				
 				if (place.geometry.viewport) {
-				  	// Only geocodes have viewport.
 					bounds.union(place.geometry.viewport);
 				} else {
 				  	bounds.extend(place.geometry.location);
@@ -146,7 +135,44 @@
 			});
           	sgmap.fitBounds(bounds);
         });
-	    
+
+		<c:forEach items="${speedCameras}" var="speedCamera">
+		addMarkerToMap(${speedCamera.latitude},
+				${speedCamera.longitude}, sgmap,
+				${speedCamera.cameraId}, pagectx + '/resources/icons/speed_camera32x32.png');
+		</c:forEach>
+
+		<c:forEach items="${trafficCameras}" var="trafficCamera">
+		addMarkerToMap(${trafficCamera.latitude},
+				${trafficCamera.longitude}, sgmap,
+				${trafficCamera.cameraId}, pagectx + '/resources/icons/traffic_camera32x32.png');
+		</c:forEach>
+
+	}
+
+	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
+		var latlng = {lat: lat, lng: lng};
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			icon: iconImg
+		});
+		markers[reportId] = marker;
+	}
+
+    function setMapOnAll(map) {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(map);
+		}
+	}
+
+    function clearMarkers() {
+		setMapOnAll(null);
+    }
+
+    function deleteMarkers() {
+		clearMarkers();
+		markers = [];
 	}
 
 	function geocodeLatLng(geocoder, markerloc) {
@@ -154,24 +180,13 @@
 		geocoder.geocode({'location': latlng}, function(results, status) {
 			if (status === 'OK') {
 				if (results[0]) {
-					document.getElementById('accidentLocation').value = results[0].formatted_address;
+					document.getElementById('cameraLocation').value = results[0].formatted_address;
 			    } else {
-			    	document.getElementById('accidentLocation').value = "Location cannot be identified";
+			    	document.getElementById('cameraLocation').value = "Location cannot be identified";
 			    }
 			} else {
-				document.getElementById('accidentLocation').value = "Location cannot be identified due to: " + status;
+				document.getElementById('cameraLocation').value = "Location cannot be identified due to: " + status;
 			}
 		});
 	}
-
-	function getLocation() {
-	    if (navigator.geolocation) {
-	    	navigator.geolocation.getCurrentPosition(showPosition);
-	    }
-	}
-	function showPosition(position) {
-		marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});
-		sgmap.setZoom(13);
-		sgmap.panTo(marker);
-	}
-	</script>
+    </script>

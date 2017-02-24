@@ -16,7 +16,7 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 <!-- css library include -->
-<%@ include file="/WEB-INF/jsp/include_summary/time_css.jsp"%>
+<%@ include file="/WEB-INF/jsp/include_summary/time/time_css.jsp"%>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -32,9 +32,6 @@
 		
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
-
-		<!-- Resolve Accident Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_accident/resolve_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -53,7 +50,7 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-lg-5 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_summary/time_viewer.jsp"%>
+						<%@ include file="/WEB-INF/jsp/include_summary/time/time_viewer.jsp"%>
 					</div>
 					<div class="col-lg-5 col-xs-12">
 						<IMG SRC="timepiechart.png" WIDTH="550" HEIGHT="400" BORDER="0" USEMAP="#chart">
@@ -78,7 +75,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_summary/time_js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/include_summary/time/time_js.jsp"%>
 
 </body>
 </html>

@@ -14,7 +14,7 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
 <!-- css library include -->
-<%@ include file="/WEB-INF/jsp/include_summary/cause_css.jsp"%>
+<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_css.jsp"%>
 
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -30,9 +30,6 @@
 		
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
-
-		<!-- Resolve Accident Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_accident/resolve_popup.jsp"%>
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
@@ -51,7 +48,7 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-lg-5 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_summary/cause_viewer.jsp"%>
+						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_viewer.jsp"%>
 					</div>
 					<div class="col-lg-5 col-xs-12">
 						<IMG SRC="causepiechart.png" WIDTH="550" HEIGHT="450" BORDER="0" USEMAP="#chart">
@@ -76,7 +73,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_summary/cause_js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_js.jsp"%>
 
 </body>
 </html>
