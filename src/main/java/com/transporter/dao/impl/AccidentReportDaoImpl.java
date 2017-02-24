@@ -78,13 +78,46 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 		return session.getCurrentSession().createQuery("from AccidentReport "
 				+ "where approvedBy!=null ").list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccidentReport> getResolvedAccidentReport() {
+		return session.getCurrentSession().createQuery("from AccidentReport "
+				+ "where approvedBy!=null "
+				+ "and resolvedBy!=null").list();
+	}
 
 	@SuppressWarnings("unchecked")
-	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate) {
+	@Override
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
 		return session.getCurrentSession().createQuery("from AccidentReport "
 			+ "where accidentDateTime >= :startDate "
 			+ "and accidentDateTime <= :endDate"
 			+ "and approvedBy!=null")
+				.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
+		return session.getCurrentSession().createQuery("from AccidentReport "
+			+ "where accidentDateTime >= :startDate "
+			+ "and accidentDateTime <= :endDate"
+			+ "and approvedBy!=null"
+			+ "and resolvedBy=null")
+				.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate).list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
+		return session.getCurrentSession().createQuery("from AccidentReport "
+			+ "where accidentDateTime >= :startDate "
+			+ "and accidentDateTime <= :endDate"
+			+ "and approvedBy!=null"
+			+ "and resolvedBy!=null")
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
 	}

@@ -132,7 +132,22 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	}
 	
 	@Transactional
-	public List<AccidentReport> getAccidentReportBetweenDate(Date startDate, Date endDate) {
-		return accidentReportDao.getAccidentReportBetweenDate(startDate, endDate);
+	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getApprovedAccidentReport(startDate, endDate);
+	}
+
+	@Transactional
+	public List<AccidentReport> getResolvedAccidentReport() {
+		return accidentReportDao.getResolvedAccidentReport();
+	}
+
+	@Transactional
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getApprovedAndResolvedAccidentReport(startDate, endDate);
+	}
+
+	@Transactional
+	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getResolvedAccidentReport(startDate, endDate);
 	}
 }

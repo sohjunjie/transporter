@@ -10,7 +10,7 @@
 
 <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 
-<p style="text-decoration:underline;"><font size="+1"><b>Search for accidents between dates</b></font></p>
+<p style="text-decoration:underline;"><font size="+1"><b>Filter accidents</b></font></p>
 <div class="container">
 <form method="get" enctype="multipart/form-data">
     <div class="row">
@@ -31,6 +31,9 @@
                     </span>
                 </div>
             </div>
+            <input type="radio" name="searchoption" value="both" checked> Current & Archived Accidents<br>
+  			<input type="radio" name="searchoption" value="archived"> Archived Accidents<br>
+  			<input type="radio" name="searchoption" value="current"> Current Accidents<br>
             <input type="submit" value="Submit"/>
             <br>
         </div>

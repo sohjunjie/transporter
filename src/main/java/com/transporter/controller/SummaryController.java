@@ -2,7 +2,6 @@ package com.transporter.controller;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +43,11 @@ public class SummaryController
 	private SummaryReportService summaryReportService;
 	
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
-	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, @RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
+	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
+			@RequestParam(value="enddate", required=false) String textEndDate, 
+			@RequestParam(value="searchoption", required=false) String searchOption, Map<String, Object> map) {
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
@@ -57,8 +58,8 @@ public class SummaryController
 	@RequestMapping(value="/time", method=RequestMethod.GET)
 	public String goSummaryTime(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
-			HttpSession httpSession) {
-		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+			@RequestParam(value="searchoption", required=false) String searchOption, HttpSession httpSession) {
+		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		int[] hrsOfDay = new int[24];
 		for (int i = 0; i < 24; i++) {
@@ -72,8 +73,8 @@ public class SummaryController
 	@RequestMapping(value="/location", method=RequestMethod.GET)
 	public String goSummaryLocation(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
-			HttpSession httpSession) {
-		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+			@RequestParam(value="searchoption", required=false) String searchOption, HttpSession httpSession) {
+		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		map.put("accidentReports", accidentReports);
 		return "summary_location";
 	   }
@@ -81,10 +82,11 @@ public class SummaryController
 	@RequestMapping(value = "/timepiechart.png", method = RequestMethod.GET)
 	public void drawTimePieChart(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate) {
+			@RequestParam(value="enddate", required=false) String textEndDate,
+			@RequestParam(value="searchoption", required=false) String searchOption) {
 		response.setContentType("image/png");
 		
-		PieDataset pdSet = createTimeDataSet(textStartDate, textEndDate);
+		PieDataset pdSet = createTimeDataSet(textStartDate, textEndDate, searchOption);
 
 		JFreeChart chart = createTimeChart(pdSet, "Accidents by Time");
 
@@ -97,10 +99,10 @@ public class SummaryController
 		}
 	}
 
-	private PieDataset createTimeDataSet(String textStartDate, String textEndDate) {
+	private PieDataset createTimeDataSet(String textStartDate, String textEndDate, String searchOption) {
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		
-		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		
@@ -124,11 +126,12 @@ public class SummaryController
 	@RequestMapping(value = "/causepiechart.png", method = RequestMethod.GET)
 	public void drawCausePieChart(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate) {
+			@RequestParam(value="enddate", required=false) String textEndDate,
+			@RequestParam(value="searchoption", required=false) String searchOption) {
 		response.setContentType("image/png");
 		
 		
-		PieDataset pdSet = createCauseDataSet(textStartDate, textEndDate);
+		PieDataset pdSet = createCauseDataSet(textStartDate, textEndDate, searchOption);
 
 		JFreeChart chart = createCauseChart(pdSet, "Accidents by Cause");
 
@@ -141,10 +144,10 @@ public class SummaryController
 		}
 	}
 
-	private PieDataset createCauseDataSet(String textStartDate, String textEndDate) {
+	private PieDataset createCauseDataSet(String textStartDate, String textEndDate, String searchOption) {
 		DefaultPieDataset dpd = new DefaultPieDataset();
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> accidentReports = checkValidDate(textStartDate, textEndDate);
+		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		
 		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
 		for (int i = 0; i < causeCount.length; i++) {
@@ -155,8 +158,7 @@ public class SummaryController
 
 	private JFreeChart createCauseChart(PieDataset pdSet, String chartTitle) {
 
-		JFreeChart chart = ChartFactory.createPieChart3D(chartTitle, pdSet,
-				true, true, false);
+		JFreeChart chart = ChartFactory.createPieChart3D(chartTitle, pdSet, true, true, false);
 		PiePlot3D plot = (PiePlot3D) chart.getPlot();
 		plot.setStartAngle(290);
 		plot.setDirection(Rotation.CLOCKWISE);
@@ -164,16 +166,27 @@ public class SummaryController
 		return chart;
 	}
 	
-	private List<AccidentReport> checkValidDate(String textStartDate, String textEndDate) {
+	private List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate;
 		Date endDate;
+		if (searchOption==null)
+			searchOption="both";
 		try {
 			startDate = (Date)formatter.parse(textStartDate);
 			endDate = (Date)formatter.parse(textEndDate); 
-			return accidentReportService.getAccidentReportBetweenDate(startDate, endDate);
+			switch(searchOption) {
+			case "current": return accidentReportService.getApprovedAccidentReport(startDate, endDate);
+			case "archived": return accidentReportService.getResolvedAccidentReport(startDate, endDate);
+			default: return accidentReportService.getApprovedAndResolvedAccidentReport(startDate, endDate);
+			}
+			
 		} catch (Exception e) {
-			return accidentReportService.getApprovedAndResolvedAccidentReport();
+			switch(searchOption) {
+			case "current": return accidentReportService.getApprovedAccidentReport();
+			case "archived": return accidentReportService.getResolvedAccidentReport();
+			default: return accidentReportService.getApprovedAndResolvedAccidentReport();
+			}
 		} 
 	}
 }
