@@ -31,9 +31,9 @@
                     </span>
                 </div>
             </div>
-            <input type="radio" name="searchoption" value="both" checked> Current & Archived Accidents<br>
-  			<input type="radio" name="searchoption" value="archived"> Archived Accidents<br>
-  			<input type="radio" name="searchoption" value="current"> Current Accidents<br>
+            	<label>	<input type="radio" name="searchoption" value="both" checked> Current & Archived Accidents</label><br>
+  		<label> <input type="radio" name="searchoption" value="archived"> Archived Accidents</label><br>
+  		<label>	<input type="radio" name="searchoption" value="current"> Current Accidents</label><br>
             <input type="submit" value="Submit"/>
             <br>
         </div>
