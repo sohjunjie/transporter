@@ -121,4 +121,14 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> getCountCauses() {
+		return session.getCurrentSession().createQuery("SELECT count(*) "
+			+ "FROM transporter.accident_cause "
+			+ "left join transporter.accident_report "
+			+ "on transporter.accident_report.officialCause = transporter.accident_cause.id"
+				).list();
+	}
 }

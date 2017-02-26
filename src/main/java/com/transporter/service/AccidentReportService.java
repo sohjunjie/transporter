@@ -31,4 +31,6 @@ public interface AccidentReportService {
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate);
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate);
 	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate);
+	
+	public List<Integer> getCountCauses();
 }

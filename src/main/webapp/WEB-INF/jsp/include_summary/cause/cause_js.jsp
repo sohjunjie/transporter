@@ -33,6 +33,9 @@
 	<script src="${resourcePath}/plugins/fastclick/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
+	
+	<!-- Chart.js -->
+	
 
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>

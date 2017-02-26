@@ -150,4 +150,9 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
 		return accidentReportDao.getResolvedAccidentReport(startDate, endDate);
 	}
+	
+	@Transactional
+	public List<Integer> getCountCauses() {
+		return accidentReportDao.getCountCauses();
+	}
 }

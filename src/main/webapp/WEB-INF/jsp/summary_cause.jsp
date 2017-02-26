@@ -50,8 +50,8 @@
 					<div class="col-lg-5 col-xs-12">
 						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_viewer.jsp"%>
 					</div>
-					<div class="col-lg-5 col-xs-12">
-						<IMG SRC="causepiechart.png" WIDTH="550" HEIGHT="450" BORDER="0" USEMAP="#chart">
+					<div class="col-lg-7 col-xs-12">
+						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
 						<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
 					</div>
 					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
