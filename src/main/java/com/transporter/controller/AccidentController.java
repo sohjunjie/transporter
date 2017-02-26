@@ -59,7 +59,7 @@ public class AccidentController {
 	}
 
 	@RequestMapping(value = "/report/resolve", method=RequestMethod.POST)
-	public @ResponseBody String resolvePendingAccident(@RequestParam int reportId, @RequestParam int causeId, @RequestParam int numOfCasualties, HttpSession httpSession) {
+	public @ResponseBody String resolveApprovedAccident(@RequestParam int reportId, @RequestParam int causeId, @RequestParam int numOfCasualties, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
 		AuthenticatedUser authUser = (AuthenticatedUser) httpSession.getAttribute("user");
 		boolean success = accidentReportService.resolveAccidentReport(authUser, reportId, causeId, numOfCasualties);
