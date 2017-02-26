@@ -45,9 +45,18 @@
 						</ul></li>
 					<% } %>
 
-					<li><a href="pages/widgets.html"> <i class="fa fa-dashboard"></i>
-							<span>Statistics</span>
-					</a></li>
+					<li id="vert_stat_menu" class="treeview"><a href="index"> <i class="fa fa-dashboard"></i>
+							<span>Statistics</span> <span class="pull-right-container"> 
+							<i class="fa fa-angle-left pull-right"></i>
+							</span>
+					</a>						
+					<ul class="treeview-menu">
+							<li id="vert_stat_menu_report"><a href="${pageContext.servletContext.contextPath}/summary/cause">
+								<i class="fa fa-file"></i> Summary Report By Cause</a></li>
+							<li id="vert_stat_menu_report"><a href="${pageContext.servletContext.contextPath}/summary/time">
+								<i class="fa fa-file"></i> Summary Report By Time</a></li>
+						</ul></li>
+					
 				</ul>
 			</section>
 			<!-- /.sidebar -->

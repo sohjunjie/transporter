@@ -1,11 +1,12 @@
 package com.transporter.service;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 import com.transporter.model.AccidentCause;
+import com.transporter.model.AccidentReport;
 
 public interface SummaryReportService {
-	public HashMap<AccidentCause, Integer> summariseByCause (Date startDate, Date endDate);
+	public int[] summariseByCause (List<AccidentReport> allReports, List<AccidentCause> allCauses);
+	public int[] summariseByTime (List<AccidentReport> allReports);
 	//public HashMap<Location, Integer> summariseByLocation (Date startDate, Date endDate);
 }

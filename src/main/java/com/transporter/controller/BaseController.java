@@ -73,5 +73,4 @@ public class BaseController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
 }

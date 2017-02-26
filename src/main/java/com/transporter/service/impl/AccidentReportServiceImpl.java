@@ -126,4 +126,28 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		return accidentReportDao.getApprovedAccidentReport();
 	}
 
+	@Transactional
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
+		return accidentReportDao.getApprovedAndResolvedAccidentReport();
+	}
+	
+	@Transactional
+	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getApprovedAccidentReport(startDate, endDate);
+	}
+
+	@Transactional
+	public List<AccidentReport> getResolvedAccidentReport() {
+		return accidentReportDao.getResolvedAccidentReport();
+	}
+
+	@Transactional
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getApprovedAndResolvedAccidentReport(startDate, endDate);
+	}
+
+	@Transactional
+	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
+		return accidentReportDao.getResolvedAccidentReport(startDate, endDate);
+	}
 }

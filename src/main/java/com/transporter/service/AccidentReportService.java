@@ -20,9 +20,15 @@ public interface AccidentReportService {
 	public List<AccidentReport> getPendingAccidentReport();
 
 	public Long getApprovedAccidentCount();
-	public List<AccidentReport> getApprovedAccidentReport();
 	
 	public boolean approveAccidentReport(AuthenticatedUser authUser, int reportId);
 	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId, int causeId, int numOfCasualties);
 	
+	public List<AccidentReport> getApprovedAccidentReport();
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport();
+	public List<AccidentReport> getResolvedAccidentReport();
+	
+	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate);
+	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate);
+	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate);
 }
