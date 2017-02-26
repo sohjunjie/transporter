@@ -96,7 +96,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		AccidentReport accidentReport = this.getAccidentReport(reportId);
 		accidentReport.setApprovedBy((LTAPersonnel) authUser);
 		accidentReport.setApprovedDateTime(new Date());
-		this.edit(accidentReport);
+		accidentReportDao.edit(accidentReport);
 		return true;
 	}
 
@@ -112,7 +112,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		accidentReport.setOfficialCause(accidentCause);
 		accidentReport.setNumOfCasualties(numOfCasualties);
 
-		this.edit(accidentReport);
+		accidentReportDao.edit(accidentReport);
 		return true;
 	}
 
