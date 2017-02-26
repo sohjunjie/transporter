@@ -22,7 +22,7 @@ public class CameraController {
 	private AuthenticatedUserService authUserService;
 
 	@RequestMapping(value = "/suggest/new", method=RequestMethod.POST)
-	public @ResponseBody String reportAccident(
+	public @ResponseBody String suggestCamera(
 			@RequestParam double lat,
 			@RequestParam double lng,
 			@RequestParam String cameraLocation,
