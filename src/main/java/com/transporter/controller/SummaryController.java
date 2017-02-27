@@ -1,23 +1,13 @@
 package com.transporter.controller;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot3D;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.util.Rotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +32,7 @@ public class SummaryController
 	@Autowired
 	private SummaryReportService summaryReportService;
 	
+	//controller returns list of accident causes and the number of occurrence of each cause
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
 	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, 
@@ -54,7 +45,7 @@ public class SummaryController
 		return "summary_cause";
 	   }
 	
-	
+	//controller returns hours of the day from 00h to 23h and number of accidents in each time period 
 	@RequestMapping(value="/time", method=RequestMethod.GET)
 	public String goSummaryTime(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
@@ -70,6 +61,7 @@ public class SummaryController
 		return "summary_time";
 	}
 	
+	//returns the locations of all accident reports
 	@RequestMapping(value="/location", method=RequestMethod.GET)
 	public String goSummaryLocation(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
@@ -79,99 +71,14 @@ public class SummaryController
 		return "summary_location";
 	   }
 	
-	@RequestMapping(value = "/timepiechart.png", method = RequestMethod.GET)
-	public void drawTimePieChart(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate,
-			@RequestParam(value="searchoption", required=false) String searchOption) {
-		response.setContentType("image/png");
-		
-		PieDataset pdSet = createTimeDataSet(textStartDate, textEndDate, searchOption);
-
-		JFreeChart chart = createTimeChart(pdSet, "Accidents by Time");
-
-		try {
-			ChartUtilities.writeChartAsPNG(response.getOutputStream(), chart,
-					750, 400);
-			response.getOutputStream().close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	private PieDataset createTimeDataSet(String textStartDate, String textEndDate, String searchOption) {
-		DefaultPieDataset dpd = new DefaultPieDataset();
-		
-		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
-		
-		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
-		
-		for (int i = 0; i < 24; i++) {
-			dpd.setValue(i + ":00 to " + i + ":59", hrAccidentCount[i]);
-		}
-		return dpd;
-	}
-
-	private JFreeChart createTimeChart(PieDataset pdSet, String chartTitle) {
-
-		JFreeChart chart = ChartFactory.createPieChart3D(chartTitle, pdSet,
-				true, true, false);
-		PiePlot3D plot = (PiePlot3D) chart.getPlot();
-		plot.setStartAngle(290);
-		plot.setDirection(Rotation.CLOCKWISE);
-		plot.setForegroundAlpha(0.5f);
-		return chart;
-	}
-	
-	@RequestMapping(value = "/causepiechart.png", method = RequestMethod.GET)
-	public void drawCausePieChart(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate,
-			@RequestParam(value="searchoption", required=false) String searchOption) {
-		response.setContentType("image/png");
-		
-		
-		PieDataset pdSet = createCauseDataSet(textStartDate, textEndDate, searchOption);
-
-		JFreeChart chart = createCauseChart(pdSet, "Accidents by Cause");
-
-		try {
-			ChartUtilities.writeChartAsPNG(response.getOutputStream(), chart,
-					750, 400);
-			response.getOutputStream().close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
-	private PieDataset createCauseDataSet(String textStartDate, String textEndDate, String searchOption) {
-		DefaultPieDataset dpd = new DefaultPieDataset();
-		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
-		
-		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
-		for (int i = 0; i < causeCount.length; i++) {
-			dpd.setValue(accidentCauses.get(i).getCause(), causeCount[i]);
-		}
-		return dpd;
-	}
-
-	private JFreeChart createCauseChart(PieDataset pdSet, String chartTitle) {
-
-		JFreeChart chart = ChartFactory.createPieChart3D(chartTitle, pdSet, true, true, false);
-		PiePlot3D plot = (PiePlot3D) chart.getPlot();
-		plot.setStartAngle(290);
-		plot.setDirection(Rotation.CLOCKWISE);
-		plot.setForegroundAlpha(0.5f);
-		return chart;
-	}
-	
+	//check the status of each string and return the range of dates of accident reports accordingly
+	//empty start and end date will return all accident reports regardless of date
 	private List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate;
 		Date endDate;
-		if (searchOption==null)
-			searchOption="both";
+		if (searchOption == null)
+			searchOption = "both";
 		try {
 			startDate = (Date)formatter.parse(textStartDate);
 			endDate = (Date)formatter.parse(textEndDate); 

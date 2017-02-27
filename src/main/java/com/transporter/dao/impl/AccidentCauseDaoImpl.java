@@ -25,5 +25,5 @@ public class AccidentCauseDaoImpl implements AccidentCauseDao {
 	public List<AccidentCause> getAllAccidentCauses() {
 		return session.getCurrentSession().createQuery("from AccidentCause").list();
 	}
-
+	
 }

@@ -8,5 +8,4 @@ public interface AccidentCauseService {
 
 	public AccidentCause getAccidentCause(int causeId);
 	public List<AccidentCause> getAllAccidentCauses();
-	
 }

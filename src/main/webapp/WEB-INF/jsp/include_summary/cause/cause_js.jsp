@@ -33,6 +33,9 @@
 	<script src="${resourcePath}/plugins/fastclick/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
+	
+	<!-- Chart.js -->
+	
 
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>
@@ -45,46 +48,3 @@
 	<script src="${resourcePath}/pages/summary/cause.js"></script>
 
 	<script src="${resourcePath}/pages/transporter.js"></script>
-
-	<!-- Script Variables -->
-	<script>
-    var pagectx = "${pageContext.servletContext.contextPath}";
-	var googleApiKey = "${properties['api.google.services']}";
-	</script>
-
-	<!-- Google map api -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&callback=initMap" type="text/javascript"></script>
-	<script>
-    var pagectx = "${pageContext.servletContext.contextPath}";
-	var markers = {};
-	var sgmap;
-
-	function initMap() {
-		var sgloc = {lat: 1.3553794, lng: 103.8677444};
-		sgmap = new google.maps.Map(document.getElementById('map'), {
-			zoom: 12,
-			center: sgloc,
-			mapTypeControl: false,
-			streetViewControl: false,
-			fullscreenControl: false
-		});
-
-		// initialise pending accident locations
-		<c:forEach items="${approvedAccidents}" var="aAccident">
-		addMarkerToMap(${aAccident.latitude},
-				${aAccident.longitude}, sgmap,
-				${aAccident.reportId}, pagectx + '/resources/icons/accident_approved32x32.png');
-		</c:forEach>
-	}
-
-	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
-		var latlng = {lat: lat, lng: lng};
-		var marker = new google.maps.Marker({
-			position: latlng,
-			map: map,
-			icon: iconImg
-		});
-		markers[reportId] = marker;
-	}
-
-    </script>

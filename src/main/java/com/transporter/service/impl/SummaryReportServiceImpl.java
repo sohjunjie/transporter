@@ -1,7 +1,6 @@
 package com.transporter.service.impl;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -15,23 +14,21 @@ import com.transporter.service.SummaryReportService;
 @Service
 public class SummaryReportServiceImpl implements SummaryReportService {
 	
+	//returns array of number of accidents due to each cause
 	@Transactional
 	public int[] summariseByCause (List<AccidentReport> allReports, List<AccidentCause> allCauses) {
 		int causeCount[] = new int[allCauses.size()];
+		
 		for (int i = 0; i < causeCount.length; i++) {
 			causeCount[i] = 0;
 		}
 		for (int i = 0; i < allReports.size(); i++) {
-			for (int j = 0; j < causeCount.length; j++) {
-				if (allReports.get(i).getOfficialCause() == allCauses.get(j)) {
-					causeCount[j]++;
-					break;
-				}
-			}
+			causeCount[allReports.get(i).getOfficialCause().getCauseId()-1]++;
 		}
 		return causeCount;
 	}
 	
+	//returns array of number of accidents at each hourly time period
 	@Transactional
 	public int[] summariseByTime (List<AccidentReport> allReports) {
 		int hourAccidentCount[] = new int[24];
