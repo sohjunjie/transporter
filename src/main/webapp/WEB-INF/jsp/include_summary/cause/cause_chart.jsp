@@ -17,7 +17,8 @@ function getRandomColor() {
 var colors = [];
 var lab = [];
 <c:forEach items="${accidentCauses}" var="aCause">
-	lab.push(${aCause.cause});
+	lab.push("${aCause.cause}");
+	colors.push(getRandomColor());
 </c:forEach>
 
 var countArr = [];
@@ -34,7 +35,7 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: '# of Causes',
             data: countArr,
-            //backgroundColor: colors
+            backgroundColor: colors
         }]
     }
 });
