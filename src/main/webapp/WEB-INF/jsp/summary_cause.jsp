@@ -52,7 +52,7 @@
 					</div>
 					<div class="col-lg-7 col-xs-12">
 						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
-						<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
+						<%@ include file="/WEB-INF/jsp/include_summary/cause/search_date_form_no_filter.jsp"%>
 					</div>
 					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
 						<div id="map"></div>
@@ -73,7 +73,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_js.jsp"%>
+	<!-- <%@ include file="/WEB-INF/jsp/include_summary/cause/cause_js.jsp"%> -->
 
 </body>
 </html>

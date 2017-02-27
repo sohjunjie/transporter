@@ -26,8 +26,4 @@ public class AccidentCauseServiceImpl implements AccidentCauseService {
 		return accidentCauseDao.getAllAccidentCauses();
 	}
 
-	@Transactional
-	public List<String> getAllAccidentCausesStr() {
-		return accidentCauseDao.getAllAccidentCausesStr();
-	}
 }

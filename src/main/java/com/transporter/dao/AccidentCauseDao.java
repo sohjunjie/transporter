@@ -8,6 +8,5 @@ public interface AccidentCauseDao {
 
 	public AccidentCause getAccidentCause(int causeId);
 	public List<AccidentCause> getAllAccidentCauses();
-	List<String> getAllAccidentCausesStr();
 	
 }

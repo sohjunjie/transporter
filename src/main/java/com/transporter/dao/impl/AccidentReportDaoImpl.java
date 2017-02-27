@@ -92,7 +92,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
 		return session.getCurrentSession().createQuery("from AccidentReport "
 			+ "where accidentDateTime >= :startDate "
-			+ "and accidentDateTime <= :endDate"
+			+ "and accidentDateTime <= :endDate "
 			+ "and approvedBy!=null")
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
@@ -103,8 +103,8 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
 		return session.getCurrentSession().createQuery("from AccidentReport "
 			+ "where accidentDateTime >= :startDate "
-			+ "and accidentDateTime <= :endDate"
-			+ "and approvedBy!=null"
+			+ "and accidentDateTime <= :endDate "
+			+ "and approvedBy!=null "
 			+ "and resolvedBy=null")
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
@@ -120,15 +120,5 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 			+ "and resolvedBy!=null")
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Integer> getCountCauses() {
-		return session.getCurrentSession().createQuery("SELECT count(*) "
-			+ "FROM transporter.accident_cause "
-			+ "left join transporter.accident_report "
-			+ "on transporter.accident_report.officialCause = transporter.accident_cause.id"
-				).list();
 	}
 }

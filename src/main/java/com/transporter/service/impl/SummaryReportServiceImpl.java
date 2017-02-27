@@ -14,6 +14,7 @@ import com.transporter.service.SummaryReportService;
 @Service
 public class SummaryReportServiceImpl implements SummaryReportService {
 	
+	//returns array of number of accidents due to each cause
 	@Transactional
 	public int[] summariseByCause (List<AccidentReport> allReports, List<AccidentCause> allCauses) {
 		int causeCount[] = new int[allCauses.size()];
@@ -27,6 +28,7 @@ public class SummaryReportServiceImpl implements SummaryReportService {
 		return causeCount;
 	}
 	
+	//returns array of number of accidents at each hourly time period
 	@Transactional
 	public int[] summariseByTime (List<AccidentReport> allReports) {
 		int hourAccidentCount[] = new int[24];

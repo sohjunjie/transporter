@@ -32,20 +32,20 @@ public class SummaryController
 	@Autowired
 	private SummaryReportService summaryReportService;
 	
+	//controller returns list of accident causes and the number of occurrence of each cause
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
 	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, 
 			@RequestParam(value="searchoption", required=false) String searchOption, Map<String, Object> map) {
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
 		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
-		//List<String> strCauses = accidentCauseService.getAllAccidentCausesStr();
 		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
 		return "summary_cause";
 	   }
 	
-	
+	//controller returns hours of the day from 00h to 23h and number of accidents in each time period 
 	@RequestMapping(value="/time", method=RequestMethod.GET)
 	public String goSummaryTime(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
@@ -61,6 +61,7 @@ public class SummaryController
 		return "summary_time";
 	}
 	
+	//returns the locations of all accident reports
 	@RequestMapping(value="/location", method=RequestMethod.GET)
 	public String goSummaryLocation(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
@@ -70,12 +71,14 @@ public class SummaryController
 		return "summary_location";
 	   }
 	
+	//check the status of each string and return the range of dates of accident reports accordingly
+	//empty start and end date will return all accident reports regardless of date
 	private List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate;
 		Date endDate;
-		if (searchOption==null)
-			searchOption="both";
+		if (searchOption == null)
+			searchOption = "both";
 		try {
 			startDate = (Date)formatter.parse(textStartDate);
 			endDate = (Date)formatter.parse(textEndDate); 

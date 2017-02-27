@@ -25,11 +25,5 @@ public class AccidentCauseDaoImpl implements AccidentCauseDao {
 	public List<AccidentCause> getAllAccidentCauses() {
 		return session.getCurrentSession().createQuery("from AccidentCause").list();
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<String> getAllAccidentCausesStr() {
-		return session.getCurrentSession().createQuery("select cause from AccidentCause").list();
-	}
 	
 }
