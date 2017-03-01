@@ -3,7 +3,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" type="text/javascript"></script>
-<canvas id="myChart" width="600" height="400"></canvas>
+<canvas id="myChart" width="600" height="600"></canvas>
 <script>
 function getRandomColor() {
     var letters = '0123456789ABCDEF';

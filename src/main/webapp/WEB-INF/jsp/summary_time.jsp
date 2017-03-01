@@ -55,6 +55,7 @@
 					<div class="col-lg-7 col-xs-12">
 						<%@ include file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
 						<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
+						
 					</div>
 					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
 						<div id="map"></div>
