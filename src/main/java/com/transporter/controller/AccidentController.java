@@ -17,6 +17,12 @@ import com.transporter.model.user.AuthenticatedUser;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
 
+/**
+ * Handle AJAX request for CRUD operation
+ * relating to accident
+ * @author Soh Jun Jie
+ * @version 1.0
+ */
 @Controller
 @RequestMapping(value="/accident")
 public class AccidentController {

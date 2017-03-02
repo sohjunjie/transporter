@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.transporter.service.AuthenticatedUserService;
 
+/**
+ * Handle user login
+ * @author Soh Jun Jie
+ * @version 1.0
+ */
 @Controller
 public class LoginController {
 

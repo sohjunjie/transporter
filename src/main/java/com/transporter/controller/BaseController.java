@@ -22,6 +22,7 @@ import com.transporter.service.CameraService;
  * BaseController class handle request for a page
  * and redirect user to the requested page
  * @author Soh Jun Jie
+ * @version 1.0
  */
 @Controller
 public class BaseController {

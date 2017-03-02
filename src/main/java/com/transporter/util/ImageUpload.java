@@ -12,6 +12,11 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Handle server image upload and deletion
+ * @author user
+ * @version 1.0
+ */
 public class ImageUpload {
 
 	private static final String UPLOADPATH = "/uploads";
