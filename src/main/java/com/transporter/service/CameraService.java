@@ -13,7 +13,9 @@ public interface CameraService {
 	public Camera getCamera(int cameraId);
 	public void delete(int cameraId);
 	
-	public boolean suggestNewCamera(double lat, double lng, String formattedAddress, int cameraTypeOrdinal);
+	public boolean addNewCamera(double lat, double lng, String formattedAddress, int cameraTypeOrdinal);
+	public boolean setCameraStatus(int cameraId, int cameraStatusOrdinal);
+	public boolean setCameraType(int cameraId, int cameraTypeOrdinal);
 	
 	public List<Camera> getAllCamera();
 	public List<Camera> getAllSpeedCamera();

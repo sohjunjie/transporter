@@ -45,7 +45,7 @@ public class CameraServiceImpl implements CameraService {
 	}
 
 	@Transactional
-	public boolean suggestNewCamera(double lat, double lng, String formattedAddress, int cameraTypeOrdinal){
+	public boolean addNewCamera(double lat, double lng, String formattedAddress, int cameraTypeOrdinal){
 		Camera camera = new Camera();
 		camera.setLatitude(lat);
 		camera.setLongitude(lng);
@@ -53,6 +53,22 @@ public class CameraServiceImpl implements CameraService {
 		camera.setStatus(CameraStatus.PENDING);
 		camera.setType(CameraType.values()[cameraTypeOrdinal]);
 		cameraDao.add(camera);
+		return true;
+	}
+	
+	public boolean setCameraStatus(int cameraId, int cameraStatusOrdinal){
+		Camera camera = cameraDao.getCamera(cameraId);
+		if(camera == null) return false;
+		camera.setStatus(CameraStatus.values()[cameraStatusOrdinal]);
+		cameraDao.edit(camera);
+		return true;
+	}
+
+	public boolean setCameraType(int cameraId, int cameraTypeOrdinal){
+		Camera camera = cameraDao.getCamera(cameraId);
+		if(camera == null) return false;
+		camera.setType(CameraType.values()[cameraTypeOrdinal]);
+		cameraDao.edit(camera);
 		return true;
 	}
 	
