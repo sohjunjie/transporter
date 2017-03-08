@@ -41,6 +41,7 @@ public class BaseController {
 		return "home";
 	}
 
+	//controller redirects the user to view Pending Accident Report page
 	@RequestMapping(value = "/accident/pending", method=RequestMethod.GET)
 	public String goAccidentReportViewPending(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
@@ -49,6 +50,7 @@ public class BaseController {
 		return "accident_view_pending";
 	}
 
+	//controller redirects the user to view Resolved Approved Accident Report page
 	@RequestMapping(value = "/accident/approved", method=RequestMethod.GET)
 	public String goAccidentReportResolveApproved(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
@@ -59,6 +61,7 @@ public class BaseController {
 		return "accident_view_approved";
 	}
 
+	//controller redirects the user to view Suggest Camera page
 	@RequestMapping(value = "/camera/suggest", method=RequestMethod.GET)
 	public String goSuggestCameraPage(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
@@ -69,6 +72,7 @@ public class BaseController {
 		return "camera_suggest";
 	}
 
+	//controller logs out the user
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
 		session.invalidate();

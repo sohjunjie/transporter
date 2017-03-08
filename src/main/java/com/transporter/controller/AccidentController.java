@@ -77,7 +77,7 @@ public class AccidentController {
 		return "OK";
 	}
 
-	//controller can show number of current pending reports
+	//controller can show the number of current pending reports
 	@RequestMapping(value = "/report/pending/count", method=RequestMethod.GET)
 	public @ResponseBody String getPendingAccidentCount(){
 		Long pendingAccidentCount = accidentReportService.getPendingAccidentCount();
@@ -86,7 +86,7 @@ public class AccidentController {
 		return "";
 	}
 	
-	//controller can show number of approved reports that are yet to be resolved
+	//controller can show the number of approved reports that are yet to be resolved
 	@RequestMapping(value = "/report/approved/count", method=RequestMethod.GET)
 	public @ResponseBody String getApprovedAccidentCount(){
 		Long approvedAccidentCount = accidentReportService.getApprovedAccidentCount();
