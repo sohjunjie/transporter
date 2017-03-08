@@ -51,10 +51,12 @@
 							</span>
 					</a>						
 					<ul class="treeview-menu">
-							<li id="vert_stat_menu_report"><a href="${pageContext.servletContext.contextPath}/summary/cause">
+							<li id="vert_stat_cause_report"><a href="${pageContext.servletContext.contextPath}/summary/cause">
 								<i class="fa fa-file"></i> Summary Report By Cause</a></li>
-							<li id="vert_stat_menu_report"><a href="${pageContext.servletContext.contextPath}/summary/time">
+							<li id="vert_stat_time_report"><a href="${pageContext.servletContext.contextPath}/summary/time">
 								<i class="fa fa-file"></i> Summary Report By Time</a></li>
+							<li id="vert_stat_location_report"><a href="${pageContext.servletContext.contextPath}/summary/location">
+								<i class="fa fa-file"></i> Summary Report By Location</a></li>
 						</ul></li>
 					
 				</ul>
