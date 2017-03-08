@@ -77,4 +77,14 @@ public class CameraController {
 	}
 	
 
+	@RequestMapping(value = "/delete", method=RequestMethod.POST)
+	public @ResponseBody String deleteCamera(
+			@RequestParam int cameraId, HttpSession httpSession){
+
+		if(!authUserService.isAuthenticated(httpSession)) return "";
+
+		cameraService.delete(cameraId);
+		return "OK";
+	}
 }
+
