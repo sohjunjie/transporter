@@ -74,9 +74,9 @@ public class CameraController {
 		}else{
 			return "";
 		}
-
 	}
 	
+
 	@RequestMapping(value = "/delete", method=RequestMethod.POST)
 	public @ResponseBody String deleteCamera(
 			@RequestParam int cameraId, HttpSession httpSession){
@@ -87,3 +87,4 @@ public class CameraController {
 		return "OK";
 	}
 }
+
