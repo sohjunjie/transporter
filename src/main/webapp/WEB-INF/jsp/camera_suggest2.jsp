@@ -14,7 +14,7 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
 
-<!-- css library include -->
+<!-- start css library include -->
 <%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_css.jsp"%>
 
 <!--[if lt IE 9]>
@@ -25,18 +25,16 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-
+		
 		<!-- Main Header Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainheader.jsp"%>
 
 		<!-- Main Sidebar Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainsidebar.jsp"%>
 
-		<!-- Suggest Camera Popup Form Include -->
-		<%@ include file="/WEB-INF/jsp/include_camera/suggest/suggest_camera_popup.jsp"%>
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
+
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>Suggest Camera</h1>
@@ -54,6 +52,7 @@
 				<div id="map"></div>
 			</section>
 			<!-- /.content -->
+
 		</div>
 		<!-- /.content-wrapper -->
 

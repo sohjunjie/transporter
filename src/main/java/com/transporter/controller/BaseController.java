@@ -66,7 +66,7 @@ public class BaseController {
 		List<Camera> trafficCameras = cameraService.getAllTrafficCamera();
 		map.put("speedCameras", speedCameras);
 		map.put("trafficCameras", trafficCameras);
-		return "camera_suggest";
+		return "camera_suggest2";
 	}
 
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
