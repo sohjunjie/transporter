@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"		prefix="c"%>
 
 <!-- TODO: Refine suggest camera popup form -->
+<!-- TODO: Popup form causing missing sidebar -->
 <div id="suggest_camera_modal" class="modal">
 
 	<!-- Modal content -->
@@ -49,6 +50,4 @@
 			    </div>
 			</form>
 	    </div>
-
-	</div>
 </div>

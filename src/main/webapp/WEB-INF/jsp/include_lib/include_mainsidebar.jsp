@@ -49,7 +49,7 @@
 							<span>Statistics</span> <span class="pull-right-container"> 
 							<i class="fa fa-angle-left pull-right"></i>
 							</span>
-					</a>						
+					</a>
 					<ul class="treeview-menu">
 							<li id="vert_stat_cause_report"><a href="${pageContext.servletContext.contextPath}/summary/cause">
 								<i class="fa fa-file"></i> Summary Report By Cause</a></li>

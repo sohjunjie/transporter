@@ -25,7 +25,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-		
+
 		<!-- Main Header Include -->
 		<%@ include file="/WEB-INF/jsp/include_lib/include_mainheader.jsp"%>
 
