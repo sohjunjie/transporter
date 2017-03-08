@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.transporter.service.AuthenticatedUserService;
 import com.transporter.service.CameraService;
 
+/**
+ * Handle AJAX request for CRUD operation
+ * relating to Camera
+ * @author Jun Jie
+ * @version 1.0
+ */
 @Controller
 @RequestMapping(value="/camera")
 public class CameraController {
@@ -29,8 +35,40 @@ public class CameraController {
 			@RequestParam int cameraTypeOrdinal, HttpSession httpSession){
 
 		if(!authUserService.isAuthenticated(httpSession)) return "";
-		
-		boolean success = cameraService.suggestNewCamera(lat, lng, cameraLocation, cameraTypeOrdinal);
+
+		boolean success = cameraService.addNewCamera(lat, lng, cameraLocation, cameraTypeOrdinal);
+		if(success){
+			return "OK";
+		}else{
+			return "";
+		}
+
+	}
+
+	@RequestMapping(value = "/set/status", method=RequestMethod.POST)
+	public @ResponseBody String setCameraStatus(
+			@RequestParam int cameraId,
+			@RequestParam int cameraStatusOrdinal, HttpSession httpSession){
+
+		if(!authUserService.isAuthenticated(httpSession)) return "";
+
+		boolean success = cameraService.setCameraStatus(cameraId, cameraStatusOrdinal);
+		if(success){
+			return "OK";
+		}else{
+			return "";
+		}
+
+	}
+
+	@RequestMapping(value = "/set/type", method=RequestMethod.POST)
+	public @ResponseBody String setCameraType(
+			@RequestParam int cameraId,
+			@RequestParam int cameraTypeOrdinal, HttpSession httpSession){
+
+		if(!authUserService.isAuthenticated(httpSession)) return "";
+
+		boolean success = cameraService.setCameraType(cameraId, cameraTypeOrdinal);
 		if(success){
 			return "OK";
 		}else{
@@ -38,4 +76,15 @@ public class CameraController {
 		}
 	}
 	
+
+	@RequestMapping(value = "/delete", method=RequestMethod.POST)
+	public @ResponseBody String deleteCamera(
+			@RequestParam int cameraId, HttpSession httpSession){
+
+		if(!authUserService.isAuthenticated(httpSession)) return "";
+
+		cameraService.delete(cameraId);
+		return "OK";
+	}
 }
+
