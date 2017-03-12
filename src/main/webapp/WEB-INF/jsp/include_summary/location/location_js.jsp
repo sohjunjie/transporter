@@ -35,6 +35,9 @@
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
 
 	<script src="${resourcePath}/pages/summary/location.js"></script>
+	<script src="${resourcePath}/pages/home/login-popup.js"></script>
+	<script src="${resourcePath}/pages/home/login.js"></script>
+	<script src="${resourcePath}/pages/transporter.js"></script>
 
 	<!-- Script Variables -->
 	<script>

@@ -37,5 +37,8 @@
 	<!-- Chart.js -->
 	
 	<script src="${resourcePath}/pages/summary/sumcause.js"></script>
+	<script src="${resourcePath}/pages/home/login-popup.js"></script>
+	<script src="${resourcePath}/pages/home/login.js"></script>
+	<script src="${resourcePath}/pages/transporter.js"></script>
 
 	<script src="${resourcePath}/pages/transporter.js"></script>

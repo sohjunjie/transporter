@@ -33,13 +33,13 @@ public class SummaryController
 	private SummaryReportService summaryReportService;
 	
 	//controller returns list of accident causes and the number of occurrence of each cause
+	//no search option for unresolved accidents as unresolved accidents do not have official causes yet
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
 	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, 
-			@RequestParam(value="searchoption", required=false) String searchOption, Map<String, Object> map) {
+			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
-		int[] causeCount = summaryReportService.summariseByCause (accidentReports, accidentCauses);
+		List<AccidentReport> accidentReports = checkSearchForCause(textStartDate, textEndDate);
+		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
 		return "summary_cause";
@@ -96,4 +96,19 @@ public class SummaryController
 			}
 		} 
 	}
+	
+	//check range of dates for summary by cause (as unresolved approved accidents do not have official cause yet)
+	//if date is not parseable or null, return all resolved accidents
+	private List<AccidentReport> checkSearchForCause(String textStartDate, String textEndDate) {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		Date startDate;
+		Date endDate;
+		try {
+			startDate = (Date)formatter.parse(textStartDate);
+			endDate = (Date)formatter.parse(textEndDate); 
+			return accidentReportService.getResolvedAccidentReport(startDate, endDate);
+		} catch (Exception e) {
+			return accidentReportService.getResolvedAccidentReport();
+		}
+	} 
 }
