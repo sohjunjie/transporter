@@ -34,13 +34,7 @@
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
 
-	<script src="${resourcePath}/pages/home/home.js"></script>
-	<script src="${resourcePath}/pages/home/login-popup.js"></script>
-	<script src="${resourcePath}/pages/home/login.js"></script>
-	<script src="${resourcePath}/pages/transporter.js"></script>
-	
-	<script src="${resourcePath}/pages/home/report-popup.js"></script>
-	<script src="${resourcePath}/pages/home/report.js"></script>
+	<script src="${resourcePath}/pages/summary/location.js"></script>
 
 	<!-- Script Variables -->
 	<script>
