@@ -40,7 +40,7 @@
 				<h1>Manage Camera</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-video-camera"></i> Camera</a></li>
-					<li class="active">Manage Camera</li>
+					<li class="active"><i class="fa fa-laptop"></i> Manage Camera</li>
 				</ol>
 			</section>
 

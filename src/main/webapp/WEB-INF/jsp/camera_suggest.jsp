@@ -42,7 +42,7 @@
 				<h1>Suggest Camera</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-video-camera"></i> Camera</a></li>
-					<li class="active">Suggest Camera</li>
+					<li class="active"><i class="fa fa-pencil"></i> Suggest Camera</li>
 				</ol>
 			</section>
 
