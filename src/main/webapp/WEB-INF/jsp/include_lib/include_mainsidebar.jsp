@@ -37,10 +37,10 @@
 								</span></a>
 						<ul class="treeview-menu">
 							<li id="vert_cam_menu_suggest"><a href="${pageContext.servletContext.contextPath}/camera/suggest">
-								<i class="fa fa-exclamation-circle" style="color:red"></i> Suggest Camera</a></li>
+								<i class="fa fa-pencil"></i> Suggest Camera</a></li>
 
-							<li id="vert_cam_menu_manage"><a href="${pageContext.servletContext.contextPath}">
-								<i class="fa fa-exclamation-circle" style="color:red"></i> Manage Camera</a></li>
+							<li id="vert_cam_menu_manage"><a href="${pageContext.servletContext.contextPath}/camera/manage">
+								<i class="fa fa-laptop"></i> Manage Camera</a></li>
 
 						</ul></li>
 					<% } %>

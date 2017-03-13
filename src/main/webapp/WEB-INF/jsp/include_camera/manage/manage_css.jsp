@@ -36,18 +36,3 @@
 
 <!-- transporter -->
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
-
-<!-- suggest camera popup form -->
-<link rel="stylesheet" href="${resourcePath}/pages/camera/suggest/suggest-camera-popup.css">
-
-<style>
-#map {
-	width: 100%;
-	height: 450px;
-	background-color: grey;
-}
-#suggest_camera_btn,
-#pac_input {
-	margin: 8px;
-}
-</style>

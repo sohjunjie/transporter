@@ -41,9 +41,9 @@
 
 	<script src="${resourcePath}/pages/transporter.js"></script>
 
-	<script src="${resourcePath}/pages/camera/suggest.js"></script>
-	<script src="${resourcePath}/pages/camera/suggest-camera.js"></script>
-	<script src="${resourcePath}/pages/camera/suggest-camera-popup.js"></script>
+	<script src="${resourcePath}/pages/camera/suggest/suggest.js"></script>
+	<script src="${resourcePath}/pages/camera/suggest/suggest-camera.js"></script>
+	<script src="${resourcePath}/pages/camera/suggest/suggest-camera-popup.js"></script>
 
 	<!-- Script Variables -->
 	<script>

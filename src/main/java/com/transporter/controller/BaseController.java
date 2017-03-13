@@ -72,6 +72,13 @@ public class BaseController {
 		return "camera_suggest";
 	}
 
+	//controller redirects the user to view Manage Camera page
+	@RequestMapping(value = "/camera/manage", method=RequestMethod.GET)
+	public String goManageCameraPage(Map<String, Object> map, HttpSession httpSession) {
+		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		return "camera_manage";
+	}
+
 	//controller logs out the user
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session){
