@@ -16,6 +16,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	@Autowired
 	private SessionFactory session;
 	
+
 	//add new accident report into the database
 	@Override
 	public void add(AccidentReport accidentReport) {
@@ -45,8 +46,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	@Override
 	public List<AccidentReport> getAllAccidentReport() {
 		return session.getCurrentSession().createQuery("FROM AccidentReport").list();
-	}
-
+	
 	//retrieve number of pending accident reports from the database
 	@Override
 	public Long getPendingAccidentCount() {
@@ -109,7 +109,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
 	}
-	
+
 	//retrieve details of all approved accident reports within the specific range of time, that are yet to be resolved, from the database
 	@SuppressWarnings("unchecked")
 	@Override
