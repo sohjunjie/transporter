@@ -15,13 +15,14 @@ public class AccidentCauseDaoImpl implements AccidentCauseDao {
 	@Autowired
 	private SessionFactory session;
 	
-	//get the data of a particular accident report's accident cause from the database
+
+	//retrieve the cause of the accident from the database based on its ID
 	@Override
 	public AccidentCause getAccidentCause(int causeId) {
 		return (AccidentCause)session.getCurrentSession().get(AccidentCause.class, causeId);
 	}
 
-	//get a list of all acident report's accident causes from the database
+	//retrieve all accident causes from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentCause> getAllAccidentCauses() {

@@ -32,6 +32,7 @@ public class AccidentController {
 	@Autowired
 	private AuthenticatedUserService authUserService;
 
+	//report new accident with accident details like latitude, longitude, date&time, description and image
 	@RequestMapping(value = "/report/new", method=RequestMethod.POST)
 	public @ResponseBody String reportAccident(
 			@RequestParam String accidentLocation,
@@ -48,6 +49,7 @@ public class AccidentController {
 		}
 	}
 
+	//authenticated user can mark reported accident as approved
 	@RequestMapping(value = "/report/approve", method=RequestMethod.POST)
 	public @ResponseBody String approvePendingAccident(@RequestParam int reportId, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
@@ -56,7 +58,8 @@ public class AccidentController {
 		if(!success) return "";
 		return "OK";
 	}
-
+	
+	//authenticated user can mark reported accident as rejected
 	@RequestMapping(value = "/report/reject", method=RequestMethod.POST)
 	public @ResponseBody String rejectPendingAccident(@RequestParam int reportId, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
@@ -64,6 +67,7 @@ public class AccidentController {
 		return "OK";
 	}
 
+	//authenticated user can mark approved accident as resolved
 	@RequestMapping(value = "/report/resolve", method=RequestMethod.POST)
 	public @ResponseBody String resolveApprovedAccident(@RequestParam int reportId, @RequestParam int causeId, @RequestParam int numOfCasualties, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "";
@@ -73,6 +77,7 @@ public class AccidentController {
 		return "OK";
 	}
 
+	//controller can show the number of current pending reports
 	@RequestMapping(value = "/report/pending/count", method=RequestMethod.GET)
 	public @ResponseBody String getPendingAccidentCount(){
 		Long pendingAccidentCount = accidentReportService.getPendingAccidentCount();
@@ -80,7 +85,8 @@ public class AccidentController {
 			return Long.toString(pendingAccidentCount);
 		return "";
 	}
-
+	
+	//controller can show the number of approved reports that are yet to be resolved
 	@RequestMapping(value = "/report/approved/count", method=RequestMethod.GET)
 	public @ResponseBody String getApprovedAccidentCount(){
 		Long approvedAccidentCount = accidentReportService.getApprovedAccidentCount();

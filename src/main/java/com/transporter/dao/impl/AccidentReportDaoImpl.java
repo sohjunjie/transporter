@@ -16,38 +16,38 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	@Autowired
 	private SessionFactory session;
 	
-	//add a new accident report into the database
+
+	//add new accident report into the database
 	@Override
 	public void add(AccidentReport accidentReport) {
 		session.getCurrentSession().save(accidentReport);
 	}
 
-	//edit an existing accident report in the database
+	//edit existing accident report details in the database
 	@Override
 	public void edit(AccidentReport accidentReport) {
 		session.getCurrentSession().update(accidentReport);
 	}
 
-	//retrieve an existing accident report from the database
+	//retrieve existing accident report from the database based on its ID
 	@Override
 	public AccidentReport getAccidentReport(int reportId) {
 		return (AccidentReport)session.getCurrentSession().get(AccidentReport.class, reportId);
 	}
 
-	//delete an existing accident report from the database
+	//delete existing accident report from the database based on its ID
 	@Override
 	public void delete(int reportId) {
 		session.getCurrentSession().delete(getAccidentReport(reportId));
 	}
 
-	//retrieve a list of all accident reports from the database
+	//retrieve details of all accident reports from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getAllAccidentReport() {
 		return session.getCurrentSession().createQuery("FROM AccidentReport").list();
-	}
-
-	//retrieve the number of pending accident report from the database
+	
+	//retrieve number of pending accident reports from the database
 	@Override
 	public Long getPendingAccidentCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from AccidentReport "
@@ -55,7 +55,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").uniqueResult();
 	}
 
-	//retrieve the list of pending accident report from  the database
+	//retrieve details of all pending accident reports from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getPendingAccidentReport() {
@@ -64,7 +64,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").list();
 	}
 
-	//retrieve the number of approved accident reports, which are yet to be resolved, from the database
+	//retrieve number of approved accident reports from the database
 	@Override
 	public Long getApprovedAccidentCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from AccidentReport "
@@ -72,7 +72,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").uniqueResult();
 	}
 
-	//retrieve the list of approved accident reports, which are yet to be resolved, from the database
+	//retrieve details of all approved accident reports, that are yet to be resolved, from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getApprovedAccidentReport() {
@@ -81,7 +81,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").list();
 	}
 	
-	//retrieve the list of all approved accident reports, regardless of whether they are resolved or not, from the database
+	//retrieve details of all approved accident reports, regardless whether they are resolved or not, from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
@@ -89,7 +89,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "where approvedBy!=null ").list();
 	}
 	
-	//retrieve the list of resolved accident reports from the database
+	//retrieve details of all resolved accident reports from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getResolvedAccidentReport() {
@@ -98,8 +98,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy!=null").list();
 	}
 
-	//retrieve the list of all approved accident reports, regardless of whether they are resolved or not, from the database
-	//based on the range of date selected
+	//retrieve details of all approved accident reports within the specific range of time, regardless whether they are resolved or not, from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
@@ -110,9 +109,8 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				.setParameter("startDate", startDate)
 				.setParameter("endDate", endDate).list();
 	}
-	
-	//retrieve the list of approved accident reports, which are yet to be resolved, from the database
-	//based on the range of date selected
+
+	//retrieve details of all approved accident reports within the specific range of time, that are yet to be resolved, from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
@@ -125,8 +123,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				.setParameter("endDate", endDate).list();
 	}
 	
-	//retrieve the list of resolved accident reports from the database
-	//based on the range of date selected
+	//retrieve details of all resolved accident reports within the specific range of time from the database
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
