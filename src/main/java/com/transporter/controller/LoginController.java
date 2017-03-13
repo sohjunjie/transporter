@@ -22,6 +22,7 @@ public class LoginController {
 	@Autowired
 	private AuthenticatedUserService authUserService;
 	
+	//controller logs in the user and allow the user to accesss the session
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public @ResponseBody String login(@RequestParam String usernameOrEmail, @RequestParam String password, HttpSession httpSession) {
 		boolean success = authUserService.loginUser(usernameOrEmail, password, httpSession);

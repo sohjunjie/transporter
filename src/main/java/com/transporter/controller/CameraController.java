@@ -27,6 +27,7 @@ public class CameraController {
 	@Autowired
 	private AuthenticatedUserService authUserService;
 
+	//suggest new camera with camera details like latitude, longitude, location and type
 	@RequestMapping(value = "/suggest/new", method=RequestMethod.POST)
 	public @ResponseBody String suggestCamera(
 			@RequestParam double lat,
@@ -45,6 +46,7 @@ public class CameraController {
 
 	}
 
+	//set the status of the camera to PENDING or INSTALLED
 	@RequestMapping(value = "/set/status", method=RequestMethod.POST)
 	public @ResponseBody String setCameraStatus(
 			@RequestParam int cameraId,
@@ -61,6 +63,7 @@ public class CameraController {
 
 	}
 
+	//set the type of the camera to SPEED or TRAFFIC
 	@RequestMapping(value = "/set/type", method=RequestMethod.POST)
 	public @ResponseBody String setCameraType(
 			@RequestParam int cameraId,
@@ -76,7 +79,7 @@ public class CameraController {
 		}
 	}
 	
-
+	//delete existing camera
 	@RequestMapping(value = "/delete", method=RequestMethod.POST)
 	public @ResponseBody String deleteCamera(
 			@RequestParam int cameraId, HttpSession httpSession){
