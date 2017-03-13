@@ -39,7 +39,7 @@
 							<li id="vert_cam_menu_suggest"><a href="${pageContext.servletContext.contextPath}/camera/suggest">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Suggest Camera</a></li>
 
-							<li id="vert_cam_menu_manage"><a href="${pageContext.servletContext.contextPath}">
+							<li id="vert_cam_menu_manage"><a href="${pageContext.servletContext.contextPath}/camera/manage">
 								<i class="fa fa-exclamation-circle" style="color:red"></i> Manage Camera</a></li>
 
 						</ul></li>
