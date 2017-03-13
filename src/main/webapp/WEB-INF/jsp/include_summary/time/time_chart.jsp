@@ -30,7 +30,7 @@ var countArr = [];
 
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-    type: 'pie',
+    type: 'bar',
     data: {
         labels: lab,
         datasets: [{

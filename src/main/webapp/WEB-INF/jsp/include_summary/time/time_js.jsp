@@ -33,17 +33,10 @@
 	<script src="${resourcePath}/plugins/fastclick/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${resourcePath}/dist/js/app.min.js"></script>
-
+	
+	<script src="${resourcePath}/pages/summary/time.js"></script>
 	<script src="${resourcePath}/pages/home/login-popup.js"></script>
 	<script src="${resourcePath}/pages/home/login.js"></script>
-	
-	<script src="${resourcePath}/pages/accident/approved.js"></script>
-	<script src="${resourcePath}/pages/accident/image_popup.js"></script>
-	<script src="${resourcePath}/pages/accident/resolve-popup.js"></script>
-	<script src="${resourcePath}/pages/accident/resolve.js"></script>
-	
-	<script src="${resourcePath}/pages/summary/cause.js"></script>
-
 	<script src="${resourcePath}/pages/transporter.js"></script>
 
 	<!-- Script Variables -->
