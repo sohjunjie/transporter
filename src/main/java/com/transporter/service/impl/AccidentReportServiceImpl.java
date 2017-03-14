@@ -36,7 +36,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	private AccidentReportDao accidentReportDao;
 	@Autowired
 	private AccidentCauseDao accidentCauseDao;
-// upload a full accident report
+	// upload a full accident report
 	@Transactional
 	public boolean add(String accidentLocation, double lat, double lng, Date accidentDateTime, String accidentDescription, MultipartFile accidentImage) {
 
@@ -55,17 +55,17 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		}
 		return false;
 	}
-// edit the accident report
+	// edit the accident report
 	@Transactional
 	public void edit(AccidentReport accidentReport) {
 		accidentReportDao.edit(accidentReport);
 	}
-// get the accident report based on its ID
+	// get the accident report based on its ID
 	@Transactional
 	public AccidentReport getAccidentReport(int reportId) {
 		return accidentReportDao.getAccidentReport(reportId);
 	}
-// delete an accident report with specific ID
+	// delete an accident report with specific ID
 	@Transactional
 	public void delete(int reportId) {
 		AccidentReport accidentReport = getAccidentReport(reportId);
@@ -74,22 +74,22 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		imageUpload.delete(imageLink, context);
 		accidentReportDao.delete(reportId);
 	}
-// list all the accident reports
+	// list all the accident reports
 	@Transactional
 	public List<AccidentReport> getAllAccidentReport() {
 		return accidentReportDao.getAllAccidentReport();
 	}
-// get the number of pending reports
+	// get the number of pending reports
 	@Transactional
 	public Long getPendingAccidentCount() {
 		return accidentReportDao.getPendingAccidentCount();
 	}
-// list all of pending reports
+	// list all of pending reports
 	@Transactional
 	public List<AccidentReport> getPendingAccidentReport() {
 		return accidentReportDao.getPendingAccidentReport();
 	}
-// allow authenticated user to approve a report with specific ID
+	// allow authenticated user to approve a report with specific ID
 	@Transactional
 	public boolean approveAccidentReport(AuthenticatedUser authUser, int reportId) {
 		if(!(authUser instanceof LTAPersonnel)) return false;
@@ -99,7 +99,7 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		accidentReportDao.edit(accidentReport);
 		return true;
 	}
-// allow authenticated user to resolve a report with specific ID
+	// allow authenticated user to resolve a report with specific ID
 	@Transactional
 	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId, int causeId, int numOfCasualties) {
 		if(!(authUser instanceof LTAPersonnel)) return false;
@@ -115,37 +115,37 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 		accidentReportDao.edit(accidentReport);
 		return true;
 	}
-// get the number of approved accidents
+	// get the number of approved accidents
 	@Transactional
 	public Long getApprovedAccidentCount() {
 		return accidentReportDao.getApprovedAccidentCount();
 	}
-// get the list of approved accident reports
+	// get the list of approved accident reports
 	@Transactional
 	public List<AccidentReport> getApprovedAccidentReport() {
 		return accidentReportDao.getApprovedAccidentReport();
 	}
-// get the list of approved and resolved accident reports
+	// get the list of approved and resolved accident reports
 	@Transactional
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
 		return accidentReportDao.getApprovedAndResolvedAccidentReport();
 	}
-//	get the list of approved accidents reports based on a time interval
+	//	get the list of approved accidents reports based on a time interval
 	@Transactional
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate) {
 		return accidentReportDao.getApprovedAccidentReport(startDate, endDate);
 	}
-// list all of resolved accident reports
+	// list all of resolved accident reports
 	@Transactional
 	public List<AccidentReport> getResolvedAccidentReport() {
 		return accidentReportDao.getResolvedAccidentReport();
 	}
-// get the list of approved and resolved accident reports based on a time interval
+	// get the list of approved and resolved accident reports based on a time interval
 	@Transactional
 	public List<AccidentReport> getApprovedAndResolvedAccidentReport(Date startDate, Date endDate) {
 		return accidentReportDao.getApprovedAndResolvedAccidentReport(startDate, endDate);
 	}
-// get list of resolved accident reports based on a time interval
+	// get list of resolved accident reports based on a time interval
 	@Transactional
 	public List<AccidentReport> getResolvedAccidentReport(Date startDate, Date endDate) {
 		return accidentReportDao.getResolvedAccidentReport(startDate, endDate);
