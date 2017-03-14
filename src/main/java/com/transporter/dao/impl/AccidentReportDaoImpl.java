@@ -46,7 +46,8 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	@Override
 	public List<AccidentReport> getAllAccidentReport() {
 		return session.getCurrentSession().createQuery("FROM AccidentReport").list();
-	
+	}
+
 	//retrieve number of pending accident reports from the database
 	@Override
 	public Long getPendingAccidentCount() {
