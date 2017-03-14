@@ -36,3 +36,11 @@
 
 <!-- transporter -->
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
+
+<style>
+#map {
+	width: 100%;
+	height: 500px;
+	background-color: grey;
+}
+</style>

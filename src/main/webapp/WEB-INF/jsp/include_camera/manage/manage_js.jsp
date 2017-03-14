@@ -51,3 +51,45 @@
 
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
+	<script>
+
+	var markers = {};
+	var sgmap;
+
+	function initMap() {
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};
+		sgmap = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			center: sgloc,
+			mapTypeControl: false,
+			streetViewControl: false,
+			fullscreenControl: false
+		});
+
+		// initialise all camera markers
+		var cameraType = "";
+		var cameraIconLink = "";
+		<c:forEach items="${enforcementCamera}" var="camera">
+			if('${camera.type}' == 'SPEED'){
+				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC'){
+				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+			}
+			addMarkerToMap(${camera.latitude},
+					${camera.longitude}, sgmap,
+					${camera.cameraId}, pagectx + cameraIconLink);
+		</c:forEach>
+	}
+
+	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
+		var latlng = {lat: lat, lng: lng};
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			icon: iconImg
+		});
+		markers[reportId] = marker;
+	}
+
+	</script>

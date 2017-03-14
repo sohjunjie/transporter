@@ -76,6 +76,8 @@ public class BaseController {
 	@RequestMapping(value = "/camera/manage", method=RequestMethod.GET)
 	public String goManageCameraPage(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
+		List<Camera> camera = cameraService.getAllCamera();
+		map.put("enforcementCamera", camera);
 		return "camera_manage";
 	}
 

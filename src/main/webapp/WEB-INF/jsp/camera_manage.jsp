@@ -46,7 +46,14 @@
 
 			<!-- Main content -->
 			<section class="content">
+				<div class="row">
+					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
+						<div id="map"></div>
+					</div>
+					<div class="col-lg-6 col-xs-12">
 
+					</div>
+				</div>
 			</section>
 			<!-- /.content -->
 		</div>
