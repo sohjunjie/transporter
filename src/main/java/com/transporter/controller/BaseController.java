@@ -36,10 +36,17 @@ public class BaseController {
 	@Autowired
 	private CameraService cameraService;	
 
-	@RequestMapping("/")
-	public String goMainPage(){
+	@RequestMapping(value = "/", method=RequestMethod.GET)
+	public String goMainPage(Map<String, Object> map, HttpSession httpSession){
+		List<AccidentReport> currentReports = accidentReportService.getApprovedAccidentReport();
+		List<Camera> speedCameras = cameraService.getAllSpeedCamera();
+		List<Camera> trafficCameras = cameraService.getAllInstalledCamera();
+		map.put("currentReports", currentReports);
+		map.put("speedCameras", speedCameras);
+		map.put("trafficCameras", trafficCameras);
 		return "home";
 	}
+
 
 	//controller redirects the user to view Pending Accident Report page
 	@RequestMapping(value = "/accident/pending", method=RequestMethod.GET)
@@ -65,9 +72,9 @@ public class BaseController {
 	@RequestMapping(value = "/camera/suggest", method=RequestMethod.GET)
 	public String goSuggestCameraPage(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
-		List<Camera> speedCameras = cameraService.getAllSpeedCamera();
+		//List<Camera> speedCameras = cameraService.getAllSpeedCamera();
 		List<Camera> trafficCameras = cameraService.getAllTrafficCamera();
-		map.put("speedCameras", speedCameras);
+		//map.put("speedCameras", speedCameras);
 		map.put("trafficCameras", trafficCameras);
 		return "camera_suggest";
 	}

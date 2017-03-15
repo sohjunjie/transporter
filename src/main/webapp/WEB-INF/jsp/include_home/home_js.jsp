@@ -55,6 +55,9 @@
 	var marker;
 	var sgmap;
 	var currentmarker;
+	var currentaccmarker;
+	var speedcam;
+	var trafficcam;
 
 	function initMap() {
 
@@ -71,8 +74,8 @@
 			map: sgmap,
 			draggable: true,
 			title: "Accident location"
-		});
-
+		});		
+		
 //		getLocation();
     	
 		var geocoder = new google.maps.Geocoder;
@@ -147,8 +150,31 @@
           	sgmap.fitBounds(bounds);
         });
 	    
-	}
+        <c:forEach items="${currentReports}" var="aAccident">
+		currentaccmarker = new google.maps.Marker({
+			position: {lat: ${aAccident.latitude}, lng: ${aAccident.longitude}},
+			map: sgmap,
+			icon: pagectx + '/resources/icons/accident_approved32x32.png',
+		});
+		</c:forEach>
+        
+        <c:forEach items="${speedCameras}" var="speedCamera">
+        speedcam = new google.maps.Marker({
+			position: {lat: ${speedCamera.latitude}, lng: ${speedCamera.longitude}},
+			map: sgmap,
+			icon: pagectx + '/resources/icons/speed_camera32x32.png',
+		});
+		</c:forEach>
 
+		<c:forEach items="${trafficCameras}" var="trafficCamera">
+		trafficcam = new google.maps.Marker({
+			position: {lat: ${trafficCamera.latitude}, lng: ${trafficCamera.longitude}},
+			map: sgmap,
+			icon: pagectx + '/resources/icons/traffic_camera32x32.png',
+		});
+		</c:forEach>
+	}
+	
 	function geocodeLatLng(geocoder, markerloc) {
 		var latlng = {lat: markerloc.position.lat(), lng: markerloc.position.lng()};
 		geocoder.geocode({'location': latlng}, function(results, status) {
