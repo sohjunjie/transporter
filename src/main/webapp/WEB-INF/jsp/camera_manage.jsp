@@ -51,7 +51,7 @@
 						<div id="map"></div>
 					</div>
 					<div class="col-lg-6 col-xs-12">
-
+						<%@ include file="/WEB-INF/jsp/include_camera/manage/camera_viewer.jsp"%>
 					</div>
 				</div>
 			</section>

@@ -17,11 +17,11 @@
 						    	${pAccident.accidentDateTime}
 						    </td>
 						    <td><div class="itemOptions">
-									<button value="${pAccident.reportId}" type="button" class="close pAccidentMapLoc">
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentMapLoc" data-toggle="tooltip" title="Zoom to location">
 	          							<i class="fa fa-map-marker"></i></button>
-									<button value="${pAccident.reportId}" type="button" class="close pAccidentApprove">
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentApprove" data-toggle="tooltip" title="Approve accident">
 	          							<i class="fa fa-check"></i></button>
-									<button value="${pAccident.reportId}" type="button" class="close pAccidentDelete">
+									<button value="${pAccident.reportId}" type="button" class="close pAccidentDelete" data-toggle="tooltip" title="Reject accident">
 	          							<i class="fa fa-times"></i></button>
 						    	</div>
 							</td></tr>
