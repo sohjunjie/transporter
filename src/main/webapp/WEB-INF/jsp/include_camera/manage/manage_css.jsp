@@ -36,3 +36,28 @@
 
 <!-- transporter -->
 <link rel="stylesheet" href="${resourcePath}/pages/transporter.css">
+
+<style>
+#map {
+	width: 100%;
+	height: 500px;
+	background-color: grey;
+}
+#camera_viewer_table{
+	height: 500px;
+}
+#camera_viewer_table > table > tbody > tr > td:nth-child(2){
+	width: 120px;
+}
+#camera_viewer_table > table > tbody > tr > td:nth-child(2){
+	vertical-align: middle;
+	text-align: right;
+}
+.itemOptions{display: none;}
+.itemOptions > button{float: none;}
+.itemOptions > button:focus, .itemOptions > button:hover {opacity: 1;}
+#camera_viewer_table > table > tbody > tr:hover .itemOptions{display:block;}
+.cameraDelete{color: #e83030 !important;}
+.cameraSetInstalled{color: #07e007 !important;}
+.cameraMapLoc{color: #413dea !important;}
+</style>
