@@ -58,8 +58,11 @@
 	var markers = {};
 	var suggestMarker;
 	var sgmap;
+	var infowindowCamera;
 
 	function initMap() {
+		infowindowCamera = new google.maps.InfoWindow();
+
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
 			zoom: 12,
@@ -79,6 +82,7 @@
 		var infowindow = new google.maps.InfoWindow({
 		    content: "Drag pin to specify location to suggest camera"
 		});
+
 		document.getElementById('cameraLatitude').value = suggestMarker.position.lat();
     	document.getElementById('cameraLongitude').value = suggestMarker.position.lng();
     	geocodeLatLng(geocoder, suggestMarker);

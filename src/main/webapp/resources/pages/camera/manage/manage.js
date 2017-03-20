@@ -15,6 +15,7 @@ function event_getCameraMapLoc(cameraId){
 	var reportMarker = markers[cameraId];
 	sgmap.setZoom(14);
 	sgmap.panTo(reportMarker.position);
+	google.maps.event.trigger(reportMarker, 'click' );
 }
 
 function event_deleteCamera(cameraId){

@@ -55,7 +55,8 @@
 
 	var markers = {};
 	var sgmap;
-
+	var infowindow;
+	
 	function initMap() {
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
 		sgmap = new google.maps.Map(document.getElementById('map'), {
@@ -65,6 +66,8 @@
 			streetViewControl: false,
 			fullscreenControl: false
 		});
+
+		infowindow = new google.maps.InfoWindow();
 
 		// initialise all camera markers
 		var cameraType = "";
@@ -90,6 +93,11 @@
 			icon: iconImg
 		});
 		markers[reportId] = marker;
+		marker.addListener('click', function() {
+			infowindow.setContent("lat: " + lat + "<br/>"
+									+ "lng: " + lng + "<br/>");
+			infowindow.open(map, marker);
+		});
 	}
 
 	</script>
