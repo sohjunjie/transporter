@@ -140,21 +140,25 @@
           	sgmap.fitBounds(bounds);
         });
 
-		<c:forEach items="${speedCameras}" var="speedCamera">
-		addMarkerToMap(${speedCamera.latitude},
-				${speedCamera.longitude}, sgmap,
-				${speedCamera.cameraId}, pagectx + '/resources/icons/speed_camera32x32.png');
+
+		// initialise all camera markers
+		var cameraIconLink = "";
+		<c:forEach items="${enforcementCamera}" var="camera">
+			if('${camera.type}' == 'SPEED'){
+				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC'){
+				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+			}
+			addMarkerToMap(${camera.latitude},
+					${camera.longitude}, sgmap,
+					${camera.cameraId}, pagectx + cameraIconLink, '${camera.status}', '${camera.type}', "${camera.formattedAddress}");
 		</c:forEach>
 
-		<c:forEach items="${trafficCameras}" var="trafficCamera">
-		addMarkerToMap(${trafficCamera.latitude},
-				${trafficCamera.longitude}, sgmap,
-				${trafficCamera.cameraId}, pagectx + '/resources/icons/traffic_camera32x32.png');
-		</c:forEach>
 
 	}
 
-	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
+	function addMarkerToMap(lat, lng, map, reportId, iconImg, camStatus, camType, formattedAddress) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
@@ -162,6 +166,15 @@
 			icon: iconImg
 		});
 		markers[reportId] = marker;
+		marker.addListener('click', function() {
+			infowindowCamera.setContent("<b>" + formattedAddress + "</b><br/>"
+									+ "type: " + camType + "<br/>"
+									+ "status: " + camStatus + "<br/>"
+									+ "lat: " + lat + "<br/>"
+									+ "lng: " + lng + "<br/>");
+			infowindowCamera.open(map, marker);
+		});
+
 	}
 
     function setMapOnAll(map) {

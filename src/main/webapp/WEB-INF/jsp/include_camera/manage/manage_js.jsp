@@ -70,7 +70,6 @@
 		infowindow = new google.maps.InfoWindow();
 
 		// initialise all camera markers
-		var cameraType = "";
 		var cameraIconLink = "";
 		<c:forEach items="${enforcementCamera}" var="camera">
 			if('${camera.type}' == 'SPEED'){
