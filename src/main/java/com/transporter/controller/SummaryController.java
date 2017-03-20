@@ -32,6 +32,14 @@ public class SummaryController
 	@Autowired
 	private SummaryReportService summaryReportService;
 	
+	//method to set AccidentReportService for JUnit testing
+	public void setServices(AccidentReportService accidentReportService, AccidentCauseService accidentCauseService,
+			SummaryReportService summaryReportService) {
+		this.accidentReportService = accidentReportService;
+		this.accidentCauseService = accidentCauseService;
+		this.summaryReportService = summaryReportService;
+	}
+	
 	//controller returns list of accident causes and the number of occurrence of each cause
 	//no search option for unresolved accidents as unresolved accidents do not have official causes yet
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
@@ -48,8 +56,8 @@ public class SummaryController
 	//controller returns hours of the day from 00h to 23h and number of accidents in each time period 
 	@RequestMapping(value="/time", method=RequestMethod.GET)
 	public String goSummaryTime(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
-			@RequestParam(value="searchoption", required=false) String searchOption, HttpSession httpSession) {
+			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, int[]> map, 
+			@RequestParam(value="searchoption", required=false) String searchOption) {
 		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		int[] hrsOfDay = new int[24];
@@ -65,7 +73,7 @@ public class SummaryController
 	@RequestMapping(value="/location", method=RequestMethod.GET)
 	public String goSummaryLocation(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map, 
-			@RequestParam(value="searchoption", required=false) String searchOption, HttpSession httpSession) {
+			@RequestParam(value="searchoption", required=false) String searchOption) {
 		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
 		map.put("accidentReports", accidentReports);
 		return "summary_location";
@@ -73,7 +81,7 @@ public class SummaryController
 	
 	//check the status of each string and return the range of dates of accident reports accordingly
 	//empty start and end date will return all accident reports regardless of date
-	private List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
+	public List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate;
 		Date endDate;
@@ -99,7 +107,7 @@ public class SummaryController
 	
 	//check range of dates for summary by cause (as unresolved approved accidents do not have official cause yet)
 	//if date is not parseable or null, return all resolved accidents
-	private List<AccidentReport> checkSearchForCause(String textStartDate, String textEndDate) {
+	public List<AccidentReport> checkSearchForCause(String textStartDate, String textEndDate) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate;
 		Date endDate;
