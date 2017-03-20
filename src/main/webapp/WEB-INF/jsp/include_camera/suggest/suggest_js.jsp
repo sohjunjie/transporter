@@ -144,15 +144,22 @@
 		// initialise all camera markers
 		var cameraIconLink = "";
 		<c:forEach items="${enforcementCamera}" var="camera">
-			if('${camera.type}' == 'SPEED'){
+			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'PENDING'){
 				cameraIconLink = '/resources/icons/speed_camera32x32.png';
 			}
-			if('${camera.type}' == 'TRAFFIC'){
+			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'INSTALLED'){
+				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'PENDING'){
+				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'INSTALLED'){
 				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
 			}
 			addMarkerToMap(${camera.latitude},
 					${camera.longitude}, sgmap,
-					${camera.cameraId}, pagectx + cameraIconLink, '${camera.status}', '${camera.type}', "${camera.formattedAddress}");
+					${camera.cameraId}, pagectx + cameraIconLink,
+					'${camera.status}', '${camera.type}', "${camera.formattedAddress}");
 		</c:forEach>
 
 
