@@ -15,12 +15,12 @@ public class AccidentCauseServiceImpl implements AccidentCauseService {
 
 	@Autowired
 	private AccidentCauseDao accidentCauseDao;
-	
+	// get the cause of an accident with specific ID	
 	@Transactional
 	public AccidentCause getAccidentCause(int causeId) {
 		return accidentCauseDao.getAccidentCause(causeId);
 	}
-
+	// get the list of all accident causes
 	@Transactional
 	public List<AccidentCause> getAllAccidentCauses() {
 		return accidentCauseDao.getAllAccidentCauses();

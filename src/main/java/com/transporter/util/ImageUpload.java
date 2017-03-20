@@ -22,12 +22,12 @@ public class ImageUpload {
 	private static final String UPLOADPATH = "/uploads";
 
 	private String resourcePath;
-
+	//upload image by using its path
 	@Autowired
 	public ImageUpload(String resourcePath) {
 		this.resourcePath = resourcePath;
 	}
-
+	//save the image with its details such as name,type,...
 	public String save(MultipartFile file, String saveToPath, ServletContext context){
 		if (!file.isEmpty()) {
 			String imgType = getFileExtension(file.getOriginalFilename());
@@ -42,13 +42,13 @@ public class ImageUpload {
 		}
 		return "";
 	}
-
+	//delete the image
 	public void delete(String imagePath, ServletContext context){
 		File imageFile = new File(context.getRealPath(resourcePath + imagePath));
 		if (imageFile.exists())
 			imageFile.delete();
 	}
-
+	//get the extension or the type of the image
 	private String getFileExtension(String originalFileName){
 		String[] splitFileName = originalFileName.split("\\.");
 		return splitFileName[splitFileName.length-1];
