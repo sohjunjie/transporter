@@ -50,6 +50,7 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 			httpSession.setAttribute("user", verifiedUser);
 			httpSession.setAttribute("username", verifiedUser.getUsername());
 			httpSession.setAttribute("userfullname", verifiedUser.getFullName());
+			httpSession.removeAttribute("unauthorisedAccessCount");
 			return true;
 		}
 		httpSession.invalidate();
@@ -61,5 +62,16 @@ public class AuthenticatedUserServiceImpl implements AuthenticatedUserService{
 		if(authUser == null) return false;
 		return authUser.isAuthenticated();
 	}
-	
+
+	public void logUnauthorisedAccessCount(HttpSession httpSession, String unauthEmailOrUsername){
+		int unauthAccessCount = (int) httpSession.getAttribute("unauthorisedAccessCount") + 1;
+		if(unauthAccessCount >= 5){
+			// send unauthorised login email
+			httpSession.removeAttribute("unauthorisedAccessCount");
+			return;
+		}
+		httpSession.setAttribute("unauthorisedAccessCount", unauthAccessCount);
+
+	}
+
 }
