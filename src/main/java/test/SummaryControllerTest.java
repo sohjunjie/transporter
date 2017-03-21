@@ -53,7 +53,6 @@ public class SummaryControllerTest {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
 	}
 	
-	//Casting object to int[] returns null?
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
