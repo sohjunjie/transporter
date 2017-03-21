@@ -17,7 +17,6 @@ import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
 import com.transporter.service.CameraService;
-import com.transporter.service.SummaryReportService;
 
 /**
  * BaseController class handle request for a page

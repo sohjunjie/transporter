@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +47,10 @@ public class SummaryControllerTest {
 	private AccidentCause cFirst = mock(AccidentCause.class);
 	private AccidentCause cSecond = mock(AccidentCause.class);
 	
+	String textStartDate;
+	String textEndDate;
+	String searchOption;
+	
 	@Before
 	public void setup() {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
@@ -56,8 +59,8 @@ public class SummaryControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		String textStartDate = "s";
-		String textEndDate = "e";
+		textStartDate = "s";
+		textEndDate = "e";
 		
 		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
 		List<AccidentCause> accidentCauses = Arrays.asList(cFirst, cSecond);

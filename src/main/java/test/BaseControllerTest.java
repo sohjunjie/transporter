@@ -56,6 +56,10 @@ public class BaseControllerTest {
 	private Camera trafficFirst = mock(Camera.class);
 	private Camera trafficSecond = mock(Camera.class);
 	
+	private String s;
+	
+	private Map<String, Object> map = new HashMap<String, Object>();
+	
 	@Before
 	public void setup() {
 		bc.setServices(authUserServiceMock, accidentReportServiceMock, accidentCauseServiceMock, 
@@ -69,9 +73,7 @@ public class BaseControllerTest {
 		when(cameraServiceMock.getAllInstalledSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		when(cameraServiceMock.getAllInstalledTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		String s = bc.goMainPage(map, httpSession);
+		s = bc.goMainPage(map, httpSession);
 		
 		assertEquals(s, "home");
 		assertEquals(4, ((List<AccidentReport>) map.get("currentReports")).size());
@@ -84,8 +86,7 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(accidentReportServiceMock.getPendingAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		String s = bc.goAccidentReportViewPending(map, httpSession);
+		s = bc.goAccidentReportViewPending(map, httpSession);
 		
 		assertEquals(s, "redirect:/");
 		assertTrue(map.isEmpty());
@@ -97,9 +98,7 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(accidentReportServiceMock.getPendingAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		String s = bc.goAccidentReportViewPending(map, httpSession);
+		s = bc.goAccidentReportViewPending(map, httpSession);
 		
 		assertEquals(s, "accident_view_pending");
 		assertEquals(2, ((List<AccidentReport>) map.get("pendingAccidents")).size());
@@ -110,9 +109,8 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst,cSecond));
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String s = bc.goAccidentReportResolveApproved(map, httpSession);
+		s = bc.goAccidentReportResolveApproved(map, httpSession);
 		
 		assertEquals(s, "redirect:/");
 		assertTrue(map.isEmpty());
@@ -124,9 +122,8 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst,cSecond));
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String s = bc.goAccidentReportResolveApproved(map, httpSession);
+		s = bc.goAccidentReportResolveApproved(map, httpSession);
 		
 		assertEquals(s, "accident_view_approved");
 		assertEquals(3, ((List<AccidentReport>) map.get("approvedAccidents")).size());
@@ -138,9 +135,8 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(cameraServiceMock.getAllSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		when(cameraServiceMock.getAllTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String s = bc.goSuggestCameraPage(map, httpSession);
+		s = bc.goSuggestCameraPage(map, httpSession);
 		
 		assertEquals(s, "redirect:/");
 		assertTrue(map.isEmpty());
@@ -152,9 +148,8 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(cameraServiceMock.getAllSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		when(cameraServiceMock.getAllTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String s = bc.goSuggestCameraPage(map, httpSession);
+		s = bc.goSuggestCameraPage(map, httpSession);
 		
 		assertEquals(s, "camera_suggest");
 		assertEquals(3, ((List<Camera>) map.get("speedCameras")).size());
@@ -164,9 +159,8 @@ public class BaseControllerTest {
 	@Test
 	public void goManageCameraPage_UserNotAuthenticated_ShouldReturnRedirect() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
-		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String s = bc.goManageCameraPage(map, httpSession);
+		s = bc.goManageCameraPage(map, httpSession);
 		
 		assertEquals(s, "redirect:/");
 	}
@@ -174,16 +168,14 @@ public class BaseControllerTest {
 	@Test
 	public void goManageCameraPage_UserAuthenticated_ShouldReturnCameraManage() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		String s = bc.goManageCameraPage(map, httpSession);
+		s = bc.goManageCameraPage(map, httpSession);
 		
 		assertEquals(s, "camera_manage");
 	}
 	
 	@Test
 	public void logout_ShouldInvalidateSessionAndReturnRedirect() {
-		String s = bc.logout(httpSession);
+		s = bc.logout(httpSession);
 		verify(httpSession).invalidate();
 		assertEquals(s, "redirect:/");
 	}
