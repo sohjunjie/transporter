@@ -17,6 +17,7 @@ import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.AuthenticatedUserService;
 import com.transporter.service.CameraService;
+import com.transporter.service.SummaryReportService;
 
 /**
  * BaseController class handle request for a page
@@ -36,11 +37,20 @@ public class BaseController {
 	@Autowired
 	private CameraService cameraService;	
 
+	//method to set AccidentReportService for JUnit testing
+	public void setServices(AuthenticatedUserService authUserService, AccidentReportService accidentReportService, 
+			AccidentCauseService accidentCauseService, CameraService cameraService) {
+		this.authUserService = authUserService;
+		this.accidentReportService = accidentReportService;
+		this.accidentCauseService = accidentCauseService;
+		this.cameraService = cameraService;
+	}
+	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String goMainPage(Map<String, Object> map, HttpSession httpSession){
 		List<AccidentReport> currentReports = accidentReportService.getApprovedAccidentReport();
-		List<Camera> speedCameras = cameraService.getAllSpeedCamera();
-		List<Camera> trafficCameras = cameraService.getAllInstalledCamera();
+		List<Camera> speedCameras = cameraService.getAllInstalledSpeedCamera();
+		List<Camera> trafficCameras = cameraService.getAllInstalledTrafficCamera();
 		map.put("currentReports", currentReports);
 		map.put("speedCameras", speedCameras);
 		map.put("trafficCameras", trafficCameras);

@@ -32,7 +32,7 @@ public class SummaryController
 	@Autowired
 	private SummaryReportService summaryReportService;
 	
-	//method to set AccidentReportService for JUnit testing
+	//method to set services for JUnit testing
 	public void setServices(AccidentReportService accidentReportService, AccidentCauseService accidentCauseService,
 			SummaryReportService summaryReportService) {
 		this.accidentReportService = accidentReportService;

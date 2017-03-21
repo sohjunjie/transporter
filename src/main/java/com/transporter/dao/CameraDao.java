@@ -16,6 +16,8 @@ public interface CameraDao {
 	public List<Camera> getAllTrafficCamera();
 	public List<Camera> getAllPendingCamera();
 	public List<Camera> getAllInstalledCamera();
+	public List<Camera> getAllInstalledSpeedCamera();
+	public List<Camera> getAllInstalledTrafficCamera();
 	
 	public Long getCameraCount();
 	public Long getSpeedCameraCount();

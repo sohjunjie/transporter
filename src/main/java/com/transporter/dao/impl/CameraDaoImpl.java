@@ -70,6 +70,22 @@ public class CameraDaoImpl implements CameraDao {
 		return session.getCurrentSession().createQuery("from Camera "
 				+ "where status=" + CameraStatus.INSTALLED.ordinal()).list();
 	}
+	
+	//retrieve a list of installed speed cameras from the database
+	@SuppressWarnings("unchecked")
+	public List<Camera> getAllInstalledSpeedCamera() {
+		return session.getCurrentSession().createQuery("from Camera "
+				+ "where status=" + CameraStatus.INSTALLED.ordinal()
+				+ " and type=" + CameraType.SPEED.ordinal()).list();
+	}
+		
+	//retrieve a list of installed traffic cameras from the database
+	@SuppressWarnings("unchecked")
+	public List<Camera> getAllInstalledTrafficCamera() {
+		return session.getCurrentSession().createQuery("from Camera "
+				+ "where status=" + CameraStatus.INSTALLED.ordinal()
+				+ " and type=" + CameraType.TRAFFIC.ordinal()).list();
+	}
 
 	//retrieve the total number of cameras, regardless of status and type
 	public Long getCameraCount() {
