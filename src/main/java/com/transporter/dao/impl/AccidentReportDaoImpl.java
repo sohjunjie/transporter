@@ -29,7 +29,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 		session.getCurrentSession().update(accidentReport);
 	}
 
-	//retrieve existing accident report from the database based on its ID
+	//retrieve accident report from the database based on its ID
 	@Override
 	public AccidentReport getAccidentReport(int reportId) {
 		return (AccidentReport)session.getCurrentSession().get(AccidentReport.class, reportId);
@@ -41,14 +41,14 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 		session.getCurrentSession().delete(getAccidentReport(reportId));
 	}
 
-	//retrieve details of all accident reports from the database
+	//retrieve all accident reports
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getAllAccidentReport() {
 		return session.getCurrentSession().createQuery("FROM AccidentReport").list();
 	}
-	
-	//retrieve number of pending accident reports from the database
+
+	//retrieve total count of pending accident reports
 	@Override
 	public Long getPendingAccidentCount() {
 		return (Long) session.getCurrentSession().createQuery("select count(*) from AccidentReport "
@@ -56,7 +56,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").uniqueResult();
 	}
 
-	//retrieve details of all pending accident reports from the database
+	//retrieve all pending accident reports
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getPendingAccidentReport() {
@@ -73,7 +73,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 				+ "and resolvedBy=null").uniqueResult();
 	}
 
-	//retrieve details of all approved accident reports, that are yet to be resolved, from the database
+	//retrieve all approved accident reports that are yet to be resolved
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccidentReport> getApprovedAccidentReport() {

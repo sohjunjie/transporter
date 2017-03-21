@@ -51,3 +51,61 @@
 
 	<!-- Google map api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=${properties['api.google.services']}&region=SG&libraries=places&callback=initMap" type="text/javascript"></script>
+	<script>
+
+	var markers = {};
+	var sgmap;
+	var infowindowCamera;
+	
+	function initMap() {
+		var sgloc = {lat: 1.3553794, lng: 103.8677444};
+		sgmap = new google.maps.Map(document.getElementById('map'), {
+			zoom: 12,
+			center: sgloc,
+			mapTypeControl: false,
+			streetViewControl: false,
+			fullscreenControl: false
+		});
+
+		infowindowCamera = new google.maps.InfoWindow();
+
+		var cameraIconLink = "";
+		<c:forEach items="${enforcementCamera}" var="camera">
+			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'PENDING'){
+				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+			}
+			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'INSTALLED'){
+				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'PENDING'){
+				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+			}
+			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'INSTALLED'){
+				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+			}
+			addMarkerToMap(${camera.latitude},
+					${camera.longitude}, sgmap,
+					${camera.cameraId}, pagectx + cameraIconLink,
+					'${camera.status}', '${camera.type}', "${camera.formattedAddress}");
+		</c:forEach>
+	}
+
+	function addMarkerToMap(lat, lng, map, reportId, iconImg, camStatus, camType, formattedAddress) {
+		var latlng = {lat: lat, lng: lng};
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			icon: iconImg
+		});
+		markers[reportId] = marker;
+		marker.addListener('click', function() {
+			infowindowCamera.setContent("<b>" + formattedAddress + "</b><br/>"
+					+ "type: " + camType + "<br/>"
+					+ "status: " + camStatus + "<br/>"
+					+ "lat: " + lat + "<br/>"
+					+ "lng: " + lng + "<br/>");
+			infowindowCamera.open(map, marker);
+		});
+	}
+
+	</script>

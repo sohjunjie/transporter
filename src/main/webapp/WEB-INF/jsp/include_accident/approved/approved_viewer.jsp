@@ -17,9 +17,9 @@
 						    	${aAccident.accidentDateTime}
 						    </td>
 						    <td><div class="itemOptions">
-									<button value="${aAccident.reportId}" type="button" class="close aAccidentMapLoc">
+									<button value="${aAccident.reportId}" type="button" class="close aAccidentMapLoc" data-toggle="tooltip" title="Zoom to location">
 	          							<i class="fa fa-map-marker"></i></button>
-									<button value="${aAccident.reportId}" type="button" class="close aAccidentResolve">
+									<button value="${aAccident.reportId}" type="button" class="close aAccidentResolve" data-toggle="tooltip" title="Resolve accident">
 	          							<i class="fa fa-check"></i></button>
 						    	</div>
 							</td></tr>

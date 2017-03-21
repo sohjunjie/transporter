@@ -54,10 +54,8 @@
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var marker;
 	var sgmap;
-	var currentmarker;
-	var currentaccmarker;
-	var speedcam;
-	var trafficcam;
+	var currentAccidentMarkers = {};
+	var accidentInfowindow;
 
 	function initMap() {
 
@@ -74,8 +72,10 @@
 			map: sgmap,
 			draggable: true,
 			title: "Accident location"
-		});		
-		
+		});
+
+		accidentInfowindow = new google.maps.InfoWindow();
+
 //		getLocation();
     	
 		var geocoder = new google.maps.Geocoder;
@@ -157,24 +157,44 @@
 			icon: pagectx + '/resources/icons/accident_approved32x32.png',
 		});
 		</c:forEach>
-        
-        <c:forEach items="${speedCameras}" var="speedCamera">
-        speedcam = new google.maps.Marker({
-			position: {lat: ${speedCamera.latitude}, lng: ${speedCamera.longitude}},
-			map: sgmap,
-			icon: pagectx + '/resources/icons/speed_camera32x32.png',
-		});
+
+		var accidentIconLink = '/resources/icons/accident_approved32x32.png';
+		<c:forEach items="${currentReports}" var="aAccident">
+			addAccidentMarkerToMap(${aAccident.latitude},
+					${aAccident.longitude}, sgmap,
+					${aAccident.reportId}, pagectx + accidentIconLink,
+					"${aAccident.formattedAddress}", "${aAccident.description}", "${aAccident.accidentDateTime}", "${resourcePath}${aAccident.imageLink}");
 		</c:forEach>
 
-		<c:forEach items="${trafficCameras}" var="trafficCamera">
-		trafficcam = new google.maps.Marker({
-			position: {lat: ${trafficCamera.latitude}, lng: ${trafficCamera.longitude}},
-			map: sgmap,
-			icon: pagectx + '/resources/icons/traffic_camera32x32.png',
-		});
-		</c:forEach>
 	}
-	
+
+	function addAccidentMarkerToMap(lat, lng, map, reportId, iconImg, formattedAddress, description, accidentDateTime, imageLink) {
+		var latlng = {lat: lat, lng: lng};
+		var newmarker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			icon: iconImg
+		});
+		currentAccidentMarkers[reportId] = newmarker;
+		newmarker.addListener('click', function() {
+			accidentInfowindow.setContent(
+					'<table class="table" style="margin-bottom: 0px;">'	+
+					'<tbody>'	+
+					'<tr>'		+
+						'<td><img src="' + imageLink + '" style=' + '"height: 90px; width: 90px;"></td>' +
+						'<td><b>' + formattedAddress + '</b><br/>' +
+							description + '<br/>' +
+							accidentDateTime +
+						'</td>' +
+					'</tr>' +
+					'</tbody>' +
+					'</table>'
+			);
+			accidentInfowindow.open(map, newmarker);
+		});
+		
+	}
+
 	function geocodeLatLng(geocoder, markerloc) {
 		var latlng = {lat: markerloc.position.lat(), lng: markerloc.position.lng()};
 		geocoder.geocode({'location': latlng}, function(results, status) {
