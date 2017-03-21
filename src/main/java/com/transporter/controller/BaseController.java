@@ -82,9 +82,9 @@ public class BaseController {
 	@RequestMapping(value = "/camera/suggest", method=RequestMethod.GET)
 	public String goSuggestCameraPage(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
-		//List<Camera> speedCameras = cameraService.getAllSpeedCamera();
+		List<Camera> speedCameras = cameraService.getAllSpeedCamera();
 		List<Camera> trafficCameras = cameraService.getAllTrafficCamera();
-		//map.put("speedCameras", speedCameras);
+		map.put("speedCameras", speedCameras);
 		map.put("trafficCameras", trafficCameras);
 		return "camera_suggest";
 	}
