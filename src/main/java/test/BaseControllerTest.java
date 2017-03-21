@@ -70,15 +70,11 @@ public class BaseControllerTest {
 	@Test
 	public void goMainPage_ShouldReturnHomeAndCorrectMapValues() {
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth));
-		when(cameraServiceMock.getAllInstalledSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
-		when(cameraServiceMock.getAllInstalledTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
 		
 		s = bc.goMainPage(map, httpSession);
 		
 		assertEquals(s, "home");
 		assertEquals(4, ((List<AccidentReport>) map.get("currentReports")).size());
-		assertEquals(3, ((List<Camera>) map.get("speedCameras")).size());
-		assertEquals(2, ((List<Camera>) map.get("trafficCameras")).size());
 	}
 	
 	@Test
@@ -133,8 +129,7 @@ public class BaseControllerTest {
 	@Test
 	public void goSuggestCameraPage_UserNotAuthenticated_ShouldReturnRedirect() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
-		when(cameraServiceMock.getAllSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
-		when(cameraServiceMock.getAllTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
 		s = bc.goSuggestCameraPage(map, httpSession);
 		
@@ -146,31 +141,35 @@ public class BaseControllerTest {
 	@Test
 	public void goSuggestCameraPage_UserAuthenticated_ShouldReturnPendingAccidents() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
-		when(cameraServiceMock.getAllSpeedCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
-		when(cameraServiceMock.getAllTrafficCamera()).thenReturn(Arrays.asList(trafficFirst,trafficSecond));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
 		s = bc.goSuggestCameraPage(map, httpSession);
 		
 		assertEquals(s, "camera_suggest");
-		assertEquals(3, ((List<Camera>) map.get("speedCameras")).size());
-		assertEquals(2, ((List<Camera>) map.get("trafficCameras")).size());
+		assertEquals(3, ((List<Camera>) map.get("enforcementCamera")).size());
 	}
 	
 	@Test
 	public void goManageCameraPage_UserNotAuthenticated_ShouldReturnRedirect() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
 		s = bc.goManageCameraPage(map, httpSession);
 		
 		assertEquals(s, "redirect:/");
+		assertTrue(map.isEmpty());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void goManageCameraPage_UserAuthenticated_ShouldReturnCameraManage() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+		
 		s = bc.goManageCameraPage(map, httpSession);
 		
 		assertEquals(s, "camera_manage");
+		assertEquals(3, ((List<Camera>) map.get("enforcementCamera")).size());
 	}
 	
 	@Test
