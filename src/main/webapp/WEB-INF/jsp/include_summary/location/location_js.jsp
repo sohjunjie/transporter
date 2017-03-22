@@ -69,7 +69,6 @@
 		var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		
 		<c:forEach items="${accidentReports}" var="aAccident" varStatus = "status">
-		console.log('${aAccident.resolvedBy}' != '');
 		if('${aAccident.resolvedBy}' != ''){
 			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
 		}
