@@ -72,13 +72,13 @@
 		var cameraIconLink = "";
 		<c:forEach items="${enforcementCamera}" var="camera">
 			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'PENDING'){
-				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+				cameraIconLink = '/resources/icons/speed_camera_pending32x32.png';
 			}
 			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'INSTALLED'){
 				cameraIconLink = '/resources/icons/speed_camera32x32.png';
 			}
 			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'PENDING'){
-				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+				cameraIconLink = '/resources/icons/traffic_camera_pending32x32.png';
 			}
 			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'INSTALLED'){
 				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
@@ -90,14 +90,14 @@
 		</c:forEach>
 	}
 
-	function addMarkerToMap(lat, lng, map, reportId, iconImg, camStatus, camType, formattedAddress) {
+	function addMarkerToMap(lat, lng, map, cameraId, iconImg, camStatus, camType, formattedAddress) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			icon: iconImg
 		});
-		markers[reportId] = marker;
+		markers[cameraId] = marker;
 		marker.addListener('click', function() {
 			infowindowCamera.setContent("<b>" + formattedAddress + "</b><br/>"
 					+ "type: " + camType + "<br/>"
@@ -105,6 +105,7 @@
 					+ "lat: " + lat + "<br/>"
 					+ "lng: " + lng + "<br/>");
 			infowindowCamera.open(map, marker);
+			$("#cam_row_" + cameraId).get(0).scrollIntoView({behavior: 'smooth'});
 		});
 	}
 
