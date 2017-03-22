@@ -24,12 +24,12 @@ import com.transporter.model.AccidentReport;
 import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.SummaryReportService;
+import com.transporter.service.impl.SummaryReportServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SummaryControllerTest {
 	
-	@Mock
-	private SummaryReportService summaryReportServiceMock = mock(SummaryReportService.class);
+	private SummaryReportService summaryReportServiceMock = new SummaryReportServiceImpl();
 	@Mock
 	private AccidentCauseService accidentCauseServiceMock = mock(AccidentCauseService.class);
 	@Mock
@@ -37,15 +37,15 @@ public class SummaryControllerTest {
 	
 	private SummaryController sc = new SummaryController();
 	
-	private AccidentReport rFirst = mock(AccidentReport.class);
-	private AccidentReport rSecond = mock(AccidentReport.class);
-	private AccidentReport rThird = mock(AccidentReport.class);
-	private AccidentReport rFourth = mock(AccidentReport.class);
-	private AccidentReport rFifth = mock(AccidentReport.class);
-	private AccidentReport rSixth = mock(AccidentReport.class);
+	private AccidentReport rFirst = new AccidentReport();
+	private AccidentReport rSecond = new AccidentReport();
+	private AccidentReport rThird = new AccidentReport();
+	private AccidentReport rFourth = new AccidentReport();
+	private AccidentReport rFifth = new AccidentReport();
+	private AccidentReport rSixth = new AccidentReport();
 
-	private AccidentCause cFirst = mock(AccidentCause.class);
-	private AccidentCause cSecond = mock(AccidentCause.class);
+	private AccidentCause cFirst = new AccidentCause();
+	private AccidentCause cSecond = new AccidentCause();
 	
 	String textStartDate;
 	String textEndDate;
@@ -54,8 +54,63 @@ public class SummaryControllerTest {
 	@Before
 	public void setup() {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
+		cFirst.setCauseId(1);
+		cSecond.setCauseId(2);
+		rFirst.setOfficialCause(cFirst);
+		rSecond.setOfficialCause(cSecond);
+		rThird.setOfficialCause(cFirst);
+		rFourth.setOfficialCause(cSecond);
+		rFifth.setOfficialCause(cFirst);
+		rSixth.setOfficialCause(cFirst);
+		
+		Calendar cal = Calendar.getInstance();
+		
+		//00:30
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rFirst.setAccidentDateTime(cal.getTime());
+		
+		//23:30
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rSecond.setAccidentDateTime(cal.getTime());
+		
+		//12:00
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rThird.setAccidentDateTime(cal.getTime());
+		
+		//12:59
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rFourth.setAccidentDateTime(cal.getTime());
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
+		textStartDate = "s";
+		textEndDate = "e";
+		
+		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond));
+		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
+		
+		assertEquals(response, "summary_cause");
+		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
+		assertArrayEquals(new int[] {4,2}, (int[]) map.get("causeCount"));
+	}
+	/*
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
@@ -78,7 +133,30 @@ public class SummaryControllerTest {
 		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
 		assertArrayEquals(arr, (int[]) map.get("causeCount"));
 	}
+	*/
 	
+	@Test
+	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
+		String textStartDate = "s";
+		String textEndDate = "e";
+		String searchOption = "a";
+		
+		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird, rFourth);
+		
+		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(accidentReports);
+		
+		Map<String, int[]> map = new HashMap<String, int[]>();
+		String response = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
+		
+		int[] hrAccidentCount = map.get("hrAccidentCount");
+		int[] hrsOfDay = map.get("hrsOfDay");
+		
+		assertEquals(response, "summary_time");
+		assertEquals(24, hrsOfDay.length);
+		assertEquals(24, hrAccidentCount.length);
+		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, hrAccidentCount);
+	}
+	/*
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
 		String textStartDate = "s";
@@ -103,7 +181,7 @@ public class SummaryControllerTest {
 		assertEquals(24, hrAccidentCount.length);
 		assertArrayEquals(arr, hrAccidentCount);
 	}
-	
+	*/
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
