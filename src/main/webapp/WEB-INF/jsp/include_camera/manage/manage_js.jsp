@@ -90,14 +90,14 @@
 		</c:forEach>
 	}
 
-	function addMarkerToMap(lat, lng, map, reportId, iconImg, camStatus, camType, formattedAddress) {
+	function addMarkerToMap(lat, lng, map, cameraId, iconImg, camStatus, camType, formattedAddress) {
 		var latlng = {lat: lat, lng: lng};
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			icon: iconImg
 		});
-		markers[reportId] = marker;
+		markers[cameraId] = marker;
 		marker.addListener('click', function() {
 			infowindowCamera.setContent("<b>" + formattedAddress + "</b><br/>"
 					+ "type: " + camType + "<br/>"
@@ -105,6 +105,7 @@
 					+ "lat: " + lat + "<br/>"
 					+ "lng: " + lng + "<br/>");
 			infowindowCamera.open(map, marker);
+			$("#cam_row_" + cameraId).get(0).scrollIntoView({behavior: 'smooth'});
 		});
 	}
 

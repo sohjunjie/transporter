@@ -10,7 +10,7 @@
 				<table class="table table-hover">
 					<tbody>
 					<c:forEach items="${approvedAccidents}" var="aAccident">
-						<tr>
+						<tr id="accident_row_${aAccident.reportId}">
 						    <td><img src="${resourcePath}${aAccident.imageLink}" class="accident_img imageEnlarge"></td>
 						    <td><b>${aAccident.formattedAddress}</b><br/>
 						    	${aAccident.description}<br/>

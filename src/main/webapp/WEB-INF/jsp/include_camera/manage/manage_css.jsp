@@ -51,6 +51,10 @@
 	height: 500px;
 }
 
+#camera_viewer_table > table > tbody>tr:focus{
+	background-color: #f5f5f5;
+}
+
 #camera_viewer_table > table > tbody > tr > td:nth-child(1){
 	width: 32px;
 	vertical-align: middle;
