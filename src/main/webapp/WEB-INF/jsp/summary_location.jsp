@@ -38,7 +38,7 @@
 			<section class="content-header">
 				<h1>Summary Report By Location</h1>
 				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Summary</a></li>
+					<li><a href="${pageContext.servletContext.contextPath}/summary/all"><i class="fa fa-dashboard"></i> Summary</a></li>
 					<li class="active"><i class="fa fa-file"></i> Summary Report by Location</li>
 				</ol>
 			</section>

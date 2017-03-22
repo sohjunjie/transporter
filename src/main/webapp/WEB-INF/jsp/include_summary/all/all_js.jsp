@@ -53,6 +53,7 @@
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var marker;
 	var sgmap;
+	var markers = [];
 
 	function initMap() {
 
@@ -65,11 +66,10 @@
 			fullscreenControl: false
 		});
 		
-		var markers = [];
 		var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		
 		<c:forEach items="${accidentReports}" var="aAccident" varStatus = "status">
-		if('${aAccident.resolvedBy}' == null){
+		if('${aAccident.resolvedBy}' != '') {
 			cameraIconLink = '/resources/icons/accident_approved32x32.png';
 		}
 		else {

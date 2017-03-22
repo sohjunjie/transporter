@@ -41,7 +41,7 @@
 					Summary Report By Time of Day
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-dashboard"></i> Statistics</a></li>
+					<li><a href="${pageContext.servletContext.contextPath}/summary/all"><i class="fa fa-dashboard"></i> Statistics</a></li>
 					<li class="active"><i class="fa fa-file" style="color: black;"></i> Summary Report By Time</li>
 				</ol>
 			</section>

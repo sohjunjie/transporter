@@ -39,7 +39,7 @@
 					Summary Report By Cause
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="${pageContext.servletContext.contextPath}"><i class="fa fa-dashboard"></i> Statistics</a></li>
+					<li><a href="${pageContext.servletContext.contextPath}/summary/all"><i class="fa fa-dashboard"></i> Statistics</a></li>
 					<li class="active"><i class="fa fa-file" style="color: black;"></i> Summary Report By Cause</li>
 				</ol>
 			</section>
@@ -73,7 +73,7 @@
 	</div>
 
 	<!-- JS Library Include -->
-	<!-- <%@ include file="/WEB-INF/jsp/include_summary/cause/cause_js.jsp"%> -->
+	<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_js.jsp"%>
 
 </body>
 </html>
