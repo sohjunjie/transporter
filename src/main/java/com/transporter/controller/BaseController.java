@@ -34,7 +34,7 @@ public class BaseController {
 	@Autowired
 	private AccidentCauseService accidentCauseService;
 	@Autowired
-	private CameraService cameraService;	
+	private CameraService cameraService;
 
 	//method to set AccidentReportService for JUnit testing
 	public void setServices(AuthenticatedUserService authUserService, AccidentReportService accidentReportService, 
@@ -44,7 +44,7 @@ public class BaseController {
 		this.accidentCauseService = accidentCauseService;
 		this.cameraService = cameraService;
 	}
-	
+
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String goMainPage(Map<String, Object> map, HttpSession httpSession){
 		List<AccidentReport> currentReports = accidentReportService.getApprovedAccidentReport();
