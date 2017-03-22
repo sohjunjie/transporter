@@ -72,13 +72,13 @@
 		var cameraIconLink = "";
 		<c:forEach items="${enforcementCamera}" var="camera">
 			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'PENDING'){
-				cameraIconLink = '/resources/icons/speed_camera32x32.png';
+				cameraIconLink = '/resources/icons/speed_camera_pending32x32.png';
 			}
 			if('${camera.type}' == 'SPEED' && '${camera.status}' == 'INSTALLED'){
 				cameraIconLink = '/resources/icons/speed_camera32x32.png';
 			}
 			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'PENDING'){
-				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
+				cameraIconLink = '/resources/icons/traffic_camera_pending32x32.png';
 			}
 			if('${camera.type}' == 'TRAFFIC' && '${camera.status}' == 'INSTALLED'){
 				cameraIconLink = '/resources/icons/traffic_camera32x32.png';
