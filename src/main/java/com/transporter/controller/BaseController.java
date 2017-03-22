@@ -45,6 +45,7 @@ public class BaseController {
 		this.cameraService = cameraService;
 	}
 	
+	//controller directs the user to the Report Accident page
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String goMainPage(Map<String, Object> map, HttpSession httpSession){
 		List<AccidentReport> currentReports = accidentReportService.getApprovedAccidentReport();

@@ -3,7 +3,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" type="text/javascript"></script>
-<canvas id="myChart" width="600" height="600"></canvas>
+<canvas id="myCauseChart" width="600" height="600"></canvas>
 <script>
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -27,7 +27,7 @@ var countArr = [];
 	countArr.push(${count});
 </c:forEach>
 
-var ctx = document.getElementById("myChart");
+var ctx = document.getElementById("myCauseChart");
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -37,6 +37,11 @@ var myChart = new Chart(ctx, {
             data: countArr,
             backgroundColor: colors
         }]
+    },
+	options: {
+    	legend: {
+        	position: 'bottom'
+        }
     }
 });
 </script>

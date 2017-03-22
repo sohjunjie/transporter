@@ -49,12 +49,9 @@ public class BaseControllerTest {
 	private AccidentCause cFirst = mock(AccidentCause.class);
 	private AccidentCause cSecond = mock(AccidentCause.class);
 	
-	private Camera speedFirst = mock(Camera.class);
-	private Camera speedSecond = mock(Camera.class);
-	private Camera speedThird = mock(Camera.class);
-	
-	private Camera trafficFirst = mock(Camera.class);
-	private Camera trafficSecond = mock(Camera.class);
+	private Camera cameraFirst = mock(Camera.class);
+	private Camera cameraSecond = mock(Camera.class);
+	private Camera cameraThird = mock(Camera.class);
 	
 	private String s;
 	
@@ -129,7 +126,7 @@ public class BaseControllerTest {
 	@Test
 	public void goSuggestCameraPage_UserNotAuthenticated_ShouldReturnRedirect() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
-		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(cameraFirst,cameraSecond,cameraThird));
 		
 		s = bc.goSuggestCameraPage(map, httpSession);
 		
@@ -141,7 +138,7 @@ public class BaseControllerTest {
 	@Test
 	public void goSuggestCameraPage_UserAuthenticated_ShouldReturnPendingAccidents() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
-		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(cameraFirst,cameraSecond,cameraThird));
 		
 		s = bc.goSuggestCameraPage(map, httpSession);
 		
@@ -152,7 +149,7 @@ public class BaseControllerTest {
 	@Test
 	public void goManageCameraPage_UserNotAuthenticated_ShouldReturnRedirect() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
-		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(cameraFirst,cameraSecond,cameraThird));
 		
 		s = bc.goManageCameraPage(map, httpSession);
 		
@@ -164,7 +161,7 @@ public class BaseControllerTest {
 	@Test
 	public void goManageCameraPage_UserAuthenticated_ShouldReturnCameraManage() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
-		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(cameraFirst,cameraSecond,cameraThird));
 		
 		s = bc.goManageCameraPage(map, httpSession);
 		

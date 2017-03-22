@@ -77,6 +77,25 @@ public class SummaryController
 		return "summary_location";
 	   }
 	
+	@RequestMapping(value="/all", method=RequestMethod.GET)
+	public String goSummaryAll(@RequestParam(value="startdate", required=false) String textStartDate, 
+			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
+		List<AccidentReport> accidentReports = accidentReportService.getApprovedAndResolvedAccidentReport();
+		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
+		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
+		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
+		int[] hrsOfDay = new int[24];
+		for (int i = 0; i < 24; i++) {
+			hrsOfDay[i] = i;
+		}
+		map.put("accidentCauses", accidentCauses);
+		map.put("causeCount", causeCount);
+		map.put("hrAccidentCount", hrAccidentCount);
+		map.put("hrsOfDay", hrsOfDay);
+		map.put("accidentReports", accidentReports);
+		return "summary_all";
+	}
+	
 	//check the status of each string and return the range of dates of accident reports accordingly
 	//empty start and end date will return all accident reports regardless of date
 	public List<AccidentReport> checkSearch(String textStartDate, String textEndDate, String searchOption) {
