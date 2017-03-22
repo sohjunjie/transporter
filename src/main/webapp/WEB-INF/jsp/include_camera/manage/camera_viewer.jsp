@@ -9,6 +9,18 @@
 					<tbody>
 					<c:forEach items="${enforcementCamera}" var="camera">
 						<tr>
+							<c:choose>
+								<c:when test="${camera.type == 'SPEED' && camera.status == 'PENDING'}">
+									<td><img src="${pageContext.servletContext.contextPath}/resources/icons/speed_camera_pending32x32.png" class="enforcement_cam_icon"></td></c:when>
+								<c:when test="${camera.type == 'SPEED' && camera.status == 'INSTALLED'}">
+									<td><img src="${pageContext.servletContext.contextPath}/resources/icons/speed_camera32x32.png" class="enforcement_cam_icon"></td></c:when>
+								<c:when test="${camera.type == 'TRAFFIC' && camera.status == 'PENDING'}">
+									<td><img src="${pageContext.servletContext.contextPath}/resources/icons/traffic_camera_pending32x32.png" class="enforcement_cam_icon"></td></c:when>
+								<c:when test="${camera.type == 'TRAFFIC' && camera.status == 'INSTALLED'}">
+									<td><img src="${pageContext.servletContext.contextPath}/resources/icons/traffic_camera32x32.png" class="enforcement_cam_icon"></td></c:when>
+							</c:choose>
+
+
 						    <td><b>${camera.formattedAddress}</b><br/>
 						    	${camera.type}<br/>
 						    	${camera.status}
@@ -22,6 +34,7 @@
 	          							<i class="fa fa-times"></i></button>
 						    	</div>
 							</td></tr>
+
 					</c:forEach>
 					<c:choose>
 						<c:when test="${fn:length(enforcementCamera) <= 0}">

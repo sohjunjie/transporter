@@ -43,13 +43,21 @@
 	height: 500px;
 	background-color: grey;
 }
+.enforcement_cam_icon{
+	width: 32px;
+	height: 32px;
+}
 #camera_viewer_table{
 	height: 500px;
 }
-#camera_viewer_table > table > tbody > tr > td:nth-child(2){
-	width: 120px;
+
+#camera_viewer_table > table > tbody > tr > td:nth-child(1){
+	width: 32px;
+	vertical-align: middle;
 }
-#camera_viewer_table > table > tbody > tr > td:nth-child(2){
+
+#camera_viewer_table > table > tbody > tr > td:nth-child(3){
+	width: 120px;
 	vertical-align: middle;
 	text-align: right;
 }
