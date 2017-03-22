@@ -42,10 +42,14 @@ public class SummaryController
 	//no search option for unresolved accidents as unresolved accidents do not have official causes yet
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
 	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
+								 @RequestParam(value="enddate", required=false) String textEndDate,
+								 Map<String, Object> map) {
+
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
 		List<AccidentReport> accidentReports = checkSearchForCause(textStartDate, textEndDate);
+
 		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
+
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
 		return "summary_cause";
@@ -82,7 +86,8 @@ public class SummaryController
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
 		List<AccidentReport> accidentReports = accidentReportService.getApprovedAndResolvedAccidentReport();
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
+		List<AccidentReport> resolvedReports = accidentReportService.getResolvedAccidentReport();
+		int[] causeCount = summaryReportService.summariseByCause(resolvedReports, accidentCauses);
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		int[] hrsOfDay = new int[24];
 		for (int i = 0; i < 24; i++) {

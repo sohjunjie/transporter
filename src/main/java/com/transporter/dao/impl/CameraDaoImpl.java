@@ -40,7 +40,7 @@ public class CameraDaoImpl implements CameraDao {
 	//retrieve a list of all cameras from the database
 	@SuppressWarnings("unchecked")
 	public List<Camera> getAllCamera() {
-		return session.getCurrentSession().createQuery("from Camera").list();
+		return session.getCurrentSession().createQuery("from Camera order by status").list();
 	}
 	
 	//retrieve a list of speed cameras from the database

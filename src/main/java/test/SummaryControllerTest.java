@@ -43,7 +43,7 @@ public class SummaryControllerTest {
 	private AccidentReport rFourth = mock(AccidentReport.class);
 	private AccidentReport rFifth = mock(AccidentReport.class);
 	private AccidentReport rSixth = mock(AccidentReport.class);
-	
+
 	private AccidentCause cFirst = mock(AccidentCause.class);
 	private AccidentCause cSecond = mock(AccidentCause.class);
 	
@@ -68,14 +68,13 @@ public class SummaryControllerTest {
 		int arr[] = {2,1};
 		
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(accidentCauses);
-		
 		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(accidentReports);
-		
 		when(summaryReportServiceMock.summariseByCause(accidentReports, accidentCauses)).thenReturn(arr);
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		String s = sc.goSummaryCause(textStartDate, textEndDate, map);
+		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
 		
-		assertEquals(s, "summary_cause");
+		assertEquals(response, "summary_cause");
 		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
 		assertArrayEquals(arr, (int[]) map.get("causeCount"));
 	}
@@ -94,15 +93,15 @@ public class SummaryControllerTest {
 		
 		when(summaryReportServiceMock.summariseByTime(accidentReports)).thenReturn(arr);
 		Map<String, int[]> map = new HashMap<String, int[]>();
-		String s = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
+		String response = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
 		
 		int[] hrAccidentCount = map.get("hrAccidentCount");
 		int[] hrsOfDay = map.get("hrsOfDay");
 		
-		assertEquals(s, "summary_time");
+		assertEquals(response, "summary_time");
 		assertEquals(24, hrsOfDay.length);
 		assertEquals(24, hrAccidentCount.length);
-		assertArrayEquals(arr,hrAccidentCount);
+		assertArrayEquals(arr, hrAccidentCount);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -115,9 +114,9 @@ public class SummaryControllerTest {
 		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		String s = sc.goSummaryLocation(textStartDate, textEndDate, map, searchOption);
+		String response = sc.goSummaryLocation(textStartDate, textEndDate, map, searchOption);
 		
-		assertEquals(s, "summary_location");
+		assertEquals(response, "summary_location");
 		assertEquals(3, ((List<AccidentReport>) map.get("accidentReports")).size());
 	}
 	
@@ -127,17 +126,17 @@ public class SummaryControllerTest {
 		String textEndDate = "b";
 		String searchOption = null;
 		
-		Calendar startCalendar = new GregorianCalendar(2011,0,1);
-		Calendar endCalendar = new GregorianCalendar(2012,0,1);
+		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
+		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
 		Date startDate = startCalendar.getTime();
 		Date endDate = endCalendar.getTime();
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth,rSixth));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
 		List<AccidentReport> result = sc.checkSearch(textStartDate,textEndDate,searchOption);
 		assertEquals(3, result.size());
@@ -155,13 +154,13 @@ public class SummaryControllerTest {
 		Date endDate = endCalendar.getTime();
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth,rSixth));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
-		List<AccidentReport> result = sc.checkSearch(textStartDate,textEndDate,searchOption);
+		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
 		assertEquals(4, result.size());
 	}
 	
@@ -171,19 +170,19 @@ public class SummaryControllerTest {
 		String textEndDate = "01/01/2012";
 		String searchOption = "both";
 		
-		Calendar startCalendar = new GregorianCalendar(2011,0,1);
-		Calendar endCalendar = new GregorianCalendar(2012,0,1);
+		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
+		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
 		Date startDate = startCalendar.getTime();
 		Date endDate = endCalendar.getTime();
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth,rFifth,rSixth));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
-		List<AccidentReport> result = sc.checkSearch(textStartDate,textEndDate,searchOption);
+		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
 		assertEquals(6, result.size());
 	}
 	
@@ -198,10 +197,10 @@ public class SummaryControllerTest {
 		Calendar endCalendar = new GregorianCalendar(2012,0,1);
 		Date startDate = startCalendar.getTime();
 		Date endDate = endCalendar.getTime();
-		
+
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(textStartDate,textEndDate);
+		List<AccidentReport> result = sc.checkSearchForCause(textStartDate, textEndDate);
 		assertEquals(1, result.size());
 	}
 	
@@ -212,14 +211,15 @@ public class SummaryControllerTest {
 		
 		AccidentReport rFirst = mock(AccidentReport.class);
 		AccidentReport rSecond = mock(AccidentReport.class);
-		Calendar startCalendar = new GregorianCalendar(2011,0,1);
-		Calendar endCalendar = new GregorianCalendar(2012,0,1);
+		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
+		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
 		Date startDate = startCalendar.getTime();
 		Date endDate = endCalendar.getTime();
-		
+
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(textStartDate,textEndDate);
+		List<AccidentReport> result = sc.checkSearchForCause(textStartDate, textEndDate);
 		assertEquals(2, result.size());
 	}
+
 }

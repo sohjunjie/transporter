@@ -53,7 +53,8 @@
     var pagectx = "${pageContext.servletContext.contextPath}";
 	var marker;
 	var sgmap;
-
+	var markers = [];
+	
 	function initMap() {
 
 		var sgloc = {lat: 1.3553794, lng: 103.8677444};
@@ -65,15 +66,15 @@
 			fullscreenControl: false
 		});
 		
-		var markers = [];
 		var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		
 		<c:forEach items="${accidentReports}" var="aAccident" varStatus = "status">
-		if('${aAccident.resolvedBy}' == null){
-			cameraIconLink = '/resources/icons/accident_approved32x32.png';
+		console.log('${aAccident.resolvedBy}' != '');
+		if('${aAccident.resolvedBy}' != ''){
+			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
 		}
 		else {
-			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
+			cameraIconLink = '/resources/icons/accident_approved32x32.png';
 		}
 			marker = new google.maps.Marker({
 				position: {lat: ${aAccident.latitude}, lng: ${aAccident.longitude}},

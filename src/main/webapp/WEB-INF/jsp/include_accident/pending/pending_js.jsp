@@ -79,6 +79,9 @@
 			icon: iconImg
 		});
 		markers[reportId] = marker;
+		marker.addListener('click', function() {
+			$("#accident_row_" + reportId).get(0).scrollIntoView({behavior: 'smooth'});
+		});
 	}
 
     function setMapOnAll(map) {
