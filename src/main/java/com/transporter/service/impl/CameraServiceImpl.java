@@ -96,6 +96,16 @@ public class CameraServiceImpl implements CameraService {
 	public List<Camera> getAllInstalledCamera() {
 		return cameraDao.getAllInstalledCamera();
 	}
+	// return the list of installed speed cameras
+	@Transactional
+	public List<Camera> getAllInstalledSpeedCamera() {
+		return cameraDao.getAllInstalledSpeedCamera();
+	}
+	// return the list of installed traffic cameras
+	@Transactional
+	public List<Camera> getAllInstalledTrafficCamera() {
+		return cameraDao.getAllInstalledTrafficCamera();
+	}
 	// get the number of camera
 	@Transactional
 	public Long getCameraCount() {

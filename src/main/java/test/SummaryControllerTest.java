@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,26 +47,29 @@ public class SummaryControllerTest {
 	private AccidentCause cFirst = mock(AccidentCause.class);
 	private AccidentCause cSecond = mock(AccidentCause.class);
 	
+	String textStartDate;
+	String textEndDate;
+	String searchOption;
+	
 	@Before
 	public void setup() {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
 	}
 	
-	//Casting object to int[] returns null?
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		String textStartDate = "s";
-		String textEndDate = "e";
+		textStartDate = "s";
+		textEndDate = "e";
 		
-		List<AccidentReport> accidentReports = mock(ArrayList.class);
-		List<AccidentCause> accidentCauses = mock(ArrayList.class);
+		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
+		List<AccidentCause> accidentCauses = Arrays.asList(cFirst, cSecond);
 		
 		int arr[] = {2,1};
 		
-		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond));
+		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(accidentCauses);
 		
-		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(accidentReports);
 		
 		when(summaryReportServiceMock.summariseByCause(accidentReports, accidentCauses)).thenReturn(arr);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -75,32 +77,32 @@ public class SummaryControllerTest {
 		
 		assertEquals(s, "summary_cause");
 		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
-		//assertArrayEquals(arr, (int[]) map.get("causeCount"));
+		assertArrayEquals(arr, (int[]) map.get("causeCount"));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
 		String textStartDate = "s";
 		String textEndDate = "e";
 		String searchOption = "a";
 		
-		List<AccidentReport> accidentReports = mock(ArrayList.class);
+		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
 		
-		int arr[] = {2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1};
+		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(accidentReports);
 		
-		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		int[] arr = {2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1};
 		
 		when(summaryReportServiceMock.summariseByTime(accidentReports)).thenReturn(arr);
 		Map<String, int[]> map = new HashMap<String, int[]>();
 		String s = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
 		
-		//int[] hrAccidentCount = map.get("hrAccidentCount");
+		int[] hrAccidentCount = map.get("hrAccidentCount");
 		int[] hrsOfDay = map.get("hrsOfDay");
 		
 		assertEquals(s, "summary_time");
 		assertEquals(24, hrsOfDay.length);
-		//assertArrayEquals(arr, hrAccidentCount);
+		assertEquals(24, hrAccidentCount.length);
+		assertArrayEquals(arr,hrAccidentCount);
 	}
 	
 	@SuppressWarnings("unchecked")
