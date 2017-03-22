@@ -42,10 +42,14 @@ public class SummaryController
 	//no search option for unresolved accidents as unresolved accidents do not have official causes yet
 	@RequestMapping(value="/cause", method=RequestMethod.GET)
 	public String goSummaryCause(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
+								 @RequestParam(value="enddate", required=false) String textEndDate,
+								 Map<String, Object> map) {
+
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
 		List<AccidentReport> accidentReports = checkSearchForCause(textStartDate, textEndDate);
+
 		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
+
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
 		return "summary_cause";

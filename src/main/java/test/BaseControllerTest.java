@@ -45,18 +45,15 @@ public class BaseControllerTest {
 	private AccidentReport rSecond = mock(AccidentReport.class);
 	private AccidentReport rThird = mock(AccidentReport.class);
 	private AccidentReport rFourth = mock(AccidentReport.class);
-	
+
 	private AccidentCause cFirst = mock(AccidentCause.class);
 	private AccidentCause cSecond = mock(AccidentCause.class);
-	
+
 	private Camera speedFirst = mock(Camera.class);
 	private Camera speedSecond = mock(Camera.class);
 	private Camera speedThird = mock(Camera.class);
 	
-	private Camera trafficFirst = mock(Camera.class);
-	private Camera trafficSecond = mock(Camera.class);
-	
-	private String s;
+	private String response;
 	
 	private Map<String, Object> map = new HashMap<String, Object>();
 	
@@ -65,15 +62,15 @@ public class BaseControllerTest {
 		bc.setServices(authUserServiceMock, accidentReportServiceMock, accidentCauseServiceMock, 
 				cameraServiceMock);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goMainPage_ShouldReturnHomeAndCorrectMapValues() {
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird,rFourth));
 		
-		s = bc.goMainPage(map, httpSession);
-		
-		assertEquals(s, "home");
+		response = bc.goMainPage(map, httpSession);
+
+		assertEquals(response, "home");
 		assertEquals(4, ((List<AccidentReport>) map.get("currentReports")).size());
 	}
 	
@@ -82,9 +79,9 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(accidentReportServiceMock.getPendingAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
 		
-		s = bc.goAccidentReportViewPending(map, httpSession);
+		response = bc.goAccidentReportViewPending(map, httpSession);
 		
-		assertEquals(s, "redirect:/");
+		assertEquals(response, "redirect:/");
 		assertTrue(map.isEmpty());
 	}
 	
@@ -94,9 +91,9 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(accidentReportServiceMock.getPendingAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond));
 		
-		s = bc.goAccidentReportViewPending(map, httpSession);
+		response = bc.goAccidentReportViewPending(map, httpSession);
 		
-		assertEquals(s, "accident_view_pending");
+		assertEquals(response, "accident_view_pending");
 		assertEquals(2, ((List<AccidentReport>) map.get("pendingAccidents")).size());
 	}
 	
@@ -106,9 +103,9 @@ public class BaseControllerTest {
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst,cSecond));
 		
-		s = bc.goAccidentReportResolveApproved(map, httpSession);
+		response = bc.goAccidentReportResolveApproved(map, httpSession);
 		
-		assertEquals(s, "redirect:/");
+		assertEquals(response, "redirect:/");
 		assertTrue(map.isEmpty());
 	}
 	
@@ -119,9 +116,9 @@ public class BaseControllerTest {
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst,rSecond,rThird));
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst,cSecond));
 		
-		s = bc.goAccidentReportResolveApproved(map, httpSession);
+		response = bc.goAccidentReportResolveApproved(map, httpSession);
 		
-		assertEquals(s, "accident_view_approved");
+		assertEquals(response, "accident_view_approved");
 		assertEquals(3, ((List<AccidentReport>) map.get("approvedAccidents")).size());
 		assertEquals(2, ((List<AccidentReport>) map.get("accidentCauses")).size());
 	}
@@ -131,21 +128,21 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
-		s = bc.goSuggestCameraPage(map, httpSession);
+		response = bc.goSuggestCameraPage(map, httpSession);
 		
-		assertEquals(s, "redirect:/");
+		assertEquals(response, "redirect:/");
 		assertTrue(map.isEmpty());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSuggestCameraPage_UserAuthenticated_ShouldReturnPendingAccidents() {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
+
+		response = bc.goSuggestCameraPage(map, httpSession);
 		
-		s = bc.goSuggestCameraPage(map, httpSession);
-		
-		assertEquals(s, "camera_suggest");
+		assertEquals(response, "camera_suggest");
 		assertEquals(3, ((List<Camera>) map.get("enforcementCamera")).size());
 	}
 	
@@ -154,9 +151,9 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(false);
 		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
-		s = bc.goManageCameraPage(map, httpSession);
+		response = bc.goManageCameraPage(map, httpSession);
 		
-		assertEquals(s, "redirect:/");
+		assertEquals(response, "redirect:/");
 		assertTrue(map.isEmpty());
 	}
 	
@@ -166,16 +163,17 @@ public class BaseControllerTest {
 		when(authUserServiceMock.isAuthenticated(httpSession)).thenReturn(true);
 		when(cameraServiceMock.getAllCamera()).thenReturn(Arrays.asList(speedFirst,speedSecond,speedThird));
 		
-		s = bc.goManageCameraPage(map, httpSession);
+		response = bc.goManageCameraPage(map, httpSession);
 		
-		assertEquals(s, "camera_manage");
+		assertEquals(response, "camera_manage");
 		assertEquals(3, ((List<Camera>) map.get("enforcementCamera")).size());
 	}
 	
 	@Test
 	public void logout_ShouldInvalidateSessionAndReturnRedirect() {
-		s = bc.logout(httpSession);
+		response = bc.logout(httpSession);
 		verify(httpSession).invalidate();
-		assertEquals(s, "redirect:/");
+		assertEquals(response, "redirect:/");
 	}
+
 }
