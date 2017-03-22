@@ -69,10 +69,17 @@
 		var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		
 		<c:forEach items="${accidentReports}" var="aAccident" varStatus = "status">
+		if('${aAccident.resolvedBy}' == null){
+			cameraIconLink = '/resources/icons/accident_approved32x32.png';
+		}
+		else {
+			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
+		}
 			marker = new google.maps.Marker({
 				position: {lat: ${aAccident.latitude}, lng: ${aAccident.longitude}},
 				map: sgmap,
-				label: labels[status.index % labels.length]
+				label: labels[status.index % labels.length],
+				icon: pagectx + cameraIconLink
 			});
 			markers.push(marker);
 		</c:forEach>
