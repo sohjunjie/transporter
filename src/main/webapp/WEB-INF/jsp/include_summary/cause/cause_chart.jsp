@@ -44,7 +44,11 @@ var myChart = new Chart(ctx, {
     	legend: {
         	position: 'bottom'
         	//display: false
-        }
+        },
+    	title: {
+    		display: true,
+    		text: 'Occurrence of accidents by cause'
+    	}
     }
 });
 </script>

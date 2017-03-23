@@ -53,6 +53,7 @@
 						<%@ include file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
 					</div>
 				<div class="col-lg-10 col-xs-10" style="padding-right: 0px;">
+						<h5><b>Summary Of all accident locations</b></h5>
 						<div id="map"></div>
 					</div>
 					

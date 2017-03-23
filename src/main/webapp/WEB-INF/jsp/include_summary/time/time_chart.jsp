@@ -40,6 +40,15 @@ var myChart = new Chart(ctx, {
             data: countArr,
             backgroundColor: colors
         }]
-    }
+    },
+	options: {
+		legend: {
+    		display: false
+    	},
+    	title: {
+    		display: true,
+    		text: 'Occurrence of accidents by time'
+    	}
+	}
 });
 </script>
