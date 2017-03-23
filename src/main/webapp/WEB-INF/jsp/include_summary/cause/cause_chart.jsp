@@ -5,20 +5,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" type="text/javascript"></script>
 <canvas id="myCauseChart" width="100%" height="100%"></canvas>
 <script>
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
 
-var colors = [];
 var lab = [];
 <c:forEach items="${topAccidentCauses}" var="aCause">
 	lab.push("${aCause.cause}");
-	colors.push(getRandomColor());
 </c:forEach>
 
 var countArr = [];
@@ -37,7 +27,12 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: '# of Causes',
             data: countArr,
-            backgroundColor: colors
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ]
         }]
     },
 	options: {
