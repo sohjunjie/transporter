@@ -52,10 +52,10 @@
 					<div class="col-lg-6 col-xs-6">
 						<%@ include file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
 					</div>
-				<div class="col-lg-6 col-xs-6" style="padding-right: 0px;">
+				<div class="col-lg-10 col-xs-10" style="padding-right: 0px;">
 						<div id="map"></div>
 					</div>
-					</div>
+					
 			</section>
 			<!-- /.content -->
 		</div>

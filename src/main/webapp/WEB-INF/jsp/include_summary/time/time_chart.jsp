@@ -3,7 +3,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" type="text/javascript"></script>
-<canvas id="myTimeChart" width="1000" height="600"></canvas>
+<canvas id="myTimeChart" width="100%" height="100%"></canvas>
 <script>
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
@@ -29,6 +29,8 @@ var countArr = [];
 </c:forEach>
 
 var ctx = document.getElementById("myTimeChart");
+ctx.width=window.innerWidth;
+ctx.height=window.innerHeight;
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
