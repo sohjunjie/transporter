@@ -42,7 +42,7 @@ var myChart = new Chart(ctx, {
         },
     	title: {
     		display: true,
-    		text: 'Occurrence of accidents by cause'
+    		text: ''
     	}
     }
 });

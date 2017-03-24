@@ -47,17 +47,52 @@
 			<section class="content">
 				<div class="row">
 					<div class="col-lg-6 col-xs-6">
-						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Occurrence of accidents by cause</h3>
+								<!-- /.box-title -->
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- main content -->
+								<%@ include
+									file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
+							</div>
+						</div>
 					</div>
 					<div class="col-lg-6 col-xs-6">
-						<%@ include file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Occurrence of accidents by time of
+									occurrence</h3>
+								<!-- /.box-title -->
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- main content -->
+								<%@ include
+									file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
+							</div>
+						</div>
 					</div>
-				<div class="col-lg-10 col-xs-10" style="padding-right: 0px;">
-						<h5><b>Summary Of all accident locations</b></h5>
-						<div id="map"></div>
+
+					<div class="col-lg-10 col-xs-10" style="padding-right: 0px;">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Summary of all accident lcations</h3>
+								<!-- /.box-title -->
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- main content -->
+								<div id="map"></div>
+							</div>
+						</div>
 					</div>
-					
-			</section>
+				</div>
+		</div>
+
+		</section>
 			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
