@@ -98,6 +98,7 @@ public class SummaryControllerTest {
 		rFourth.setAccidentDateTime(cal.getTime());
 	}
 	
+	//Test summaryByCause method
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
@@ -106,8 +107,6 @@ public class SummaryControllerTest {
 		
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond,cThird,cFourth));
 		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
@@ -123,6 +122,7 @@ public class SummaryControllerTest {
 		assertEquals(cFirst,highestCauses.get(2));
 	}
 	
+	//test summaryByTime method
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
 		String textStartDate = "s";
@@ -145,6 +145,7 @@ public class SummaryControllerTest {
 		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, hrAccidentCount);
 	}
 	
+	//Test summaryByLocation method
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
@@ -161,6 +162,7 @@ public class SummaryControllerTest {
 		assertEquals(3, ((List<AccidentReport>) map.get("accidentReports")).size());
 	}
 	
+	//test checkSearch method if dates are not parseable and searchOption is null
 	@Test
 	public void checkSearchTest_DatesWrongFormatSearchOptionNull_ShouldReturnAllAccidents() {
 		String textStartDate = "a";
@@ -183,6 +185,7 @@ public class SummaryControllerTest {
 		assertEquals(3, result.size());
 	}
 	
+	//test checkSearch method if date inputs are correct and searchOption is current
 	@Test
 	public void checkSearchTest_DatesRightFormatSearchOptionCurrent_ShouldReturnCurrentAccidentsBetweenDates() {
 		String textStartDate = "01/01/2011";
@@ -204,7 +207,7 @@ public class SummaryControllerTest {
 		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
 		assertEquals(4, result.size());
 	}
-	
+	//test checkSearch method if date inputs are correct and searchOption is both
 	@Test
 	public void checkSearchTest_DatesCorrectFormatSearchOptionBoth_ShouldReturnAllReportsBetweenDates() {
 		String textStartDate = "01/01/2011";
@@ -227,8 +230,9 @@ public class SummaryControllerTest {
 		assertEquals(6, result.size());
 	}
 	
+	//test checkSearchForCause method if date inputs are not parseable
 	@Test
-	public void checkSearchTestForCause_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
+	public void checkSearchForCauseTest_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
 		String textStartDate = "a";
 		String textEndDate = "b";
 		
@@ -245,8 +249,9 @@ public class SummaryControllerTest {
 		assertEquals(1, result.size());
 	}
 	
+	//check checkSearchForCause method if dates are correct
 	@Test
-	public void checkSearchTestForCause_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
+	public void checkSearchForCauseTest_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
 		String textStartDate = "01/01/2011";
 		String textEndDate = "01/01/2012";
 		
@@ -263,6 +268,7 @@ public class SummaryControllerTest {
 		assertEquals(2, result.size());
 	}
 
+	//check if findTopThreeHighestIndexInArray returns correct array
 	@Test
 	public void findTopThreeHighestIndexInArray_ShouldReturnCorrectOrder() {
 		int arr[] =  {8, 5, 3, 9, 10};
