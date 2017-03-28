@@ -157,7 +157,7 @@ public class SummaryController
 	} 
 	
 	//finds the three highest values in an array and return the indexes
-	private int[] findTopThreeHighestIndexInArray(int[] causeCount) {
+	public int[] findTopThreeHighestIndexInArray(int[] causeCount) {
 		int highest, secondHighest, thirdHighest, highestIndex, secondHighestIndex, thirdHighestIndex;
 		if (causeCount[0] >= causeCount[1] && causeCount[0] >= causeCount[2]) {
 			highest = causeCount[0];

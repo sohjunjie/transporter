@@ -46,6 +46,8 @@ public class SummaryControllerTest {
 
 	private AccidentCause cFirst = new AccidentCause();
 	private AccidentCause cSecond = new AccidentCause();
+	private AccidentCause cThird = new AccidentCause();
+	private AccidentCause cFourth = new AccidentCause();
 	
 	String textStartDate;
 	String textEndDate;
@@ -56,12 +58,14 @@ public class SummaryControllerTest {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
 		cFirst.setCauseId(1);
 		cSecond.setCauseId(2);
+		cThird.setCauseId(3);
+		cFourth.setCauseId(4);
 		rFirst.setOfficialCause(cFirst);
 		rSecond.setOfficialCause(cSecond);
-		rThird.setOfficialCause(cFirst);
+		rThird.setOfficialCause(cThird);
 		rFourth.setOfficialCause(cSecond);
-		rFifth.setOfficialCause(cFirst);
-		rSixth.setOfficialCause(cFirst);
+		rFifth.setOfficialCause(cThird);
+		rSixth.setOfficialCause(cFourth);
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -100,40 +104,24 @@ public class SummaryControllerTest {
 		textStartDate = "s";
 		textEndDate = "e";
 		
-		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond));
+		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond,cThird,cFourth));
 		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
 		
-		assertEquals(response, "summary_cause");
-		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
-		assertArrayEquals(new int[] {4,2}, (int[]) map.get("causeCount"));
-	}
-	/*
-	@SuppressWarnings("unchecked")
-	@Test
-	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		textStartDate = "s";
-		textEndDate = "e";
-		
-		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
-		List<AccidentCause> accidentCauses = Arrays.asList(cFirst, cSecond);
-		
-		int arr[] = {2,1};
-		
-		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(accidentCauses);
-		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(accidentReports);
-		when(summaryReportServiceMock.summariseByCause(accidentReports, accidentCauses)).thenReturn(arr);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
+		List<AccidentCause> highestCauses = (List<AccidentCause>) map.get("topAccidentCauses");
 		
 		assertEquals(response, "summary_cause");
-		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
-		assertArrayEquals(arr, (int[]) map.get("causeCount"));
+		assertEquals(4, ((List<AccidentCause>) map.get("accidentCauses")).size());
+		assertArrayEquals(new int[] {1,2,2,1}, (int[]) map.get("causeCount"));
+		assertArrayEquals(new int[] {2,2,1,1}, (int[]) map.get("topCauseCount"));
+		assertEquals(cSecond,highestCauses.get(0));
+		assertEquals(cThird,highestCauses.get(1));
+		assertEquals(cFirst,highestCauses.get(2));
 	}
-	*/
 	
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
@@ -156,32 +144,7 @@ public class SummaryControllerTest {
 		assertEquals(24, hrAccidentCount.length);
 		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, hrAccidentCount);
 	}
-	/*
-	@Test
-	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		String textStartDate = "s";
-		String textEndDate = "e";
-		String searchOption = "a";
-		
-		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
-		
-		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(accidentReports);
-		
-		int[] arr = {2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1};
-		
-		when(summaryReportServiceMock.summariseByTime(accidentReports)).thenReturn(arr);
-		Map<String, int[]> map = new HashMap<String, int[]>();
-		String response = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
-		
-		int[] hrAccidentCount = map.get("hrAccidentCount");
-		int[] hrsOfDay = map.get("hrsOfDay");
-		
-		assertEquals(response, "summary_time");
-		assertEquals(24, hrsOfDay.length);
-		assertEquals(24, hrAccidentCount.length);
-		assertArrayEquals(arr, hrAccidentCount);
-	}
-	*/
+	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
@@ -300,4 +263,10 @@ public class SummaryControllerTest {
 		assertEquals(2, result.size());
 	}
 
+	@Test
+	public void findTopThreeHighestIndexInArray_ShouldReturnCorrectOrder() {
+		int arr[] =  {8, 5, 3, 9, 10};
+		assertArrayEquals(new int[] {4,3,0},sc.findTopThreeHighestIndexInArray(arr));
+	}
+	
 }
