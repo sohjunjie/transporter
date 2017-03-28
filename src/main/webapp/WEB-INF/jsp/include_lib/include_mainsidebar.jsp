@@ -51,6 +51,8 @@
 							</span>
 					</a>
 					<ul class="treeview-menu">
+							<li id="vert_stat_all_report"><a href="${pageContext.servletContext.contextPath}/summary/all">
+								<i class="fa fa-file"></i> Summary Report</a></li>
 							<li id="vert_stat_cause_report"><a href="${pageContext.servletContext.contextPath}/summary/cause">
 								<i class="fa fa-file"></i> Summary Report By Cause</a></li>
 							<li id="vert_stat_time_report"><a href="${pageContext.servletContext.contextPath}/summary/time">

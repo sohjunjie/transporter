@@ -3,31 +3,23 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js" type="text/javascript"></script>
-<canvas id="myChart" width="600" height="600"></canvas>
+<canvas id="myCauseChart" width="100%" height="100%"></canvas>
 <script>
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
 
-var colors = [];
 var lab = [];
-<c:forEach items="${accidentCauses}" var="aCause">
+<c:forEach items="${topAccidentCauses}" var="aCause">
 	lab.push("${aCause.cause}");
-	colors.push(getRandomColor());
 </c:forEach>
 
 var countArr = [];
 
-<c:forEach items="${causeCount}" var="count">
+<c:forEach items="${topCauseCount}" var="count">
 	countArr.push(${count});
 </c:forEach>
 
-var ctx = document.getElementById("myChart");
+var ctx = document.getElementById("myCauseChart");
+ctx.width=window.innerWidth;
+ctx.height=window.innerHeight;
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -35,8 +27,23 @@ var myChart = new Chart(ctx, {
         datasets: [{
             label: '# of Causes',
             data: countArr,
-            backgroundColor: colors
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ]
         }]
+    },
+	options: {
+    	legend: {
+        	position: 'bottom'
+        	//display: false
+        },
+    	title: {
+    		display: true,
+    		text: ''
+    	}
     }
 });
 </script>

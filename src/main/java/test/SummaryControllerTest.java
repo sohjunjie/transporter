@@ -24,12 +24,12 @@ import com.transporter.model.AccidentReport;
 import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.SummaryReportService;
+import com.transporter.service.impl.SummaryReportServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SummaryControllerTest {
 	
-	@Mock
-	private SummaryReportService summaryReportServiceMock = mock(SummaryReportService.class);
+	private SummaryReportService summaryReportServiceMock = new SummaryReportServiceImpl();
 	@Mock
 	private AccidentCauseService accidentCauseServiceMock = mock(AccidentCauseService.class);
 	@Mock
@@ -37,15 +37,17 @@ public class SummaryControllerTest {
 	
 	private SummaryController sc = new SummaryController();
 	
-	private AccidentReport rFirst = mock(AccidentReport.class);
-	private AccidentReport rSecond = mock(AccidentReport.class);
-	private AccidentReport rThird = mock(AccidentReport.class);
-	private AccidentReport rFourth = mock(AccidentReport.class);
-	private AccidentReport rFifth = mock(AccidentReport.class);
-	private AccidentReport rSixth = mock(AccidentReport.class);
+	private AccidentReport rFirst = new AccidentReport();
+	private AccidentReport rSecond = new AccidentReport();
+	private AccidentReport rThird = new AccidentReport();
+	private AccidentReport rFourth = new AccidentReport();
+	private AccidentReport rFifth = new AccidentReport();
+	private AccidentReport rSixth = new AccidentReport();
 
-	private AccidentCause cFirst = mock(AccidentCause.class);
-	private AccidentCause cSecond = mock(AccidentCause.class);
+	private AccidentCause cFirst = new AccidentCause();
+	private AccidentCause cSecond = new AccidentCause();
+	private AccidentCause cThird = new AccidentCause();
+	private AccidentCause cFourth = new AccidentCause();
 	
 	String textStartDate;
 	String textEndDate;
@@ -54,44 +56,83 @@ public class SummaryControllerTest {
 	@Before
 	public void setup() {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
+		cFirst.setCauseId(1);
+		cSecond.setCauseId(2);
+		cThird.setCauseId(3);
+		cFourth.setCauseId(4);
+		rFirst.setOfficialCause(cFirst);
+		rSecond.setOfficialCause(cSecond);
+		rThird.setOfficialCause(cThird);
+		rFourth.setOfficialCause(cSecond);
+		rFifth.setOfficialCause(cThird);
+		rSixth.setOfficialCause(cFourth);
+		
+		Calendar cal = Calendar.getInstance();
+		
+		//00:30
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rFirst.setAccidentDateTime(cal.getTime());
+		
+		//23:30
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rSecond.setAccidentDateTime(cal.getTime());
+		
+		//12:00
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rThird.setAccidentDateTime(cal.getTime());
+		
+		//12:59
+		cal.set(Calendar.HOUR_OF_DAY, 12);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		rFourth.setAccidentDateTime(cal.getTime());
 	}
 	
+	//Test summaryByCause method
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
 		textStartDate = "s";
 		textEndDate = "e";
 		
-		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
-		List<AccidentCause> accidentCauses = Arrays.asList(cFirst, cSecond);
+		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond,cThird,cFourth));
+		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
-		int arr[] = {2,1};
-		
-		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(accidentCauses);
-		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(accidentReports);
-		when(summaryReportServiceMock.summariseByCause(accidentReports, accidentCauses)).thenReturn(arr);
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
 		
+		List<AccidentCause> highestCauses = (List<AccidentCause>) map.get("topAccidentCauses");
+		
 		assertEquals(response, "summary_cause");
-		assertEquals(2, ((List<AccidentCause>) map.get("accidentCauses")).size());
-		assertArrayEquals(arr, (int[]) map.get("causeCount"));
+		assertEquals(4, ((List<AccidentCause>) map.get("accidentCauses")).size());
+		assertArrayEquals(new int[] {1,2,2,1}, (int[]) map.get("causeCount"));
+		assertArrayEquals(new int[] {2,2,1,1}, (int[]) map.get("topCauseCount"));
+		assertEquals(cSecond,highestCauses.get(0));
+		assertEquals(cThird,highestCauses.get(1));
+		assertEquals(cFirst,highestCauses.get(2));
 	}
 	
+	//test summaryByTime method
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
 		String textStartDate = "s";
 		String textEndDate = "e";
 		String searchOption = "a";
 		
-		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird);
+		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird, rFourth);
 		
 		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(accidentReports);
 		
-		int[] arr = {2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1};
-		
-		when(summaryReportServiceMock.summariseByTime(accidentReports)).thenReturn(arr);
 		Map<String, int[]> map = new HashMap<String, int[]>();
 		String response = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
 		
@@ -101,9 +142,10 @@ public class SummaryControllerTest {
 		assertEquals(response, "summary_time");
 		assertEquals(24, hrsOfDay.length);
 		assertEquals(24, hrAccidentCount.length);
-		assertArrayEquals(arr, hrAccidentCount);
+		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, hrAccidentCount);
 	}
 	
+	//Test summaryByLocation method
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
@@ -120,6 +162,7 @@ public class SummaryControllerTest {
 		assertEquals(3, ((List<AccidentReport>) map.get("accidentReports")).size());
 	}
 	
+	//test checkSearch method if dates are not parseable and searchOption is null
 	@Test
 	public void checkSearchTest_DatesWrongFormatSearchOptionNull_ShouldReturnAllAccidents() {
 		String textStartDate = "a";
@@ -142,6 +185,7 @@ public class SummaryControllerTest {
 		assertEquals(3, result.size());
 	}
 	
+	//test checkSearch method if date inputs are correct and searchOption is current
 	@Test
 	public void checkSearchTest_DatesRightFormatSearchOptionCurrent_ShouldReturnCurrentAccidentsBetweenDates() {
 		String textStartDate = "01/01/2011";
@@ -163,7 +207,7 @@ public class SummaryControllerTest {
 		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
 		assertEquals(4, result.size());
 	}
-	
+	//test checkSearch method if date inputs are correct and searchOption is both
 	@Test
 	public void checkSearchTest_DatesCorrectFormatSearchOptionBoth_ShouldReturnAllReportsBetweenDates() {
 		String textStartDate = "01/01/2011";
@@ -186,8 +230,9 @@ public class SummaryControllerTest {
 		assertEquals(6, result.size());
 	}
 	
+	//test checkSearchForCause method if date inputs are not parseable
 	@Test
-	public void checkSearchTestForCause_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
+	public void checkSearchForCauseTest_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
 		String textStartDate = "a";
 		String textEndDate = "b";
 		
@@ -204,8 +249,9 @@ public class SummaryControllerTest {
 		assertEquals(1, result.size());
 	}
 	
+	//check checkSearchForCause method if dates are correct
 	@Test
-	public void checkSearchTestForCause_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
+	public void checkSearchForCauseTest_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
 		String textStartDate = "01/01/2011";
 		String textEndDate = "01/01/2012";
 		
@@ -222,4 +268,11 @@ public class SummaryControllerTest {
 		assertEquals(2, result.size());
 	}
 
+	//check if findTopThreeHighestIndexInArray returns correct array
+	@Test
+	public void findTopThreeHighestIndexInArray_ShouldReturnCorrectOrder() {
+		int arr[] =  {8, 5, 3, 9, 10};
+		assertArrayEquals(new int[] {4,3,0},sc.findTopThreeHighestIndexInArray(arr));
+	}
+	
 }
