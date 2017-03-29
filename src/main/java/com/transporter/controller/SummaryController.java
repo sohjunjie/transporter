@@ -79,21 +79,22 @@ public class SummaryController
 	
 	//returns the locations of all accident reports
 	@RequestMapping(value="/location", method=RequestMethod.GET)
-	public String goSummaryLocation(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textStartDate, 
-			@RequestParam(value="enddate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textEndDate, Map<String, Object> map, 
+	public String goSummaryLocation(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date startDate, 
+			@RequestParam(value="enddate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date endDate, Map<String, Object> map, 
 			@RequestParam(value="searchoption", required=false) String searchOption) {
-		List<AccidentReport> accidentReports = checkSearch(textStartDate, textEndDate, searchOption);
+		List<AccidentReport> accidentReports = checkSearch(startDate, endDate, searchOption);
 		map.put("accidentReports", accidentReports);
 		return "summary_location";
 	}
 	
 	//return the overall summary page
 	@RequestMapping(value="/all", method=RequestMethod.GET)
-	public String goSummaryAll(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
-		List<AccidentReport> accidentReports = accidentReportService.getApprovedOrResolvedAccidentReport();
+	public String goSummaryAll(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date startDate, 
+			@RequestParam(value="enddate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date endDate, Map<String, Object> map,
+			@RequestParam(value="searchoption", required=false) String searchOption) {
+		List<AccidentReport> accidentReports = checkSearch(startDate,endDate,searchOption);
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> resolvedReports = accidentReportService.getResolvedAccidentReport();
+		List<AccidentReport> resolvedReports = checkSearchForCause(startDate,endDate);
 		int[] causeCount = summaryReportService.summariseByCause(resolvedReports, accidentCauses);
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		int[] hrsOfDay = new int[24];
@@ -119,9 +120,7 @@ public class SummaryController
 	public List<AccidentReport> checkSearch(Date startDate, Date endDate, String searchOption) {
 		if (searchOption == null)
 			searchOption = "both";
-		if (endDate == null) 
-			endDate = new Date();
-		if (startDate == null) {
+		if (startDate == null || endDate == null) {
 			switch(searchOption) {
 			case "current": return accidentReportService.getApprovedAccidentReport();
 			case "archived": return accidentReportService.getResolvedAccidentReport();
@@ -140,9 +139,7 @@ public class SummaryController
 	//check range of dates for summary by cause (as unresolved approved accidents do not have official cause yet)
 	//if date is not parseable or null, return all resolved accidents
 	public List<AccidentReport> checkSearchForCause(Date startDate, Date endDate) {
-		if (endDate == null)
-			endDate = new Date();
-		if (startDate == null) {
+		if (startDate == null || endDate == null) {
 			return accidentReportService.getResolvedAccidentReport();
 		}
 		else {

@@ -52,15 +52,29 @@
 					<div class="col-lg-5 col-xs-12">
 						<%@ include file="/WEB-INF/jsp/include_summary/time/time_viewer.jsp"%>
 					</div>
-					<div class="col-lg-7 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
-						<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
-						
+				<div class="col-lg-7 col-xs-12">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title">Occurrence of accidents by time of
+								occurrence</h3>
+							<!-- /.box-title -->
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<!-- main content -->
+							<%@ include
+								file="/WEB-INF/jsp/include_summary/time/time_chart.jsp"%>
+						</div>
 					</div>
-					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
-						<div id="map"></div>
-					</div>
+
+					<%@ include
+						file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
+
 				</div>
+				<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
+					<div id="map"></div>
+				</div>
+			</div>
 				
 			</section>
 			<!-- /.content -->

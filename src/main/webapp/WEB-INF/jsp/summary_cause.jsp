@@ -51,8 +51,22 @@
 						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_viewer.jsp"%>
 					</div>
 					<div class="col-lg-7 col-xs-12">
-						<%@ include file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
-						<%@ include file="/WEB-INF/jsp/include_summary/cause/search_date_form_no_filter.jsp"%>
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">
+								Occurrence of accidents by cause</h3>
+								<!-- /.box-title -->
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- main content -->
+								<%@ include
+									file="/WEB-INF/jsp/include_summary/cause/cause_chart.jsp"%>
+							</div>
+						</div>
+						
+						<%@ include file="/WEB-INF/jsp/include_summary/cause/search_date_form_no_filter.jsp"%>					
+						
 					</div>
 					<div class="col-lg-6 col-xs-12" style="padding-right: 0px;">
 						<div id="map"></div>
