@@ -70,10 +70,10 @@
 		
 		<c:forEach items="${accidentReports}" var="aAccident" varStatus = "status">
 		if('${aAccident.resolvedBy}' != '') {
-			cameraIconLink = '/resources/icons/accident_approved32x32.png';
+			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
 		}
 		else {
-			cameraIconLink = '/resources/icons/accident_resolved32x32.png';
+			cameraIconLink = '/resources/icons/accident_approved32x32.png';
 		}
 			marker = new google.maps.Marker({
 				position: {lat: ${aAccident.latitude}, lng: ${aAccident.longitude}},
