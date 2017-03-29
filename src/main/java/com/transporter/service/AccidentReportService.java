@@ -25,7 +25,7 @@ public interface AccidentReportService {
 	public boolean resolveAccidentReport(AuthenticatedUser authUser, int reportId, int causeId, int numOfCasualties);
 	
 	public List<AccidentReport> getApprovedAccidentReport();
-	public List<AccidentReport> getApprovedAndResolvedAccidentReport();
+	public List<AccidentReport> getApprovedOrResolvedAccidentReport();
 	public List<AccidentReport> getResolvedAccidentReport();
 	
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate);

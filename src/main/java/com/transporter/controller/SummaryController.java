@@ -1,7 +1,5 @@
 package com.transporter.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,9 +89,9 @@ public class SummaryController
 	
 	//return the overall summary page
 	@RequestMapping(value="/all", method=RequestMethod.GET)
-	public String goSummaryAll(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textStartDate, 
-			@RequestParam(value="enddate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textEndDate, Map<String, Object> map) {
-		List<AccidentReport> accidentReports = accidentReportService.getApprovedAndResolvedAccidentReport();
+	public String goSummaryAll(@RequestParam(value="startdate", required=false) String textStartDate, 
+			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
+		List<AccidentReport> accidentReports = accidentReportService.getApprovedOrResolvedAccidentReport();
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
 		List<AccidentReport> resolvedReports = accidentReportService.getResolvedAccidentReport();
 		int[] causeCount = summaryReportService.summariseByCause(resolvedReports, accidentCauses);
@@ -127,7 +125,7 @@ public class SummaryController
 			switch(searchOption) {
 			case "current": return accidentReportService.getApprovedAccidentReport();
 			case "archived": return accidentReportService.getResolvedAccidentReport();
-			default: return accidentReportService.getApprovedAndResolvedAccidentReport();
+			default: return accidentReportService.getApprovedOrResolvedAccidentReport();
 			}
 		}
 		else {

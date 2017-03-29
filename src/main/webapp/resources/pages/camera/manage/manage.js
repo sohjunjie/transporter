@@ -52,11 +52,11 @@ function event_cameraSetApproved(cameraId){
 
 	$.ajax({
 		type : 'POST',
-		url  : pagectx + 'camera/set/status',
+		url  : pagectx + '/camera/set/status',
 		data : data,
 		success :  function(response){
 			if(response){
-				alert("The camera has been deleted!");
+				alert("The camera has been approved!");
 				location.reload();
 			}
 		},

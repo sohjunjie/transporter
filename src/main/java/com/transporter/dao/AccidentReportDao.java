@@ -18,7 +18,7 @@ public interface AccidentReportDao {
 
 	public Long getApprovedAccidentCount();
 	public List<AccidentReport> getApprovedAccidentReport();
-	public List<AccidentReport> getApprovedAndResolvedAccidentReport();
+	public List<AccidentReport> getApprovedOrResolvedAccidentReport();
 	public List<AccidentReport> getResolvedAccidentReport();
 	
 	public List<AccidentReport> getApprovedAccidentReport(Date startDate, Date endDate);
