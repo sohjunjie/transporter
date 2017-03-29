@@ -85,7 +85,7 @@ public class AccidentReportDaoImpl implements AccidentReportDao {
 	//retrieve details of all approved accident reports, regardless whether they are resolved or not, from the database
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
+	public List<AccidentReport> getApprovedOrResolvedAccidentReport() {
 		return session.getCurrentSession().createQuery("from AccidentReport "
 				+ "where approvedBy!=null").list();
 	}

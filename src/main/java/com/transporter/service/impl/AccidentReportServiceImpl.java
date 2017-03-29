@@ -127,8 +127,8 @@ public class AccidentReportServiceImpl implements AccidentReportService {
 	}
 	// get the list of approved and resolved accident reports
 	@Transactional
-	public List<AccidentReport> getApprovedAndResolvedAccidentReport() {
-		return accidentReportDao.getApprovedAndResolvedAccidentReport();
+	public List<AccidentReport> getApprovedOrResolvedAccidentReport() {
+		return accidentReportDao.getApprovedOrResolvedAccidentReport();
 	}
 	//	get the list of approved accidents reports based on a time interval
 	@Transactional

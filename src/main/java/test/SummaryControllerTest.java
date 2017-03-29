@@ -176,7 +176,7 @@ public class SummaryControllerTest {
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
@@ -199,7 +199,7 @@ public class SummaryControllerTest {
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
@@ -221,7 +221,7 @@ public class SummaryControllerTest {
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));

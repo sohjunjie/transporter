@@ -92,7 +92,7 @@ public class SummaryController
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public String goSummaryAll(@RequestParam(value="startdate", required=false) String textStartDate, 
 			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
-		List<AccidentReport> accidentReports = accidentReportService.getApprovedAndResolvedAccidentReport();
+		List<AccidentReport> accidentReports = accidentReportService.getApprovedOrResolvedAccidentReport();
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
 		List<AccidentReport> resolvedReports = accidentReportService.getResolvedAccidentReport();
 		int[] causeCount = summaryReportService.summariseByCause(resolvedReports, accidentCauses);
@@ -136,7 +136,7 @@ public class SummaryController
 			switch(searchOption) {
 			case "current": return accidentReportService.getApprovedAccidentReport();
 			case "archived": return accidentReportService.getResolvedAccidentReport();
-			default: return accidentReportService.getApprovedAndResolvedAccidentReport();
+			default: return accidentReportService.getApprovedOrResolvedAccidentReport();
 			}
 		} 
 	}
