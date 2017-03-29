@@ -56,6 +56,7 @@ public class CameraServiceImpl implements CameraService {
 		return true;
 	}
 	// set the status of the camera and it will return if the status is updated
+	@Transactional
 	public boolean setCameraStatus(int cameraId, int cameraStatusOrdinal){
 		Camera camera = cameraDao.getCamera(cameraId);
 		if(camera == null) return false;
@@ -64,6 +65,7 @@ public class CameraServiceImpl implements CameraService {
 		return true;
 	}
 	// set the type of camera with an ID and it will return if the type is updated
+	@Transactional
 	public boolean setCameraType(int cameraId, int cameraTypeOrdinal){
 		Camera camera = cameraDao.getCamera(cameraId);
 		if(camera == null) return false;
