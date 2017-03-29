@@ -23,7 +23,7 @@ function event_deleteCamera(cameraId){
 	data = {}
 	data['cameraId'] = cameraId;
 
-    var confirmDelete = confirm("Confirm deleting accident report?");
+    var confirmDelete = confirm("Confirm deleting camera?");
     if (!confirmDelete) { return; }
 
 	$.ajax({
@@ -47,7 +47,7 @@ function event_cameraSetApproved(cameraId){
 	data['cameraId'] = cameraId;
 	data['cameraStatusOrdinal'] = 1;
 
-    var confirmDelete = confirm("Confirm deleting accident report?");
+    var confirmDelete = confirm("Confirm approve camera?");
     if (!confirmDelete) { return; }
 
 	$.ajax({
