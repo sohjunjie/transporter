@@ -49,8 +49,12 @@ public class SummaryControllerTest {
 	private AccidentCause cThird = new AccidentCause();
 	private AccidentCause cFourth = new AccidentCause();
 	
-	String textStartDate;
-	String textEndDate;
+	Calendar cal;
+	Date date1;
+	Date date2;
+	
+	Date startDate;
+	Date endDate;
 	String searchOption;
 	
 	@Before
@@ -67,7 +71,15 @@ public class SummaryControllerTest {
 		rFifth.setOfficialCause(cThird);
 		rSixth.setOfficialCause(cFourth);
 		
-		Calendar cal = Calendar.getInstance();
+		cal = Calendar.getInstance();
+		
+		cal.set(Calendar.YEAR, 2017);
+		cal.set(Calendar.MONTH, 1);
+		cal.set(Calendar.DATE, 1);
+		date1 = cal.getTime();
+		
+		cal.set(Calendar.DATE, 11);
+		date2 = cal.getTime();
 		
 		//00:30
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -102,14 +114,14 @@ public class SummaryControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		textStartDate = "s";
-		textEndDate = "e";
+		startDate = date1;
+		endDate = date2;
 		
 		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond,cThird,cFourth));
-		when(sc.checkSearchForCause(textStartDate, textEndDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
+		when(sc.checkSearchForCause(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		String response = sc.goSummaryCause(textStartDate, textEndDate, map);
+		String response = sc.goSummaryCause(startDate, endDate, map);
 		
 		List<AccidentCause> highestCauses = (List<AccidentCause>) map.get("topAccidentCauses");
 		
@@ -125,16 +137,16 @@ public class SummaryControllerTest {
 	//test summaryByTime method
 	@Test
 	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		String textStartDate = "s";
-		String textEndDate = "e";
+		Date startDate = date1;
+		Date endDate = date2;
 		String searchOption = "a";
 		
 		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird, rFourth);
 		
-		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(accidentReports);
+		when(sc.checkSearch(startDate, endDate, searchOption)).thenReturn(accidentReports);
 		
 		Map<String, int[]> map = new HashMap<String, int[]>();
-		String response = sc.goSummaryTime(textStartDate, textEndDate, map, searchOption);
+		String response = sc.goSummaryTime(startDate, endDate, map, searchOption);
 		
 		int[] hrAccidentCount = map.get("hrAccidentCount");
 		int[] hrsOfDay = map.get("hrsOfDay");
@@ -149,30 +161,25 @@ public class SummaryControllerTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
-		String textStartDate = "s";
-		String textEndDate = "e";
+		Date startDate = date1;
+		Date endDate = date2;
 		String searchOption = "a";
 		
-		when(sc.checkSearch(textStartDate, textEndDate, searchOption)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(sc.checkSearch(startDate, endDate, searchOption)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		String response = sc.goSummaryLocation(textStartDate, textEndDate, map, searchOption);
+		String response = sc.goSummaryLocation(startDate, endDate, map, searchOption);
 		
 		assertEquals(response, "summary_location");
 		assertEquals(3, ((List<AccidentReport>) map.get("accidentReports")).size());
 	}
 	
-	//test checkSearch method if dates are not parseable and searchOption is null
+	//test checkSearch method if dates and searchOption are null
 	@Test
-	public void checkSearchTest_DatesWrongFormatSearchOptionNull_ShouldReturnAllAccidents() {
-		String textStartDate = "a";
-		String textEndDate = "b";
+	public void checkSearchTest_DatesAndSearchOptionNull_ShouldReturnAllAccidents() {
+		Date startDate = null;
+		Date endDate = null;
 		String searchOption = null;
-		
-		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
-		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
-		Date startDate = startCalendar.getTime();
-		Date endDate = endCalendar.getTime();
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
@@ -181,90 +188,122 @@ public class SummaryControllerTest {
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
-		List<AccidentReport> result = sc.checkSearch(textStartDate,textEndDate,searchOption);
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
 		assertEquals(3, result.size());
 	}
 	
-	//test checkSearch method if date inputs are correct and searchOption is current
+	//test checkSearch method if startDate and searchOption are null
 	@Test
-	public void checkSearchTest_DatesRightFormatSearchOptionCurrent_ShouldReturnCurrentAccidentsBetweenDates() {
-		String textStartDate = "01/01/2011";
-		String textEndDate = "01/01/2012";
-		String searchOption = "current";
-		
-		Calendar startCalendar = new GregorianCalendar(2011,0,1);
-		Calendar endCalendar = new GregorianCalendar(2012,0,1);
-		Date startDate = startCalendar.getTime();
-		Date endDate = endCalendar.getTime();
-		
+	public void checkSearchTest_StartDateAndSearchOptionNull_ShouldReturnAllAccidents() {
+		Date startDate = null;
+		Date endDate = date2;
+		String searchOption = null;
+
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
 		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-		
-		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
+
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
+		assertEquals(3, result.size());
+	}
+
+	//test checkSearch method if dates are correct and searchOption is both
+	@Test
+	public void checkSearchTest_DatesCorrectAndSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = date2;
+		String searchOption = "both";
+
+		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
+
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
+		assertEquals(6, result.size());
+	}
+
+	//test checkSearch method if dates are null and searchOption is both
+	@Test
+	public void checkSearchTest_DatesNullAndSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
+		Date startDate = null;
+		Date endDate = date2;
+		String searchOption = "both";
+
+		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
+
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
+		assertEquals(3, result.size());
+	}
+
+	
+	//test checkSearch method if dates are correct and searchOption is current
+	@Test
+	public void checkSearchTest_DatesCorrectAndSearchOptionCurrent_ShouldReturnCurrentAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = date2;
+		String searchOption = "current";
+
+		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
+		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
+		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
+		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
+		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
+		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
+
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
 		assertEquals(4, result.size());
 	}
-	//test checkSearch method if date inputs are correct and searchOption is both
+	
+	//test checkSearch method if dates are correct and searchOption is archived
 	@Test
-	public void checkSearchTest_DatesCorrectFormatSearchOptionBoth_ShouldReturnAllReportsBetweenDates() {
-		String textStartDate = "01/01/2011";
-		String textEndDate = "01/01/2012";
-		String searchOption = "both";
-		
-		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
-		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
-		Date startDate = startCalendar.getTime();
-		Date endDate = endCalendar.getTime();
-		
+	public void checkSearchTest_DatesCorrectAndSearchOptionArchived_ShouldReturnArchivedAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = date2;
+		String searchOption = "archived";
+
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
 		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
 		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-		
-		List<AccidentReport> result = sc.checkSearch(textStartDate, textEndDate, searchOption);
-		assertEquals(6, result.size());
+
+		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
+		assertEquals(5, result.size());
 	}
 	
 	//test checkSearchForCause method if date inputs are not parseable
 	@Test
 	public void checkSearchForCauseTest_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
-		String textStartDate = "a";
-		String textEndDate = "b";
+		Date startDate = null;
+		Date endDate = null;
 		
-		AccidentReport rFirst = mock(AccidentReport.class);
-		AccidentReport rSecond = mock(AccidentReport.class);
-		Calendar startCalendar = new GregorianCalendar(2011,0,1);
-		Calendar endCalendar = new GregorianCalendar(2012,0,1);
-		Date startDate = startCalendar.getTime();
-		Date endDate = endCalendar.getTime();
-
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(textStartDate, textEndDate);
+		List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
 		assertEquals(1, result.size());
 	}
 	
 	//check checkSearchForCause method if dates are correct
 	@Test
 	public void checkSearchForCauseTest_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
-		String textStartDate = "01/01/2011";
-		String textEndDate = "01/01/2012";
-		
-		AccidentReport rFirst = mock(AccidentReport.class);
-		AccidentReport rSecond = mock(AccidentReport.class);
-		Calendar startCalendar = new GregorianCalendar(2011, 0, 1);
-		Calendar endCalendar = new GregorianCalendar(2012, 0, 1);
-		Date startDate = startCalendar.getTime();
-		Date endDate = endCalendar.getTime();
+		Date startDate = date1;
+		Date endDate = date2;
 
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(textStartDate, textEndDate);
+		List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
 		assertEquals(2, result.size());
 	}
 

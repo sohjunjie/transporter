@@ -89,11 +89,12 @@ public class SummaryController
 	
 	//return the overall summary page
 	@RequestMapping(value="/all", method=RequestMethod.GET)
-	public String goSummaryAll(@RequestParam(value="startdate", required=false) String textStartDate, 
-			@RequestParam(value="enddate", required=false) String textEndDate, Map<String, Object> map) {
-		List<AccidentReport> accidentReports = accidentReportService.getApprovedOrResolvedAccidentReport();
+	public String goSummaryAll(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textStartDate, 
+			@RequestParam(value="enddate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date textEndDate, Map<String, Object> map,
+			@RequestParam(value="searchoption", required=false) String searchOption) {
+		List<AccidentReport> accidentReports = checkSearch(textStartDate,textEndDate,searchOption);
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
-		List<AccidentReport> resolvedReports = accidentReportService.getResolvedAccidentReport();
+		List<AccidentReport> resolvedReports = checkSearchForCause(textStartDate,textEndDate);
 		int[] causeCount = summaryReportService.summariseByCause(resolvedReports, accidentCauses);
 		int[] hrAccidentCount = summaryReportService.summariseByTime(accidentReports);
 		int[] hrsOfDay = new int[24];

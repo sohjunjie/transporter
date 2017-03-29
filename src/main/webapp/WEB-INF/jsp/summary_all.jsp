@@ -49,7 +49,9 @@
 					<div class="col-lg-6 col-xs-6">
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">Occurrence of accidents by cause</h3>
+								<h3 class="box-title">
+								<a href="${pageContext.servletContext.contextPath}/summary/cause">
+								Occurrence of accidents by cause</a></h3>
 								<!-- /.box-title -->
 							</div>
 							<!-- /.box-header -->
@@ -63,8 +65,10 @@
 					<div class="col-lg-6 col-xs-6">
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">Occurrence of accidents by time of
-									occurrence</h3>
+								<h3 class="box-title">
+								<a href="${pageContext.servletContext.contextPath}/summary/time">
+								Occurrence of accidents by time of
+									occurrence</a></h3>
 								<!-- /.box-title -->
 							</div>
 							<!-- /.box-header -->
@@ -76,16 +80,32 @@
 						</div>
 					</div>
 
-					<div class="col-lg-10 col-xs-10" style="padding-right: 0px;">
+					<div class="col-lg-9 col-xs-9" style="padding-right: 0px;">
 						<div class="box">
 							<div class="box-header">
-								<h3 class="box-title">Summary of all accident lcations</h3>
+								<h3 class="box-title"><a href="${pageContext.servletContext.contextPath}/summary/location">
+								Summary of all accident locations</a></h3>
 								<!-- /.box-title -->
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
 								<!-- main content -->
 								<div id="map"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-xs-3">
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">
+								Filter accidents</h3>
+								<!-- /.box-title -->
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- main content -->
+								<%@ include file="/WEB-INF/jsp/include_summary/search_date_form.jsp"%>
 							</div>
 						</div>
 					</div>
