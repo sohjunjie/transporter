@@ -46,6 +46,7 @@ public class SummaryController
 								 Map<String, Object> map) {
 
 		List<AccidentCause> accidentCauses = accidentCauseService.getAllAccidentCauses();
+		
 		List<AccidentReport> accidentReports = checkSearchForCause(startDate, endDate);
 		
 		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
@@ -147,88 +148,81 @@ public class SummaryController
 		}
 	} 
 	
-	//finds the three highest values in an array and return the indexes
+	//finds the three highest values in an array and return the indexes. do not include "other causes" in top 3
 	public int[] findTopThreeHighestIndexInArray(int[] causeCount) {
 		int highest, secondHighest, thirdHighest, highestIndex, secondHighestIndex, thirdHighestIndex;
-		if (causeCount[0] >= causeCount[1] && causeCount[0] >= causeCount[2]) {
+		
+		if (causeCount[0] >= causeCount[1]) {
 			highest = causeCount[0];
 			highestIndex = 0;
-			if (causeCount[1] >= causeCount[2]) {
-				secondHighest = causeCount[1];
-				secondHighestIndex = 1;
-				thirdHighest = causeCount[2];
-				thirdHighestIndex = 2;
-			}
-			else {
-				secondHighest = causeCount[2];
-				secondHighestIndex = 2;
-				thirdHighest = causeCount[1];
-				thirdHighestIndex = 1;
-			}
-		}
-		else if (causeCount[1] >= causeCount[0] && causeCount[1] >= causeCount[2]) {
-			highest = causeCount[1];
-			highestIndex = 1;
-			if (causeCount[0] >= causeCount[2]) {
-				secondHighest = causeCount[0];
-				secondHighestIndex = 0;
-				thirdHighest = causeCount[2];
-				thirdHighestIndex = 2;
-			}
-			else {
-				secondHighest = causeCount[2];
-				secondHighestIndex = 2;
-				thirdHighest = causeCount[0];
-				thirdHighestIndex = 0;
-			}
+			secondHighest = causeCount[1];
+			secondHighestIndex = 1;
 		}
 		else {
+			highest = causeCount[1];
+			highestIndex = 1;
+			secondHighest = causeCount[0];
+			secondHighestIndex = 0;
+		}
+		if (causeCount[2] > highest) {
+			thirdHighest = secondHighest;
+			thirdHighestIndex = secondHighestIndex;
+			secondHighest = highest;
+			secondHighestIndex = highestIndex;
 			highest = causeCount[2];
 			highestIndex = 2;
-			if (causeCount[0] >= causeCount[1]) {
-				secondHighest = causeCount[0];
-				secondHighestIndex = 0;
-				thirdHighest = causeCount[1];
-				thirdHighestIndex = 1;
-			}
-			else {
-				secondHighest = causeCount[1];
-				secondHighestIndex = 1;
-				thirdHighest = causeCount[0];
-				thirdHighestIndex = 0;
-			}
 		}
+		else if (causeCount[2] > secondHighest) {
+			thirdHighest = secondHighest;
+			thirdHighestIndex = secondHighestIndex;
+			secondHighest = causeCount[2];
+			secondHighestIndex = 2;
+		}
+		else {
+			thirdHighest = causeCount[2];
+			thirdHighestIndex = 2;
+		}
+		
 		for (int i=3; i< causeCount.length; i++) {
-			if (causeCount[i] > highest) {
-				thirdHighest = secondHighest;
-				thirdHighestIndex = secondHighestIndex;
-				secondHighest = highest;
-				secondHighestIndex = highestIndex;
-				highest = causeCount[i];
-				highestIndex = i;
-			}
-			else if (causeCount[i] > secondHighest) {
-				thirdHighest = secondHighest;
-				thirdHighestIndex = secondHighestIndex;
-				secondHighest = causeCount[i];
-				secondHighestIndex = i;
-			}
-			else if (causeCount[i] > thirdHighest) {
-				thirdHighest = causeCount[i];
-				thirdHighestIndex = i;
+			if (accidentCauseService.getAccidentCause(14).getCause().equals("Other Causes") && i!=13) {
+				if (causeCount[i] > highest) {
+					thirdHighest = secondHighest;
+					thirdHighestIndex = secondHighestIndex;
+					secondHighest = highest;
+					secondHighestIndex = highestIndex;
+					highest = causeCount[i];
+					highestIndex = i;
+				}
+				else if (causeCount[i] > secondHighest) {
+					thirdHighest = secondHighest;
+					thirdHighestIndex = secondHighestIndex;
+					secondHighest = causeCount[i];
+					secondHighestIndex = i;
+				}
+				else if (causeCount[i] > thirdHighest) {
+					thirdHighest = causeCount[i];
+					thirdHighestIndex = i;
+				}
 			}
 		}
 		return new int[] {highestIndex, secondHighestIndex, thirdHighestIndex};
 	}
 	
-	//find the 3 highest occurring accident causes and add a new accident cause called "others" 
+	//find the 3 highest occurring accident causes and use "other causes" as fourth member 
 	private List<AccidentCause> findTopAccidentCauses(List <AccidentCause> accidentCauses, int[] topCauseCountIndex) {
 		List<AccidentCause> topAccidentCauses = new ArrayList<AccidentCause>();
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[0]));
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[1]));
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[2]));
-		AccidentCause others = new AccidentCause();
-		others.setCause("Others");
+		AccidentCause others;
+		if (accidentCauseService.getAccidentCause(14).getCause().equals("Other Causes")) {
+			others = accidentCauseService.getAccidentCause(14);
+		}
+		else {
+			others = new AccidentCause();
+			others.setCause("Other Causes");
+		}
+
 		topAccidentCauses.add(others);
 		return topAccidentCauses;
 	}
@@ -236,7 +230,8 @@ public class SummaryController
 	//find the counts of the top 3 occurring accident causes and sums the rest of the number of other causes
 	private int[] findTopCauseCount(int[] causeCount, int[] topCauseCountIndex) {
 		int[] topCauseCount = new int[4];
-		int sumOfOthers=0;
+		int sumOfOthers = 0;
+		
 		topCauseCount[0] = causeCount[topCauseCountIndex[0]];
 		topCauseCount[1] = causeCount[topCauseCountIndex[1]];
 		topCauseCount[2] = causeCount[topCauseCountIndex[2]];
