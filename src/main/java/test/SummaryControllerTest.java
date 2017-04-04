@@ -177,8 +177,8 @@ public class SummaryControllerTest {
 	//test checkSearch method if dates and searchOption are null
 	@Test
 	public void checkSearchTest_DatesAndSearchOptionNull_ShouldReturnAllAccidents() {
-		Date startDate = null;
-		Date endDate = null;
+		Date startDate = date1;
+		Date endDate = date2;
 		String searchOption = null;
 		
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
@@ -189,7 +189,7 @@ public class SummaryControllerTest {
 		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
 		
 		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(3, result.size());
+		assertEquals(6, result.size());
 	}
 	
 	//test checkSearch method if startDate and searchOption are null
@@ -197,7 +197,7 @@ public class SummaryControllerTest {
 	public void checkSearchTest_StartDateAndSearchOptionNull_ShouldReturnAllAccidents() {
 		Date startDate = null;
 		Date endDate = date2;
-		String searchOption = null;
+		String searchOption = "both";
 
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
@@ -231,8 +231,8 @@ public class SummaryControllerTest {
 	//test checkSearch method if dates are null and searchOption is both
 	@Test
 	public void checkSearchTest_DatesNullAndSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
-		Date startDate = null;
-		Date endDate = date2;
+		Date startDate = date1;
+		Date endDate = null;
 		String searchOption = "both";
 
 		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
@@ -283,17 +283,29 @@ public class SummaryControllerTest {
 		assertEquals(5, result.size());
 	}
 	
-	//test checkSearchForCause method if date inputs are not parseable
+	//test checkSearchForCause method if  enddate input is not parseable
 	@Test
-	public void checkSearchForCauseTest_DatesWrongFormat_ShouldReturnAllResolvedAccidents() {
+	public void checkSearchForCauseTest_StartDateWrongFormat_ShouldReturnAllResolvedAccidents() {
 		Date startDate = null;
-		Date endDate = null;
+		Date endDate = date2;
 		
 		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
 		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
 		List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
 		assertEquals(1, result.size());
 	}
+	
+	//test checkSearchForCause method if  enddate input is not parseable
+		@Test
+		public void checkSearchForCauseTest_EndDateWrongFormat_ShouldReturnAllResolvedAccidents() {
+			Date startDate = date1;
+			Date endDate = null;
+			
+			when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
+			when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
+			List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
+			assertEquals(1, result.size());
+		}
 	
 	//check checkSearchForCause method if dates are correct
 	@Test
