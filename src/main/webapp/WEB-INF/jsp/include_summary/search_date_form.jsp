@@ -28,9 +28,13 @@ startDate=toDate(startDate);
 var endDate=getQueryVariable("enddate");
 endDate=toDate(endDate);
 var searchOption=getQueryVariable("searchoption");
+var formattedStartDate = new Date(startDate.substring(6,10),startDate.substring(3,5),startDate.substring(0,2),
+		startDate.substring(11,13),startDate.substring(14,16));
+var formattedEndDate = new Date(endDate.substring(6,10),endDate.substring(3,5),endDate.substring(0,2),
+		endDate.substring(11,13),endDate.substring(14,16));
 if (searchOption == "both")
 	searchOption = "all";
-if (startDate=='' || endDate == '') {
+if (startDate== '' || endDate == '' || formattedStartDate.getTime() > formattedEndDate.getTime()) {
     document.getElementById('displayfilter').innerHTML = "Current filter: " + searchOption + " accidents";
 } 
 else {
