@@ -323,13 +323,13 @@ public class SummaryControllerTest {
 	@Test
 	public void findTopThreeHighestIndexInArray_FirstAtLastPos_ShouldReturnCorrectOrder() {
 		int arr[] =  {8, 5, 3, 9, 10};
-		assertArrayEquals(new int[] {4,3,0},sc.findTopThreeHighestIndexInArray(arr));
+		assertArrayEquals(new int[] {4,3,0},sc.findTopThreeHighestIndexInArray(arr,-1));
 	}
-	
+
 	//check if findTopThreeHighestIndexInArray returns correct array
-		@Test
-		public void findTopThreeHighestIndexInArray_Size3ArrayOrderTwoOneThree_ShouldReturnCorrectOrder() {
-			int arr[] =  {3,8,2};
-			assertArrayEquals(new int[] {1,0,2},sc.findTopThreeHighestIndexInArray(arr));
-		}
+	@Test
+	public void findTopThreeHighestIndexInArray_Size3ArrayOrderTwoOneThree_ShouldReturnCorrectOrder() {
+		int arr[] =  {3,8,2};
+		assertArrayEquals(new int[] {1,0,2},sc.findTopThreeHighestIndexInArray(arr,-1));
+	}
 }
