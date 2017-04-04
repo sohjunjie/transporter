@@ -49,19 +49,21 @@ public class SummaryController
 		
 		List<AccidentReport> accidentReports = checkSearchForCause(startDate, endDate);
 		
+		int indexOfOthers = findIndexOfOthers(accidentCauses);
+		
 		int[] causeCount = summaryReportService.summariseByCause(accidentReports, accidentCauses);
 		
-		int[] topCauseCountIndex = findTopThreeHighestIndexInArray(causeCount);
+		int[] topCauseCountIndex = findTopThreeHighestIndexInArray(causeCount, indexOfOthers);
 		int[] topCauseCount = findTopCauseCount(causeCount, topCauseCountIndex);
 		
-		List<AccidentCause> topAccidentCauses = findTopAccidentCauses(accidentCauses, topCauseCountIndex);
+		List<AccidentCause> topAccidentCauses = findTopAccidentCauses(accidentCauses, topCauseCountIndex, indexOfOthers);
 		map.put("topAccidentCauses", topAccidentCauses);
 		map.put("topCauseCount", topCauseCount);
 		map.put("accidentCauses", accidentCauses);
 		map.put("causeCount", causeCount);
 		return "summary_cause";
 	}
-	
+
 	//controller returns hours of the day from 00h to 23h and number of accidents in each time period 
 	@RequestMapping(value="/time", method=RequestMethod.GET)
 	public String goSummaryTime(@RequestParam(value="startdate", required=false) @DateTimeFormat(pattern="dd/MM/yyyy HH:mm") Date startDate, 
@@ -102,10 +104,13 @@ public class SummaryController
 		for (int i = 0; i < 24; i++) {
 			hrsOfDay[i] = i;
 		}
-		int[] topCauseCountIndex = findTopThreeHighestIndexInArray(causeCount);
+		
+		int indexOfOthers = findIndexOfOthers(accidentCauses);
+		
+		int[] topCauseCountIndex = findTopThreeHighestIndexInArray(causeCount, indexOfOthers);
 		int[] topCauseCount = findTopCauseCount(causeCount, topCauseCountIndex);
 		
-		List<AccidentCause> topAccidentCauses = findTopAccidentCauses(accidentCauses, topCauseCountIndex);
+		List<AccidentCause> topAccidentCauses = findTopAccidentCauses(accidentCauses, topCauseCountIndex, indexOfOthers);
 		map.put("topAccidentCauses", topAccidentCauses);
 		map.put("topCauseCount", topCauseCount);
 		map.put("accidentCauses", accidentCauses);
@@ -148,8 +153,16 @@ public class SummaryController
 		}
 	} 
 	
+	private int findIndexOfOthers(List<AccidentCause> accidentCauses) {
+		for (int i = 0; i < accidentCauses.size(); i++) {
+			if (accidentCauses.get(i).getCause().equals("Other Causes"))
+				return i;
+		}
+		return -1;
+	}
+	
 	//finds the three highest values in an array and return the indexes. do not include "other causes" in top 3
-	public int[] findTopThreeHighestIndexInArray(int[] causeCount) {
+	public int[] findTopThreeHighestIndexInArray(int[] causeCount, int indexOfOthers) {
 		int highest, secondHighest, thirdHighest, highestIndex, secondHighestIndex, thirdHighestIndex;
 		
 		if (causeCount[0] >= causeCount[1]) {
@@ -183,8 +196,8 @@ public class SummaryController
 			thirdHighestIndex = 2;
 		}
 		
-		for (int i=3; i< causeCount.length; i++) {
-			if (accidentCauseService.getAccidentCause(14).getCause().equals("Other Causes") && i!=13) {
+		for (int i=2; i< causeCount.length; i++) {
+			if (i!=indexOfOthers) {
 				if (causeCount[i] > highest) {
 					thirdHighest = secondHighest;
 					thirdHighestIndex = secondHighestIndex;
@@ -209,13 +222,13 @@ public class SummaryController
 	}
 	
 	//find the 3 highest occurring accident causes and use "other causes" as fourth member 
-	private List<AccidentCause> findTopAccidentCauses(List <AccidentCause> accidentCauses, int[] topCauseCountIndex) {
+	private List<AccidentCause> findTopAccidentCauses(List <AccidentCause> accidentCauses, int[] topCauseCountIndex, int indexOfOthers) {
 		List<AccidentCause> topAccidentCauses = new ArrayList<AccidentCause>();
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[0]));
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[1]));
 		topAccidentCauses.add(accidentCauses.get(topCauseCountIndex[2]));
 		AccidentCause others;
-		if (accidentCauseService.getAccidentCause(14).getCause().equals("Other Causes")) {
+		if (indexOfOthers != -1) {
 			others = accidentCauseService.getAccidentCause(14);
 		}
 		else {
