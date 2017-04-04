@@ -120,7 +120,7 @@ public class SummaryController
 	public List<AccidentReport> checkSearch(Date startDate, Date endDate, String searchOption) {
 		if (searchOption == null)
 			searchOption = "both";
-		if (startDate == null || endDate == null) {
+		if (startDate == null || endDate == null || startDate.after(endDate)) {
 			switch(searchOption) {
 			case "current": return accidentReportService.getApprovedAccidentReport();
 			case "archived": return accidentReportService.getResolvedAccidentReport();
@@ -139,7 +139,7 @@ public class SummaryController
 	//check range of dates for summary by cause (as unresolved approved accidents do not have official cause yet)
 	//if date is not parseable or null, return all resolved accidents
 	public List<AccidentReport> checkSearchForCause(Date startDate, Date endDate) {
-		if (startDate == null || endDate == null) {
+		if (startDate == null || endDate == null || startDate.after(endDate)) {
 			return accidentReportService.getResolvedAccidentReport();
 		}
 		else {
