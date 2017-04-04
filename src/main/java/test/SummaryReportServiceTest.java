@@ -88,10 +88,16 @@ public class SummaryReportServiceTest {
 	}
 
 	@Test
-	public void SummaryReportService_summariseByTime() {
+	public void SummariseByTime_CorrectInput_ShouldCorrectOutput() {
 		List<AccidentReport> allReports = Arrays.asList(rFirst, rSecond, rThird, rFourth);
 		int[] result = summaryReportService.summariseByTime(allReports);
 		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, result);
 	}
 	
+	@Test
+	public void SummariseByTime_EmptyAccidentReportList_ShouldReturnArrayOfZeros() {
+		List<AccidentReport> allReports = new ArrayList<AccidentReport>();
+		int[] result = summaryReportService.summariseByTime(allReports);
+		assertArrayEquals(new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, result);
+	}
 }
