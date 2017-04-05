@@ -165,36 +165,14 @@ public class SummaryController
 	public int[] findTopThreeHighestIndexInArray(int[] causeCount, int indexOfOthers) {
 		int highest, secondHighest, thirdHighest, highestIndex, secondHighestIndex, thirdHighestIndex;
 		
-		if (causeCount[0] >= causeCount[1]) {
-			highest = causeCount[0];
-			highestIndex = 0;
-			secondHighest = causeCount[1];
-			secondHighestIndex = 1;
-		}
-		else {
-			highest = causeCount[1];
-			highestIndex = 1;
-			secondHighest = causeCount[0];
-			secondHighestIndex = 0;
-		}
-		if (causeCount[2] > highest) {
-			thirdHighest = secondHighest;
-			thirdHighestIndex = secondHighestIndex;
-			secondHighest = highest;
-			secondHighestIndex = highestIndex;
-			highest = causeCount[2];
-			highestIndex = 2;
-		}
-		else if (causeCount[2] > secondHighest) {
-			thirdHighest = secondHighest;
-			thirdHighestIndex = secondHighestIndex;
-			secondHighest = causeCount[2];
-			secondHighestIndex = 2;
-		}
-		else {
-			thirdHighest = causeCount[2];
-			thirdHighestIndex = 2;
-		}
+		int [] firstThreeOrder = sortFirstThree(causeCount);
+		
+		highestIndex = firstThreeOrder[0];
+		secondHighestIndex = firstThreeOrder[1];
+		thirdHighestIndex = firstThreeOrder[2];
+		highest = causeCount[highestIndex];
+		secondHighest = causeCount [secondHighestIndex];
+		thirdHighest = causeCount[thirdHighestIndex];
 		
 		for (int i=2; i< causeCount.length; i++) {
 			if (i!=indexOfOthers) {
@@ -219,6 +197,41 @@ public class SummaryController
 			}
 		}
 		return new int[] {highestIndex, secondHighestIndex, thirdHighestIndex};
+	}
+	
+	//sort first three elements of an array
+	public int[] sortFirstThree(int[] causeCount) {
+		int highest, secondHighest, highestIndex, secondHighestIndex, thirdHighestIndex;
+		
+		if (causeCount[0] >= causeCount[1]) {
+			highest = causeCount[0];
+			highestIndex = 0;
+			secondHighest = causeCount[1];
+			secondHighestIndex = 1;
+		}
+		else {
+			highest = causeCount[1];
+			highestIndex = 1;
+			secondHighest = causeCount[0];
+			secondHighestIndex = 0;
+		}
+		if (causeCount[2] > highest) {
+			thirdHighestIndex = secondHighestIndex;
+			secondHighest = highest;
+			secondHighestIndex = highestIndex;
+			highest = causeCount[2];
+			highestIndex = 2;
+		}
+		else if (causeCount[2] > secondHighest) {
+			thirdHighestIndex = secondHighestIndex;
+			secondHighest = causeCount[2];
+			secondHighestIndex = 2;
+		}
+		else {
+			thirdHighestIndex = 2;
+		}
+		
+		return new int[] {highestIndex,secondHighestIndex,thirdHighestIndex};
 	}
 	
 	//find the 3 highest occurring accident causes and use "other causes" as fourth member 
