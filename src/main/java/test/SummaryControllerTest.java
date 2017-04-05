@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.transporter.controller.SummaryController;
@@ -73,12 +75,14 @@ public class SummaryControllerTest {
 		
 		cal = Calendar.getInstance();
 		
+		//date1 is 5/4/2017
 		cal.set(Calendar.YEAR, 2017);
-		cal.set(Calendar.MONTH, 1);
-		cal.set(Calendar.DATE, 1);
+		cal.set(Calendar.MONTH, 4);
+		cal.set(Calendar.DATE, 5);
 		date1 = cal.getTime();
 		
-		cal.set(Calendar.DATE, 11);
+		//date2 is 6/4/2017
+		cal.set(Calendar.DATE, 6);
 		date2 = cal.getTime();
 		
 		//00:30
@@ -109,227 +113,179 @@ public class SummaryControllerTest {
 		cal.set(Calendar.MILLISECOND, 0);
 		rFourth.setAccidentDateTime(cal.getTime());
 	}
-	
-	//Test summaryByCause method
-	@SuppressWarnings("unchecked")
+	//sortFirstThree test case 1
 	@Test
-	public void goSummaryCauseTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		startDate = date1;
-		endDate = date2;
-		
-		when(accidentCauseServiceMock.getAllAccidentCauses()).thenReturn(Arrays.asList(cFirst, cSecond,cThird,cFourth));
-		when(sc.checkSearchForCause(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		String response = sc.goSummaryCause(startDate, endDate, map);
-		
-		List<AccidentCause> highestCauses = (List<AccidentCause>) map.get("topAccidentCauses");
-		
-		assertEquals(response, "summary_cause");
-		assertEquals(4, ((List<AccidentCause>) map.get("accidentCauses")).size());
-		assertArrayEquals(new int[] {1,2,2,1}, (int[]) map.get("causeCount"));
-		assertArrayEquals(new int[] {2,2,1,1}, (int[]) map.get("topCauseCount"));
-		assertEquals(cSecond,highestCauses.get(0));
-		assertEquals(cThird,highestCauses.get(1));
-		assertEquals(cFirst,highestCauses.get(2));
+	public void sortFirstThreeTest_Input213_Expected201() {
+		int [] testInput = {2,1,3};
+		int [] expectedResult = {2,0,1};
+		assertArrayEquals(expectedResult,sc.sortFirstThree(testInput));
 	}
 	
-	//test summaryByTime method
+	//sortFirstThree test case 2
 	@Test
-	public void goSummaryTimeTest_ShouldReturnCorrectJspAndCauseListAndCountArray() {
-		Date startDate = date1;
-		Date endDate = date2;
-		String searchOption = "a";
-		
-		List<AccidentReport> accidentReports = Arrays.asList(rFirst, rSecond, rThird, rFourth);
-		
-		when(sc.checkSearch(startDate, endDate, searchOption)).thenReturn(accidentReports);
-		
-		Map<String, int[]> map = new HashMap<String, int[]>();
-		String response = sc.goSummaryTime(startDate, endDate, map, searchOption);
-		
-		int[] hrAccidentCount = map.get("hrAccidentCount");
-		int[] hrsOfDay = map.get("hrsOfDay");
-		
-		assertEquals(response, "summary_time");
-		assertEquals(24, hrsOfDay.length);
-		assertEquals(24, hrAccidentCount.length);
-		assertArrayEquals(new int[] {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, hrAccidentCount);
+	public void sortFirstThreeTest_Input123_Expected210() {
+		int [] testInput = {1,2,3};
+		int [] expectedResult = {2,1,0};
+		assertArrayEquals(expectedResult,sc.sortFirstThree(testInput));
 	}
 	
-	//Test summaryByLocation method
-	@SuppressWarnings("unchecked")
+	//sortFirstThree test case 3
 	@Test
-	public void goSummaryLocationTest_ShouldReturnCorrectJspAndReportList() {
-		Date startDate = date1;
-		Date endDate = date2;
-		String searchOption = "a";
-		
-		when(sc.checkSearch(startDate, endDate, searchOption)).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		String response = sc.goSummaryLocation(startDate, endDate, map, searchOption);
-		
-		assertEquals(response, "summary_location");
-		assertEquals(3, ((List<AccidentReport>) map.get("accidentReports")).size());
+	public void sortFirstThreeTest_Input312_Expected021() {
+		int [] testInput = {3,1,2};
+		int [] expectedResult = {0,2,1};
+		assertArrayEquals(expectedResult,sc.sortFirstThree(testInput));
 	}
 	
-	//test checkSearch method if dates and searchOption are null
+	//sortFirstThree test case 4
 	@Test
-	public void checkSearchTest_DatesAndSearchOptionNull_ShouldReturnAllAccidents() {
-		Date startDate = date1;
-		Date endDate = date2;
-		String searchOption = null;
-		
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-		
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(6, result.size());
+	public void sortFirstThreeTest_Input321_Expected012() {
+		int [] testInput = {3,2,1};
+		int [] expectedResult = {0,1,2};
+		assertArrayEquals(expectedResult,sc.sortFirstThree(testInput));
 	}
 	
-	//test checkSearch method if startDate and searchOption are null
+	//findTopThreeHighestIndexInArray test case 1
 	@Test
-	public void checkSearchTest_StartDateAndSearchOptionNull_ShouldReturnAllAccidents() {
-		Date startDate = null;
-		Date endDate = date2;
-		String searchOption = "both";
-
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(3, result.size());
+	public void findTopThreeHighestIndexInArrayTest_Input246andIndexOfOthersIsNegative1_Expected210() {
+		int [] testInput = {2,4,6};
+		int [] expectedResult = {2,1,0};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,-1));
+	}
+	
+	//findTopThreeHighestIndexInArray test case 2
+	@Test
+	public void findTopThreeHighestIndexInArrayTest_Input2468andIndexOfOthersIs3_Expected210() {
+		int [] testInput = {2,4,6,8};
+		int [] expectedResult = {2,1,0};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,3));
+	}
+	
+	//findTopThreeHighestIndexInArray test case 3
+	@Test
+	public void findTopThreeHighestIndexInArrayTest_Input2468andneg1_Expected321() {
+		int [] testInput = {2,4,6,8};
+		int [] expectedResult = {3,2,1};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,-1));
+	}
+	
+	//findTopThreeHighestIndexInArray test case 4
+	@Test
+	public void findTopThreeHighestIndexInArrayTest_Input2465andneg1_Expected231() {
+		int [] testInput = {2,4,6,5};
+		int [] expectedResult = {2,3,1};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,-1));
 	}
 
-	//test checkSearch method if dates are correct and searchOption is both
+	//findTopThreeHighestIndexInArray test case 5
 	@Test
-	public void checkSearchTest_DatesCorrectAndSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
+	public void findTopThreeHighestIndexInArrayTest_Input2463andneg1_Expected213() {
+		int [] testInput = {2,4,6,3};
+		int [] expectedResult = {2,1,3};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,-1));
+	}
+
+	//findTopThreeHighestIndexInArray test case 6
+	@Test
+	public void findTopThreeHighestIndexInArrayTest_Input2461andneg1_Expected210() {
+		int [] testInput = {2,4,6,1};
+		int [] expectedResult = {2,1,0};
+		assertArrayEquals(expectedResult,sc.findTopThreeHighestIndexInArray(testInput,-1));
+	}
+
+	//checkSearch test case 1
+	@Test
+	public void checkSearchTest_DatesValidSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = "both";
 
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(6, result.size());
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedAndResolvedAccidentReport(startDate, endDate);
 	}
 
-	//test checkSearch method if dates are null and searchOption is both
+	//checkSearch test case 2
 	@Test
-	public void checkSearchTest_DatesNullAndSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
-		Date startDate = date1;
-		Date endDate = null;
-		String searchOption = "both";
-
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(3, result.size());
-	}
-
-	
-	//test checkSearch method if dates are correct and searchOption is current
-	@Test
-	public void checkSearchTest_DatesCorrectAndSearchOptionCurrent_ShouldReturnCurrentAccidentsBetweenDates() {
-		Date startDate = date1;
-		Date endDate = date2;
-		String searchOption = "current";
-
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(4, result.size());
-	}
-	
-	//test checkSearch method if dates are correct and searchOption is archived
-	@Test
-	public void checkSearchTest_DatesCorrectAndSearchOptionArchived_ShouldReturnArchivedAccidentsBetweenDates() {
+	public void checkSearchTest_DatesValidSearchOptionArchived_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = "archived";
 
-		when(accidentReportServiceMock.getApprovedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond));
-		when(accidentReportServiceMock.getApprovedOrResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst, rSecond, rThird));
-		when(accidentReportServiceMock.getApprovedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth));
-		when(accidentReportServiceMock.getApprovedAndResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst, rSecond, rThird, rFourth, rFifth, rSixth));
-
-		List<AccidentReport> result = sc.checkSearch(startDate,endDate,searchOption);
-		assertEquals(5, result.size());
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getResolvedAccidentReport(startDate, endDate);
 	}
-	
-	//test checkSearchForCause method if  enddate input is not parseable
+
+	//checkSearch test case 3
 	@Test
-	public void checkSearchForCauseTest_StartDateWrongFormat_ShouldReturnAllResolvedAccidents() {
+	public void checkSearchTest_DatesValidSearchOptionCurrent_ShouldReturnAllApprovedAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = date2;
+		String searchOption = "current";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedAccidentReport(startDate, endDate);
+	}
+
+	//checkSearch test case 4
+	@Test
+	public void checkSearchTest_DatesValidSearchOptionNull_ShouldReturnAllAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = date2;
+		String searchOption = null;
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedAndResolvedAccidentReport(startDate, endDate);
+	}
+
+	//checkSearch test case 5
+	@Test
+	public void checkSearchTest_StartDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
 		Date startDate = null;
 		Date endDate = date2;
-		
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
-		assertEquals(1, result.size());
+		String searchOption = "both";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedOrResolvedAccidentReport();
 	}
-	
-	//test checkSearchForCause method if  enddate input is not parseable
-		@Test
-		public void checkSearchForCauseTest_EndDateWrongFormat_ShouldReturnAllResolvedAccidents() {
-			Date startDate = date1;
-			Date endDate = null;
-			
-			when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-			when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-			List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
-			assertEquals(1, result.size());
-		}
-	
-	//check checkSearchForCause method if dates are correct
+
+	//checkSearch test case 6
 	@Test
-	public void checkSearchForCauseTest_DatesRightFormat_ShouldReturnAllResolvedAccidentsBetweenDates() {
+	public void checkSearchTest_EndDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
+		Date startDate = date1;
+		Date endDate = null;
+		String searchOption = "both";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedOrResolvedAccidentReport();
+	}
+
+	//checkSearchForCause test case 1
+	@Test
+	public void checkSearchForCauseTest_DatesValid_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 
-		when(accidentReportServiceMock.getResolvedAccidentReport()).thenReturn(Arrays.asList(rFirst));
-		when(accidentReportServiceMock.getResolvedAccidentReport(startDate, endDate)).thenReturn(Arrays.asList(rFirst,rSecond));
-		List<AccidentReport> result = sc.checkSearchForCause(startDate, endDate);
-		assertEquals(2, result.size());
+		sc.checkSearchForCause(startDate,endDate);
+		verify(accidentReportServiceMock).getResolvedAccidentReport(date1,date2);
 	}
 
-	//check if findTopThreeHighestIndexInArray returns correct array
+	//checkSearchForCause test case 2
 	@Test
-	public void findTopThreeHighestIndexInArray_FirstAtLastPos_ShouldReturnCorrectOrder() {
-		int arr[] =  {8, 5, 3, 9, 10};
-		assertArrayEquals(new int[] {4,3,0},sc.findTopThreeHighestIndexInArray(arr,-1));
+	public void checkSearchForCauseTest_EndDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
+		Date startDate = date1;
+		Date endDate = null;
+
+		sc.checkSearchForCause(startDate,endDate);
+		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}
 
-	//check if findTopThreeHighestIndexInArray returns correct array
+	//checkSearchForCause test case 3
 	@Test
-	public void findTopThreeHighestIndexInArray_Size3ArrayOrderTwoOneThree_ShouldReturnCorrectOrder() {
-		int arr[] =  {3,8,2};
-		assertArrayEquals(new int[] {1,0,2},sc.findTopThreeHighestIndexInArray(arr,-1));
+	public void checkSearchForCauseTest_StartDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
+		Date startDate = null;
+		Date endDate = date2;
+
+		sc.checkSearchForCause(startDate,endDate);
+		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}
 }

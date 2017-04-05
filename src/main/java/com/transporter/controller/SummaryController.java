@@ -153,7 +153,7 @@ public class SummaryController
 		}
 	} 
 	
-	private int findIndexOfOthers(List<AccidentCause> accidentCauses) {
+	public int findIndexOfOthers(List<AccidentCause> accidentCauses) {
 		for (int i = 0; i < accidentCauses.size(); i++) {
 			if (accidentCauses.get(i).getCause().equals("Other Causes"))
 				return i;
@@ -174,7 +174,7 @@ public class SummaryController
 		secondHighest = causeCount [secondHighestIndex];
 		thirdHighest = causeCount[thirdHighestIndex];
 		
-		for (int i=2; i< causeCount.length; i++) {
+		for (int i=3; i< causeCount.length; i++) {
 			if (i!=indexOfOthers) {
 				if (causeCount[i] > highest) {
 					thirdHighest = secondHighest;
