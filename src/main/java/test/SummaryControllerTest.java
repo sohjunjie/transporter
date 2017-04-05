@@ -3,26 +3,17 @@ package test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.transporter.controller.SummaryController;
-import com.transporter.model.AccidentCause;
-import com.transporter.model.AccidentReport;
 import com.transporter.service.AccidentCauseService;
 import com.transporter.service.AccidentReportService;
 import com.transporter.service.SummaryReportService;
@@ -39,18 +30,6 @@ public class SummaryControllerTest {
 	
 	private SummaryController sc = new SummaryController();
 	
-	private AccidentReport rFirst = new AccidentReport();
-	private AccidentReport rSecond = new AccidentReport();
-	private AccidentReport rThird = new AccidentReport();
-	private AccidentReport rFourth = new AccidentReport();
-	private AccidentReport rFifth = new AccidentReport();
-	private AccidentReport rSixth = new AccidentReport();
-
-	private AccidentCause cFirst = new AccidentCause();
-	private AccidentCause cSecond = new AccidentCause();
-	private AccidentCause cThird = new AccidentCause();
-	private AccidentCause cFourth = new AccidentCause();
-	
 	Calendar cal;
 	Date date1;
 	Date date2;
@@ -62,16 +41,6 @@ public class SummaryControllerTest {
 	@Before
 	public void setup() {
 		sc.setServices(accidentReportServiceMock, accidentCauseServiceMock, summaryReportServiceMock);
-		cFirst.setCauseId(1);
-		cSecond.setCauseId(2);
-		cThird.setCauseId(3);
-		cFourth.setCauseId(4);
-		rFirst.setOfficialCause(cFirst);
-		rSecond.setOfficialCause(cSecond);
-		rThird.setOfficialCause(cThird);
-		rFourth.setOfficialCause(cSecond);
-		rFifth.setOfficialCause(cThird);
-		rSixth.setOfficialCause(cFourth);
 		
 		cal = Calendar.getInstance();
 		
@@ -84,34 +53,6 @@ public class SummaryControllerTest {
 		//date2 is 6/4/2017
 		cal.set(Calendar.DATE, 6);
 		date2 = cal.getTime();
-		
-		//00:30
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 30);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		rFirst.setAccidentDateTime(cal.getTime());
-		
-		//23:30
-		cal.set(Calendar.HOUR_OF_DAY, 23);
-		cal.set(Calendar.MINUTE, 30);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		rSecond.setAccidentDateTime(cal.getTime());
-		
-		//12:00
-		cal.set(Calendar.HOUR_OF_DAY, 12);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		rThird.setAccidentDateTime(cal.getTime());
-		
-		//12:59
-		cal.set(Calendar.HOUR_OF_DAY, 12);
-		cal.set(Calendar.MINUTE, 59);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		rFourth.setAccidentDateTime(cal.getTime());
 	}
 	//sortFirstThree test case 1
 	@Test
