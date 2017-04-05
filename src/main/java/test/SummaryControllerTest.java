@@ -200,6 +200,50 @@ public class SummaryControllerTest {
 		verify(accidentReportServiceMock).getApprovedOrResolvedAccidentReport();
 	}
 
+	//checkSearch test case 7
+	@Test
+	public void checkSearchTest_StartDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
+		Date startDate = null;
+		Date endDate = date2;
+		String searchOption = "current";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedAccidentReport();
+	}
+
+	//checkSearch test case 8
+	@Test
+	public void checkSearchTest_EndDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
+		Date startDate = date1;
+		Date endDate = null;
+		String searchOption = "current";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getApprovedAccidentReport();
+	}
+
+	//checkSearch test case 9
+	@Test
+	public void checkSearchTest_StartDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
+		Date startDate = null;
+		Date endDate = date2;
+		String searchOption = "archived";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getResolvedAccidentReport();
+	}
+
+	//checkSearch test case 10
+	@Test
+	public void checkSearchTest_EndDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
+		Date startDate = date1;
+		Date endDate = null;
+		String searchOption = "archived";
+
+		sc.checkSearch(startDate,endDate,searchOption);
+		verify(accidentReportServiceMock).getResolvedAccidentReport();
+	}	
+
 	//checkSearchForCause test case 1
 	@Test
 	public void checkSearchForCauseTest_DatesValid_ShouldReturnResolvedAccidentsBetweenDates() {
