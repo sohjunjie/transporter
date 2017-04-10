@@ -62,13 +62,20 @@
 			streetViewControl: false,
 			fullscreenControl: false
 		});
-
+		
 		// initialise pending accident locations
 		<c:forEach items="${pendingAccidents}" var="pAccident">
 		addMarkerToMap(${pAccident.latitude},
 				${pAccident.longitude}, sgmap,
 				${pAccident.reportId}, pagectx + '/resources/icons/accident_pending32x32.png');
 		</c:forEach>
+
+		<c:forEach items="${unresolvedAccidents}" var="uAccident">
+		addMarkerToMap(${uAccident.latitude},
+				${uAccident.longitude}, sgmap,
+				${uAccident.reportId}, pagectx + '/resources/icons/accident_approved32x32.png');
+		</c:forEach>
+		
 	}
 
 	function addMarkerToMap(lat, lng, map, reportId, iconImg) {
