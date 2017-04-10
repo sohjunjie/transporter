@@ -57,6 +57,8 @@ public class BaseController {
 	public String goAccidentReportViewPending(Map<String, Object> map, HttpSession httpSession) {
 		if(!authUserService.isAuthenticated(httpSession)) return "redirect:/";
 		List<AccidentReport> pendingAccidents = accidentReportService.getPendingAccidentReport();
+		List<AccidentReport> unresolvedAccidents = accidentReportService.getApprovedAccidentReport();
+		map.put("unresolvedAccidents", unresolvedAccidents);
 		map.put("pendingAccidents", pendingAccidents);
 		return "accident_view_pending";
 	}

@@ -14,7 +14,8 @@
 						    <td><img src="${resourcePath}${pAccident.imageLink}" class="accident_img imageEnlarge"></td>
 						    <td><b>${pAccident.formattedAddress}</b><br/>
 						    	${pAccident.description}<br/>
-						    	${pAccident.accidentDateTime}
+						    	${pAccident.accidentDateTime}</br>
+						    	PENDING
 						    </td>
 						    <td><div class="itemOptions">
 									<button value="${pAccident.reportId}" type="button" class="close pAccidentMapLoc" data-toggle="tooltip" title="Zoom to location">
@@ -26,6 +27,7 @@
 						    	</div>
 							</td></tr>
 					</c:forEach>
+
 					<c:choose>
 						<c:when test="${fn:length(pendingAccidents) <= 0}">
 							<div class="emptyTableMessage" style="height: 500px;">
@@ -35,7 +37,21 @@
 								</div>
 							</div>
 						</c:when>
+						<c:when test="${fn:length(pendingAccidents) > 0}">
+							<c:forEach items="${unresolvedAccidents}" var="uAccident">
+								<tr id="accident_row_${uAccident.reportId}">
+								    <td><img src="${resourcePath}${uAccident.imageLink}" class="accident_img imageEnlarge"></td>
+								    <td><b>${uAccident.formattedAddress}</b><br/>
+								    	${uAccident.description}<br/>
+								    	${uAccident.accidentDateTime}<br/>
+								    	APPROVED
+								    </td>
+								    <td><div class="itemOptions"></div>
+									</td></tr>
+							</c:forEach>
+						</c:when>
 					</c:choose>
+
 					</tbody>
 				</table>
 			</div>
