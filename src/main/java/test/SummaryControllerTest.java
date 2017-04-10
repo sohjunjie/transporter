@@ -136,141 +136,141 @@ public class SummaryControllerTest {
 
 	//checkSearch test case 1
 	@Test
-	public void checkSearchTest_DatesValidSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
+	public void filterByDateTimeAndOptionTest_DatesValidSearchOptionBoth_ShouldReturnAllAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = "both";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedAndResolvedAccidentReport(startDate, endDate);
 	}
 
 	//checkSearch test case 2
 	@Test
-	public void checkSearchTest_DatesValidSearchOptionArchived_ShouldReturnResolvedAccidentsBetweenDates() {
+	public void filterByDateTimeAndOptionTest_DatesValidSearchOptionArchived_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = "archived";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getResolvedAccidentReport(startDate, endDate);
 	}
 
 	//checkSearch test case 3
 	@Test
-	public void checkSearchTest_DatesValidSearchOptionCurrent_ShouldReturnAllApprovedAccidentsBetweenDates() {
+	public void filterByDateTimeAndOptionTest_DatesValidSearchOptionCurrent_ShouldReturnAllApprovedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = "current";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedAccidentReport(startDate, endDate);
 	}
 
 	//checkSearch test case 4
 	@Test
-	public void checkSearchTest_DatesValidSearchOptionNull_ShouldReturnAllAccidentsBetweenDates() {
+	public void filterByDateTimeAndOptionTest_DatesValidSearchOptionNull_ShouldReturnAllAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 		String searchOption = null;
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedAndResolvedAccidentReport(startDate, endDate);
 	}
 
 	//checkSearch test case 5
 	@Test
-	public void checkSearchTest_StartDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
+	public void filterByDateTimeAndOptionTest_StartDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
 		Date startDate = null;
 		Date endDate = date2;
 		String searchOption = "both";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedOrResolvedAccidentReport();
 	}
 
 	//checkSearch test case 6
 	@Test
-	public void checkSearchTest_EndDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
+	public void filterByDateTimeAndOptionTest_EndDateNullSearchOptionBoth_ShouldReturnAllAccidents() {
 		Date startDate = date1;
 		Date endDate = null;
 		String searchOption = "both";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedOrResolvedAccidentReport();
 	}
 
 	//checkSearch test case 7
 	@Test
-	public void checkSearchTest_StartDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
+	public void filterByDateTimeAndOptionTest_StartDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
 		Date startDate = null;
 		Date endDate = date2;
 		String searchOption = "current";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedAccidentReport();
 	}
 
 	//checkSearch test case 8
 	@Test
-	public void checkSearchTest_EndDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
+	public void filterByDateTimeAndOptionTest_EndDateNullSearchOptionCurrent_ShouldReturnApprovedAccidents() {
 		Date startDate = date1;
 		Date endDate = null;
 		String searchOption = "current";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getApprovedAccidentReport();
 	}
 
 	//checkSearch test case 9
 	@Test
-	public void checkSearchTest_StartDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
+	public void filterByDateTimeAndOptionTest_StartDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
 		Date startDate = null;
 		Date endDate = date2;
 		String searchOption = "archived";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}
 
 	//checkSearch test case 10
 	@Test
-	public void checkSearchTest_EndDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
+	public void filterByDateTimeAndOptionTest_EndDateNullSearchOptionArchived_ShouldReturnResolvedAccidents() {
 		Date startDate = date1;
 		Date endDate = null;
 		String searchOption = "archived";
 
-		sc.checkSearch(startDate,endDate,searchOption);
+		sc.filterByDateTimeAndOption(startDate,endDate,searchOption);
 		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}	
 
-	//checkSearchForCause test case 1
+	//filterByDateTime test case 1
 	@Test
-	public void checkSearchForCauseTest_DatesValid_ShouldReturnResolvedAccidentsBetweenDates() {
+	public void filterByDateTimeTest_DatesValid_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = date2;
 
-		sc.checkSearchForCause(startDate,endDate);
+		sc.filterByDateTime(startDate,endDate);
 		verify(accidentReportServiceMock).getResolvedAccidentReport(date1,date2);
 	}
 
-	//checkSearchForCause test case 2
+	//filterByDateTime test case 2
 	@Test
-	public void checkSearchForCauseTest_EndDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
+	public void filterByDateTimeTest_EndDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = date1;
 		Date endDate = null;
 
-		sc.checkSearchForCause(startDate,endDate);
+		sc.filterByDateTime(startDate,endDate);
 		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}
 
-	//checkSearchForCause test case 3
+	//filterByDateTime test case 3
 	@Test
-	public void checkSearchForCauseTest_StartDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
+	public void filterByDateTimeTest_StartDateInvalid_ShouldReturnResolvedAccidentsBetweenDates() {
 		Date startDate = null;
 		Date endDate = date2;
 
-		sc.checkSearchForCause(startDate,endDate);
+		sc.filterByDateTime(startDate,endDate);
 		verify(accidentReportServiceMock).getResolvedAccidentReport();
 	}
 }
